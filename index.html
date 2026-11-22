@@ -2554,7 +2554,14 @@ function init(){
   $("#btnDiscard").addEventListener("click", function(){ resetAll(); });
 
   $("#btnBuild").addEventListener("click", sheetOpen);
-  $("#adminDot").addEventListener("click", function(){ setAdmin(!ADMIN); });
+  /* 관리자 점은 실수로 눌려도 열리지 않게 1.5초 안에 세 번 눌러야 열린다. */
+  var dotTaps = [];
+  $("#adminDot").addEventListener("click", function(){
+    var now = Date.now();
+    dotTaps = dotTaps.filter(function(t){ return now - t < 1500; });
+    dotTaps.push(now);
+    if(dotTaps.length >= 3){ dotTaps = []; setAdmin(!ADMIN); }
+  });
   $("#adminBadge").addEventListener("click", function(){ setAdmin(false); });
   $("#adminBadge").addEventListener("keydown", function(e){ if(e.key === "Enter" || e.key === " ") setAdmin(false); });
   $("#sheetClose").addEventListener("click", sheetClose);

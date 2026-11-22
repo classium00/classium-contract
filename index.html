@@ -1882,6 +1882,11 @@ function applyPayMode(){
 }
 function setPayMode(m){
   state.payMode = (m === "team" || m === "member") ? m : "self";
+  /* v1.8 — 팀 대표 일괄 수령을 고르면 팀원 입력 행을 기본 2개 보여 준다(듀오 대응). */
+  if(state.payMode === "team"){
+    if(!Array.isArray(state.teamMembers)) state.teamMembers = [];
+    while(state.teamMembers.length < 2) state.teamMembers.push({ name: "", inst: "" });
+  }
   applyPayMode();
   ["errTeam", "errTeamName", "errTeamLeader"].forEach(function(id){ showErr(id, false); });
   markInvalid($("#teamName"), false); markInvalid($("#teamLeader"), false);
@@ -1899,7 +1904,8 @@ function teamInstOptions(sel){
       esc(o.ko + "(" + o.en + ")") + "</option>";
   }).join("");
   var known = !!findInst(sel) || !String(sel || "").trim();
-  return opts + '<option value="__etc"' + (known ? "" : " selected") + '>기타(직접 입력)</option>';
+  return '<option value=""' + (known ? " selected" : "") + '>악기 선택</option>' + opts +
+    '<option value="__etc"' + (known ? "" : " selected") + '>기타(직접 입력)</option>';
 }
 function renderTeamRows(){
   var wrap = $("#teamRows");

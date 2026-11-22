@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- v1.7 · 2026.11 -->
+<!-- v1.9 · 2026.11 -->
 <title>클래시움 연주 용역 계약서</title>
 <style>
 :root{
@@ -196,11 +196,22 @@ input.invalid{border-color:var(--danger);background:#fdf6f5}
 #instrumentEtc{margin-top:8px}
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:2px 0 0}
 .seg.seg-v{grid-template-columns:1fr}
-.seg-btn{display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:8px 11px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-family:var(--sans);text-align:left;cursor:pointer}
+.seg-btn{display:flex;flex-direction:row;align-items:flex-start;gap:9px;padding:8px 11px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-family:var(--sans);text-align:left;cursor:pointer}
 .seg-btn b{font-size:12.5px;color:var(--ink-2);font-weight:700}
 .seg-btn small{font-size:10.5px;color:var(--ink-3)}
 .seg-btn.on{border-color:var(--wine);background:var(--wine-soft);box-shadow:0 0 0 2px rgba(125,43,63,.10)}
 .seg-btn.on b{color:var(--wine-2)}
+/* v1.9 — 수령 방식 복수 선택(체크박스) — .field label 규칙(display:block)보다 세게 */
+.field .seg-btn{display:flex;flex-direction:row;align-items:flex-start;gap:9px;margin-bottom:0;font-weight:400}
+.seg-btn .pay-cb{flex:0 0 auto;width:20px;height:20px;margin:2px 0 0;padding:0;accent-color:var(--wine);pointer-events:none}
+.seg-txt{display:flex;flex-direction:column;gap:1px;min-width:0}
+.seg-btn.invalid{border-color:var(--danger);background:#fdf6f5;box-shadow:0 0 0 2px rgba(179,57,44,.35)}
+/* v1.9 — 1단계 빠른 하단 스크롤 버튼 */
+.fab-down{position:fixed;z-index:29;right:max(14px,calc((100vw - 520px)/2 + 14px));bottom:calc(84px + env(safe-area-inset-bottom));height:42px;padding:0 15px;border-radius:999px;border:1px solid #e3cfd5;background:rgba(255,253,249,.97);color:var(--wine);font-family:var(--sans);font-size:12.5px;font-weight:800;letter-spacing:-.01em;box-shadow:0 6px 18px rgba(70,30,40,.18);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.fab-down:active{background:var(--wine-soft)}
+/* v1.9 — 테스트 모드 배너 */
+.test-banner{position:sticky;top:0;z-index:50;background:#fff4d6;border-bottom:1px solid #f0d98c;color:#7a5300;font-size:11.5px;font-weight:700;line-height:1.4;padding:7px 14px;text-align:center}
+.test-note{margin:10px 0 0 !important;color:#7a5300;background:#fff4d6;border:1px solid #f0d98c;border-radius:8px;padding:7px 10px;font-size:11.5px;line-height:1.45;text-align:left}
 .team-box{margin-top:10px;padding:11px 12px;border:1px solid #ecd9df;background:#fdf8f9;border-radius:10px}
 .team-box .t-label{display:block;font-size:11.5px;font-weight:700;color:var(--ink-2);margin-bottom:5px}
 /* v1.8 — 팀원 목록(성함 + 악기 선택) */
@@ -275,6 +286,8 @@ body.admin .admin-badge{display:inline-flex}
 </style>
 </head>
 <body>
+
+<div class="test-banner" id="testBanner" hidden>테스트 모드 — 실제 시트에는 저장되지 않습니다</div>
 
 <div class="app" id="app">
   <header class="hdr">
@@ -438,15 +451,22 @@ body.admin .admin-badge{display:inline-flex}
           <p class="err" id="errAccount">계좌번호 자릿수를 확인해 주세요.</p>
         </div>
         <div class="field">
-          <label>출연료 수령 방식 <span class="req">*</span></label>
+          <label>출연료 수령 방식 <span class="req">*</span> <span style="font-weight:600;color:var(--ink-3)">(복수 선택 가능)</span></label>
           <div class="seg seg-v" id="payMode">
-            <button type="button" class="seg-btn on" data-pay="self"><b>개인 수령 (본인 직접 입금)</b><small>본인 몫을 본인 계좌로 받습니다</small></button>
-            <button type="button" class="seg-btn" data-pay="team"><b>팀 대표 일괄 수령 (대표자용)</b><small>팀 페이 전액을 대표 계좌로 받습니다</small></button>
-            <button type="button" class="seg-btn" data-pay="member"><b>팀 대표를 통한 수령 (팀원용)</b><small>돈은 대표가 받고, 본인은 팀원으로 서명합니다</small></button>
+            <label class="seg-btn on" data-pay="self"><input type="checkbox" class="pay-cb" data-pay="self" checked><span class="seg-txt"><b>개인 수령 (본인 직접 입금)</b><small>본인 몫을 본인 계좌로 받습니다</small></span></label>
+            <label class="seg-btn" data-pay="team"><input type="checkbox" class="pay-cb" data-pay="team"><span class="seg-txt"><b>팀 대표 일괄 수령 (대표자용)</b><small>팀 페이 전액을 대표 계좌로 받습니다</small></span></label>
+            <label class="seg-btn" data-pay="member"><input type="checkbox" class="pay-cb" data-pay="member"><span class="seg-txt"><b>팀 대표를 통한 수령 (팀원용)</b><small>돈은 대표가 받고, 본인은 팀원으로 서명합니다</small></span></label>
+          </div>
+          <p class="hint">한 달 안에 <b>개인 수령</b>·<b>팀 대표 일괄 수령</b>·<b>팀원 수령</b>이 섞여 있으면 여러 개를 함께 체크하세요. <b>팀원 수령만</b> 체크한 경우에만 은행·계좌번호를 비워 두셔도 됩니다.</p>
+          <p class="err" id="errPayMode">수령 방식을 하나 이상 골라 주세요.</p>
+          <div class="field" id="payMixedWrap" hidden style="margin-top:10px">
+            <label for="payMixedNote">팀 일정 메모 (선택)</label>
+            <input type="text" id="payMixedNote" placeholder="예: 12/5·12/19는 팀 대표 일괄 수령, 나머지는 개인 수령">
+            <p class="hint">어떤 날짜가 팀 일정인지 적어 두면 정산할 때 확인하기 쉬워요.</p>
           </div>
           <div class="team-box" id="teamBox" hidden>
             <label class="t-label" for="teamName">팀명 <span class="req">*</span></label>
-            <input type="text" id="teamName" placeholder="예: 더블원 트리오, 루미너스">
+            <input type="text" id="teamName" placeholder="팀명을 입력해 주세요">
             <p class="err" id="errTeamName">팀명을 적어 주세요.</p>
             <div id="teamLeaderWrap" hidden>
               <label class="t-label" style="margin-top:12px" for="teamLeader">팀 대표자 성함 <span class="req">*</span></label>
@@ -468,7 +488,7 @@ body.admin .admin-badge{display:inline-flex}
 
       <div class="card" id="profileCard">
         <div class="card-h"><h2>신규 연주자 프로필</h2><span class="sub">최초 1회 · 선택</span></div>
-        <label class="check"><input type="checkbox" id="profileExisting"><span>기존에 프로필을 제출한 적이 있어요 (건너뛰기)</span></label>
+        <label class="check"><input type="checkbox" id="profileExisting"><span>기존에 프로필을 제출한 적이 있어요 (이미 제출함 — 이번 계약에선 생략)</span></label>
         <div id="profileFields">
           <div class="field">
             <label>프로필 사진 (선택)</label>
@@ -529,6 +549,7 @@ body.admin .admin-badge{display:inline-flex}
         <div class="done-badge">✓</div>
         <h2>서명이 끝났어요</h2>
         <p>아래에서 계약서를 저장하고, 클래시움에 파일을 보내 주세요.</p>
+        <p class="test-note" id="doneTestNote" hidden>테스트 모드 — 실제 시트에는 저장하지 않고 완료 화면까지만 확인했습니다.</p>
         <dl class="done-meta">
           <dt>계약번호</dt><dd id="doneNo">-</dd>
           <dt>서명일시</dt><dd id="doneAt">-</dd>
@@ -569,6 +590,8 @@ body.admin .admin-badge{display:inline-flex}
       <p class="foot-note">클래시움 · 전자계약 화면에서 작성·서명된 문서입니다.</p>
     </section>
   </main>
+
+  <button type="button" class="fab-down" id="fabDown" aria-label="동의란으로 바로 가기" hidden>↓ 동의란으로</button>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -642,7 +665,7 @@ var CONFIG = {
     email: "classium_@naver.com"
   },
   template: "classium-freelance-performance-v1",
-  version: "v1.8 · 2026.11",
+  version: "v1.9 · 2026.11",
   /* 특별연주(약 1시간) 1회 기준 출연 대가 */
   specialFee: 100000,
   /* 서버 자동 저장을 붙일 자리입니다. 비워 두면 이 기기(브라우저)에만 저장됩니다.
@@ -651,9 +674,14 @@ var CONFIG = {
   endpoint: ""
 };
 
+/* v1.9 — 주소에 ?test=1(또는 &test=1)이 있으면 테스트 모드: 배너를 띄우고 서버 전송을 건너뛴다. */
+var TEST_MODE = (function(){
+  try{ return new URLSearchParams(location.search).get("test") === "1"; }catch(e){ return false; }
+})();
+
 var STORE_KEY = "classium_contract_draft_v1";          /* v1.6까지 쓰던 키 — v1.7에서 폐기·삭제 */
 var BASE_KEY = "classium_contract_draft_v2_base";      /* 기본 URL 전용 초안(개인정보 미포함) */
-var BASE_STRIP = ["name","instrument","phone","rrn","addr","bank","account","payMode","teamName","teamMembers",
+var BASE_STRIP = ["name","instrument","instrumentLabel","phone","rrn","addr","bank","account","payMode","payModes","payMixedNote","teamName","teamLeader","teamMembers",
                   "month","items","sig","signedISO","hash","read","portrait","privacy","confirm",
                   "profileExisting","profileBio","profilePhotoBase64","profilePhotoName",
                   "profilePhotoMime","profilePhotoSize","profilePhotoMode","profilePhotoPreview"];
@@ -710,15 +738,46 @@ function instKo(en){
 function legacyInstLabel(v){
   return INST_LEGACY[normInstKey(v)] || "";
 }
-/* 악기 표기(계약서·미리보기용) — 알려진 악기는 '바이올린(Violin)', 모르는 악기는 적은 그대로 */
-function instDisplay(v){
-  var raw = String(v == null ? "" : v).trim();
+/* v1.9 — 악기 여러 개(예: "Piano, Keyboard")를 쉼표로 나누어 다룬다. */
+function instParts(v){
+  return String(v == null ? "" : v).split(/[,，、;/+]+/).map(function(t){ return t.trim(); }).filter(Boolean);
+}
+function instPartDisplay(p){
+  var raw = String(p == null ? "" : p).trim();
   if(!raw) return "";
   var canon = findInst(raw);
   if(canon) return instLabel(canon);
   var legacy = legacyInstLabel(raw);
   if(legacy) return legacy;
   return raw;
+}
+/* 악기 표기(계약서·미리보기용) — 알려진 악기는 '바이올린(Violin)', 모르는 악기는 적은 그대로,
+   여러 개는 '피아노(Piano), 키보드(Keyboard)'처럼 쉼표로 잇는다. */
+function instDisplay(v){
+  var parts = instParts(v);
+  if(!parts.length) return "";
+  return parts.map(instPartDisplay).join(", ");
+}
+/* 악기 선택값을 알려진 악기는 영문 표기(Piano)로, 모르는 악기는 적은 그대로 모아 정리한다. */
+function instCanonList(v){
+  var out = [];
+  instParts(v).forEach(function(p){
+    var canon = findInst(p);
+    var val = canon || legacyInstLabel(p) || p;
+    if(val && out.indexOf(val) < 0) out.push(val);
+  });
+  var ordered = INSTS.map(function(o){ return o.en; }).filter(function(en){ return out.indexOf(en) >= 0; });
+  var extras = out.filter(function(x){ return ordered.indexOf(x) < 0; });
+  return ordered.concat(extras);
+}
+function instKnownList(v){
+  return instCanonList(v).filter(function(x){ return !!findInst(x); });
+}
+function instUnknownList(v){
+  return instCanonList(v).filter(function(x){ return !findInst(x); });
+}
+function instCode(v){
+  return instCanonList(v).join(", ");
 }
 var BANKS = [
   {name:"KB국민은행", lens:[12,14]},
@@ -895,20 +954,30 @@ function teamMemberText(list){
     .map(function(m){ return (instDisplay(m.inst) || "악기 미정") + " " + String(m.name).trim(); })
     .join(", ");
 }
-/* v1.8 — 수령 방식 3가지: 개인 / 팀 대표 일괄(대표자) / 팀 대표를 통한(팀원) */
+/* v1.9 — 수령 방식 여러 개(개인 / 팀 대표 일괄 / 팀원)를 ' + '로 이어 표기한다. */
 function payText(s){
-  if(s.payMode === "team"){
-    var bits = [];
-    if(String(s.teamName || "").trim()) bits.push("팀명 " + s.teamName);
-    var mem = teamMemberText(s.teamMembers);
-    if(mem) bits.push("(동반 연주자: " + mem + ")");
-    return "팀 대표 일괄 수령" + (bits.length ? " " + bits.join(" ") : "");
+  s = s || state;
+  var list = payModeList(s);
+  if(!list.length) return "수령 방식 미선택";
+  var bits = list.map(function(m){
+    if(m === "team"){
+      var extra = [];
+      if(String(s.teamName || "").trim()) extra.push("팀명 " + s.teamName);
+      var mem = teamMemberText(s.teamMembers);
+      if(mem) extra.push("(동반 연주자: " + mem + ")");
+      return "팀 대표 일괄 수령" + (extra.length ? " " + extra.join(" ") : "");
+    }
+    if(m === "member"){
+      return "팀원(대표 수령: " + (String(s.teamLeader || "").trim() || "팀 대표") + ")" +
+        (String(s.teamName || "").trim() ? " · 팀명 " + s.teamName : "");
+    }
+    return "개인 수령 (본인 직접 입금)";
+  });
+  var txt = bits.join(" + ");
+  if(list.length > 1 && String(s.payMixedNote || "").trim()){
+    txt += " — 팀 일정: " + String(s.payMixedNote).trim();
   }
-  if(s.payMode === "member"){
-    return "팀원(대표 수령: " + (String(s.teamLeader || "").trim() || "팀 대표") + ")" +
-      (String(s.teamName || "").trim() ? " · 팀명 " + s.teamName : "");
-  }
-  return "개인 수령 (본인 직접 입금)";
+  return txt;
 }
 function genNo(){
   var d = new Date();
@@ -981,7 +1050,7 @@ var state = {
   arrival: 60,
   fee: "",
   name: "", instrument: "", phone: "", rrn: "", addr: "",
-  bank: "", account: "", payMode: "self", teamName: "", teamLeader: "", teamMembers: [],
+  bank: "", account: "", payModes: ["self"], payMode: "self", payMixedNote: "", teamName: "", teamLeader: "", teamMembers: [],
   profileExisting: false, profileBio: "", profilePhotoBase64: "", profilePhotoName: "",
   profilePhotoMime: "", profilePhotoSize: 0, profilePhotoMode: "", profilePhotoPreview: "",
   month: "", items: [],
@@ -1044,7 +1113,8 @@ function applyQuery(){
     try{
       var obj = JSON.parse(b64uToStr(d));
       if(obj.name) state.name = String(obj.name);
-      if(obj.inst || obj.instrument) state.instrument = String(obj.inst || obj.instrument);
+      var qInst = (obj.inst != null ? obj.inst : obj.instrument);
+      if(qInst != null && qInst !== "") state.instrument = Array.isArray(qInst) ? qInst.join(", ") : String(qInst);
       if(obj.month) state.month = String(obj.month);
       if(obj.place) state.place = String(obj.place);
       if(obj.items) state.items = normItems(obj.items);
@@ -1086,7 +1156,7 @@ function hasPersonalQuery(){
 function clearPerformerData(){
   state.name = ""; state.instrument = ""; state.phone = "";
   state.rrn = ""; state.addr = ""; state.bank = ""; state.account = "";
-  state.payMode = "self"; state.teamName = ""; state.teamLeader = ""; state.teamMembers = [];
+  state.payModes = ["self"]; state.payMode = "self"; state.payMixedNote = ""; state.teamName = ""; state.teamLeader = ""; state.teamMembers = [];
   state.profileExisting = false; state.profileBio = ""; state.profilePhotoBase64 = ""; state.profilePhotoName = "";
   state.profilePhotoMime = ""; state.profilePhotoSize = 0; state.profilePhotoMode = ""; state.profilePhotoPreview = "";
   state.month = ""; state.items = []; state.fee = "";
@@ -1202,6 +1272,10 @@ function contractHTML(){
     : '<span class="blank">__________</span>';
   var acctText = (s.bank || s.account) ? "계좌(" + bank + ")" : "계좌";
   var payLabel = payText(s);
+  var payList = payModeList(s);
+  var isTeamPay = payList.indexOf("team") >= 0;
+  var isMemberPay = payList.indexOf("member") >= 0;
+  var payMixedNote = String(s.payMixedNote || "").trim();
 
   var clauses = [
     ["제1조 (목적)",
@@ -1258,11 +1332,12 @@ function contractHTML(){
       "<li><b>출연 대가</b> — " + feeClause + "</li>" +
       "<li><b>지급 명세</b> — 갑은 원천징수세액과 실지급액을 별지 1에 함께 표시하여 을이 자신의 지급 내역을 확인할 수 있게 한다.</li>" +
       "<li><b>지급일</b> — 갑은 <b>연주한 날이 속한 달의 다음 달 25일부터 말일까지</b>(25일부터 말일 사이) 을이 지정한 " + acctText + "로 출연 대가를 이체한다. 출연 대가의 지급은 <b>협업기관의 정산·지급 일정에 따르며, 협업기관의 지급이 지연되는 경우 갑은 사전에 을에게 안내한 후 지급을 순연할 수 있다.</b>" +
-        (s.payMode === "team"
+        (isTeamPay
           ? " <b>팀 대표 일괄 수령</b>으로 정한 경우에는 팀명" + (String(s.teamName || "").trim() ? "(" + esc(s.teamName) + ")" : "") + " 및 팀원 명단에 따라 팀 대표자 명의 계좌로 팀 페이 전액을 입금하고, 원천징수(3.3%) 신고도 팀 대표자 명의로 처리한다."
-          : (s.payMode === "member"
-            ? " <b>팀 대표를 통한 수령</b>으로 정한 경우에 을은 팀원으로서 이 계약서(초상권·현장 의무·비밀유지)에 서명하고, 출연 대가는 팀 대표자" + (String(s.teamLeader || "").trim() ? "(" + esc(s.teamLeader) + ")" : "") + "를 통하여 수령하며, 세금 원천징수(3.3%) 신고는 팀 대표자 명의로 처리한다."
-            : "")) + "</li>" +
+          : "") +
+        (isMemberPay
+          ? " <b>팀 대표를 통한 수령</b>으로 정한 경우에 을은 팀원으로서 이 계약서(초상권·현장 의무·비밀유지)에 서명하고, 출연 대가는 팀 대표자" + (String(s.teamLeader || "").trim() ? "(" + esc(s.teamLeader) + ")" : "") + "를 통하여 수령하며, 세금 원천징수(3.3%) 신고는 팀 대표자 명의로 처리한다."
+          : "") + "</li>" +
       "<li>갑은 원천징수영수증(또는 지급내역서)을 발급하고, 관계 법령에 따라 원천세·지방소득세의 신고 및 간이지급명세서의 제출을 이행한다.</li>" +
       "<li>을은 제1항의 소득이 사업소득으로서 종합소득세 신고 대상임을 확인한다.</li>" +
       "</ol>"],
@@ -1363,7 +1438,7 @@ function contractHTML(){
       "<tr><th>협업기관</th><td>탄티 (Tanti) — 갑과 협력하여 공연을 운영하는 기관(공연장)<br>공연장 주소: 부산 기장군 정관읍</td></tr>" +
       "<tr><th>을</th><td>성명 " + name +
         "<br>악기 " + inst +
-        (s.payMode === "team" || s.payMode === "member"
+        (isTeamPay || isMemberPay
           ? "<br>팀명 " + (String(s.teamName || "").trim() ? esc(s.teamName) : '<span class="blank">______</span>') +
             (String(s.teamLeader || "").trim() ? " (대표 " + esc(s.teamLeader) + ")" : "") +
             (teamMemberText(s.teamMembers) ? "<br>팀원 " + esc(teamMemberText(s.teamMembers)) : "")
@@ -1371,7 +1446,7 @@ function contractHTML(){
         "<br>연락처 " + phone +
         "<br>주민등록번호 " + rrn +
         (s.addr ? "<br>주소 " + addr : "") +
-        (s.bank || s.account ? "<br>입금 계좌 " + bank : (s.payMode === "member" ? "<br>입금 계좌 — (팀 대표를 통해 수령)" : "<br>입금 계좌 " + bank)) +
+        (s.bank || s.account ? "<br>입금 계좌 " + bank : (isMemberPay ? "<br>입금 계좌 — (팀 대표를 통해 수령)" : "<br>입금 계좌 " + bank)) +
         "<br>출연료 수령 " + esc(payLabel) + "</td></tr>" +
     "</table>" +
     body +
@@ -1387,6 +1462,7 @@ function contractHTML(){
         : "<tr><th>출연 대가(세전)</th><td>" + feeText + "</td></tr>" +
           "<tr><th>실지급액</th><td>" + (fee ? won(tax.net) : "-") + " (3.3% 원천징수 후)</td></tr>") +
       "<tr><th>출연료 수령</th><td>" + esc(payLabel) + "</td></tr>" +
+      ((payList.length > 1 && payMixedNote) ? "<tr><th>팀 일정</th><td>" + esc(payMixedNote) + "</td></tr>" : "") +
       "<tr><th>지급일</th><td>연주한 날이 속한 달의 다음 달 25일부터 말일까지 (협업기관 정산 일정에 따르며 사전 안내 후 순연될 수 있음)</td></tr>" +
     "</table>" +
     sign;
@@ -1417,7 +1493,23 @@ function setStep(n, scroll){
     $("#btnNext").textContent = (n === 1) ? "정보 입력" : (n === 2 ? "서명하기" : "서명 완료");
   }
   if(scroll !== false) window.scrollTo(0, 0);
+  updateFab();
   saveDraft();
+}
+
+/* v1.9 — 1단계 계약서 전문에서 동의란까지 한 번에 내려가는 플로팅 버튼.
+   동의란이 화면에 들어오면 스스로 숨고, 다른 단계에서는 보이지 않는다. */
+function updateFab(){
+  var fab = $("#fabDown");
+  if(!fab) return;
+  if(step !== 1){ fab.hidden = true; return; }
+  var box = $("#agreeBox");
+  var near = false;
+  if(box){
+    var r = box.getBoundingClientRect();
+    near = r.top < (window.innerHeight - 70);
+  }
+  fab.hidden = near;
 }
 
 function showErr(id, on){
@@ -1515,9 +1607,20 @@ function validateStep2(){
   if(rmsg){ fail(rrnEl, { label: "주민등록번호", msg: rmsg, errId: "errRrn" }); setRrnErr(rmsg); }
   else { markInvalid(rrnEl, false); setRrnErr(""); }
 
-  /* 계좌 — '팀 대표를 통한 수령(팀원용)'은 비워도 통과. 한 칸이라도 적었으면 정확히 확인한다. */
+  /* 수령 방식 — 하나 이상 골라야 한다(복수 선택). */
+  var payListNow = payModeList();
+  if(!payListNow.length){
+    $$("#payMode .seg-btn").forEach(function(b){ b.classList.add("invalid"); });
+    showErr("errPayMode", true);
+    issues.push({ el: $("#payMode"), label: "출연료 수령 방식", msg: "수령 방식을 하나 이상 골라 주세요." });
+  } else {
+    $$("#payMode .seg-btn").forEach(function(b){ b.classList.remove("invalid"); });
+    showErr("errPayMode", false);
+  }
+
+  /* 계좌 — '팀원 수령'만 골랐을 때만 비워도 통과. 한 칸이라도 적었으면 정확히 확인한다. */
   var bankEl = $("#bank"), accEl = $("#account");
-  var needAcct = (state.payMode !== "member");
+  var needAcct = needsAccount();
   var hasBank = !!String(state.bank || "").trim();
   var hasAcc = !!digits(state.account).length;
   if(needAcct || hasBank || hasAcc){
@@ -1536,20 +1639,20 @@ function validateStep2(){
 
   /* 수령 방식 — 팀명(공통) · 팀 대표자(팀원용) · 팀원 목록(대표자용) */
   var teamNameEl = $("#teamName"), leaderEl = $("#teamLeader");
-  if(state.payMode === "team" || state.payMode === "member"){
+  if(hasPayMode("team") || hasPayMode("member")){
     if(!String(state.teamName || "").trim()){
       fail(teamNameEl, { label: "팀명", msg: "팀명을 적어 주세요.", errId: "errTeamName" });
     } else { markInvalid(teamNameEl, false); showErr("errTeamName", false); }
   } else { markInvalid(teamNameEl, false); showErr("errTeamName", false); }
 
-  if(state.payMode === "member"){
+  if(hasPayMode("member")){
     if(!String(state.teamLeader || "").trim()){
       fail(leaderEl, { label: "팀 대표자 성함", msg: "돈을 받는 팀 대표자 성함을 적어 주세요.", errId: "errTeamLeader" });
     } else { markInvalid(leaderEl, false); showErr("errTeamLeader", false); }
   } else { markInvalid(leaderEl, false); showErr("errTeamLeader", false); }
 
   var teamRowsEl = $("#teamRows");
-  if(state.payMode === "team"){
+  if(hasPayMode("team")){
     var rows = (state.teamMembers || []).filter(function(m){
       return String((m && m.name) || "").trim() || String((m && m.inst) || "").trim();
     });
@@ -1816,19 +1919,19 @@ function fillForm(){
   renderContract();
 }
 
-/* v1.7 — 악기 칩 */
+/* v1.9 — 악기 칩(9종 + 기타)은 여러 개를 함께 고를 수 있다(토글). */
 function applyInstrument(){
   var raw = String(state.instrument || "").trim();
-  var canon = findInst(raw);
-  var etc = !!raw && !canon;
-  var sel = canon || (etc ? "__etc" : "");
+  var known = instKnownList(raw);
+  var unknown = instUnknownList(raw);
   $$("#instChips .chip").forEach(function(b){
-    var on = !!sel && b.dataset.inst === sel;
+    var d = b.dataset.inst;
+    var on = (d === "__etc") ? unknown.length > 0 : known.indexOf(d) >= 0;
     b.classList.toggle("on", on);
     b.setAttribute("aria-pressed", on ? "true" : "false");
   });
   var e = $("#instrumentEtc");
-  if(e){ e.hidden = !etc; e.value = etc ? (legacyInstLabel(raw) || raw) : ""; }
+  if(e){ e.hidden = !unknown.length; e.value = unknown.join(", "); }
   var hid = $("#instrument");
   if(hid) hid.value = raw;
   showErr("errInstrument", false);
@@ -1837,58 +1940,88 @@ function applyInstrument(){
   markInvalid($("#instrument"), false);
 }
 function setInstrument(v){
-  state.instrument = String(v || "").trim();
+  state.instrument = instCode(v);
   applyInstrument();
-  renderContract(); saveDraft();
+  renderContract(); renderCond(); saveDraft();
+}
+function toggleInstrument(en){
+  var list = instCanonList(state.instrument);
+  var i = list.indexOf(en);
+  if(i >= 0) list.splice(i, 1); else list.push(en);
+  state.instrument = instCode(list.join(", "));
+  applyInstrument();
+  renderContract(); renderCond(); saveDraft();
 }
 function chooseEtc(){
   var e = $("#instrumentEtc");
-  $$("#instChips .chip").forEach(function(b){
-    var on = b.dataset.inst === "__etc";
-    b.classList.toggle("on", on);
-    b.setAttribute("aria-pressed", on ? "true" : "false");
-  });
-  if(e){
-    e.hidden = false;
-    if(findInst(state.instrument)) e.value = "";
-    else e.value = state.instrument || "";
-  }
-  state.instrument = e ? e.value.trim() : "";
-  var hid = $("#instrument"); if(hid) hid.value = state.instrument;
-  showErr("errInstrument", false);
-  if(e){ try{ e.focus(); }catch(err){} }
-  renderContract(); saveDraft();
+  if(!e) return;
+  e.hidden = false;
+  e.value = instUnknownList(state.instrument).join(", ");
+  try{ e.focus(); }catch(err){}
 }
 
-/* v1.7 — 출연료 수령 방식( v1.8: 개인 / 팀 대표 일괄(대표자) / 팀 대표를 통한(팀원) ) */
-var PAY_MODES = { self: "개인 수령", team: "팀 대표 일괄 수령(대표자)", member: "팀 대표를 통한 수령(팀원)" };
+/* v1.9 — 출연료 수령 방식은 복수 선택(체크박스).
+   한 사람의 한 달 안에서 개인 수령·팀 대표 일괄·팀원 수령이 섞일 수 있다. */
+var PAY_MODES = { self: "개인 수령", team: "팀 대표 일괄 수령", member: "팀 대표를 통한 수령(팀원)" };
+var PAY_ORDER = ["self", "team", "member"];
+function payModeList(s){
+  s = s || state;
+  var raw = s.payModes;
+  var list = [];
+  if(Array.isArray(raw)) list = raw.slice();
+  else if(typeof raw === "string" && raw) list = [raw];
+  else if(s.payMode) list = [s.payMode];
+  list = list.filter(function(m){ return PAY_ORDER.indexOf(m) >= 0; });
+  return PAY_ORDER.filter(function(m){ return list.indexOf(m) >= 0; });
+}
+function hasPayMode(m){ return payModeList().indexOf(m) >= 0; }
+function isPureMemberPay(){ var l = payModeList(); return l.length === 1 && l[0] === "member"; }
+function needsAccount(){ var l = payModeList(); return l.indexOf("self") >= 0 || l.indexOf("team") >= 0; }
 function applyPayMode(){
-  var m = (state.payMode === "team" || state.payMode === "member") ? state.payMode : "self";
-  $$("#payMode .seg-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.pay === m); });
-  var box = $("#teamBox"); if(box) box.hidden = (m === "self");
-  var leader = $("#teamLeaderWrap"); if(leader) leader.hidden = (m !== "member");
-  var members = $("#teamMembersWrap"); if(members) members.hidden = (m !== "team");
-  var hint = $("#teamHint");
-  if(hint) hint.innerHTML = (m === "member")
-    ? "팀 대표가 팀 페이 전액을 받고, 본인은 팀원으로 이 계약서에 서명합니다. 팀 대표가 입금·세금(3.3%) 신고를 처리합니다."
-    : "팀 대표자 계좌로 팀 페이 전액이 입금되며, 세금 원천징수(3.3%) 신고도 팀 대표자 명의로 처리됩니다.";
-  var optNote = $("#accountOptNote"); if(optNote) optNote.hidden = (m !== "member");
-  ["#bankReq", "#accountReq"].forEach(function(sel){
-    var r = $(sel); if(r) r.style.display = (m === "member") ? "none" : "";
+  var list = payModeList();
+  $$("#payMode .seg-btn").forEach(function(b){
+    var on = list.indexOf(b.dataset.pay) >= 0;
+    b.classList.toggle("on", on);
+    b.classList.remove("invalid");
+    b.setAttribute("aria-checked", on ? "true" : "false");
+    var cb = b.querySelector("input[type=checkbox]");
+    if(cb) cb.checked = on;
   });
+  var team = list.indexOf("team") >= 0, member = list.indexOf("member") >= 0;
+  var box = $("#teamBox"); if(box) box.hidden = !(team || member);
+  var leader = $("#teamLeaderWrap"); if(leader) leader.hidden = !member;
+  var members = $("#teamMembersWrap"); if(members) members.hidden = !team;
+  var hint = $("#teamHint");
+  if(hint){
+    var lines = [];
+    if(team) lines.push("팀 대표 일괄 수령: 팀 대표자 계좌로 팀 페이 전액이 입금되며, 세금 원천징수(3.3%) 신고도 팀 대표자 명의로 처리됩니다.");
+    if(member) lines.push("팀원 수령: 팀 대표가 팀 페이 전액을 받고, 본인은 팀원으로 이 계약서에 서명합니다. 팀 대표가 입금·세금(3.3%) 신고를 처리합니다.");
+    hint.textContent = lines.join(" ");
+  }
+  var optNote = $("#accountOptNote"); if(optNote) optNote.hidden = !isPureMemberPay();
+  ["#bankReq", "#accountReq"].forEach(function(sel){
+    var r = $(sel); if(r) r.style.display = isPureMemberPay() ? "none" : "";
+  });
+  var mixed = $("#payMixedWrap"); if(mixed) mixed.hidden = (list.length < 2);
+  var mn = $("#payMixedNote"); if(mn) mn.value = state.payMixedNote || "";
   var tn = $("#teamName"); if(tn) tn.value = state.teamName || "";
   var tl = $("#teamLeader"); if(tl) tl.value = state.teamLeader || "";
   renderTeamRows();
 }
-function setPayMode(m){
-  state.payMode = (m === "team" || m === "member") ? m : "self";
+function togglePayMode(m){
+  if(PAY_ORDER.indexOf(m) < 0) return;
+  var list = payModeList();
+  var i = list.indexOf(m);
+  if(i >= 0) list.splice(i, 1); else list.push(m);
+  state.payModes = PAY_ORDER.filter(function(k){ return list.indexOf(k) >= 0; });
+  state.payMode = state.payModes[0] || "";
   /* v1.8 — 팀 대표 일괄 수령을 고르면 팀원 입력 행을 기본 2개 보여 준다(듀오 대응). */
-  if(state.payMode === "team"){
+  if(hasPayMode("team")){
     if(!Array.isArray(state.teamMembers)) state.teamMembers = [];
     while(state.teamMembers.length < 2) state.teamMembers.push({ name: "", inst: "" });
   }
   applyPayMode();
-  ["errTeam", "errTeamName", "errTeamLeader"].forEach(function(id){ showErr(id, false); });
+  ["errTeam", "errTeamName", "errTeamLeader", "errPayMode"].forEach(function(id){ showErr(id, false); });
   markInvalid($("#teamName"), false); markInvalid($("#teamLeader"), false);
   markInvalid($("#bank"), false); markInvalid($("#account"), false);
   setAccErr("");
@@ -2008,7 +2141,7 @@ function renderProfilePreview(){
   if(!el) return;
   var line;
   if(state.profileExisting){
-    line = "프로필: 기존 제출 (건너킴)";
+    line = "프로필: 이미 제출함 (이번 계약에선 생략)";
   } else {
     var hasPhoto = !!state.profilePhotoBase64;
     var bioLen = String(state.profileBio || "").trim().length;
@@ -2017,8 +2150,9 @@ function renderProfilePreview(){
                 (hasPhoto ? (bioLen ? " · " : "") + "사진 첨부" : "");
   }
   var payLine = "수령: " + payText(state);
-  if(state.payMode === "team" && !String(state.account || "").trim()) payLine += " · 팀 대표 계좌로 입금";
-  el.innerHTML = "<b>제출 정보</b><br>" + esc(line) + "<br>" + esc(payLine) +
+  if(hasPayMode("team") && !String(state.account || "").trim()) payLine += " · 팀 대표 계좌로 입금";
+  var instLine = "악기: " + (instDisplay(state.instrument) || "미선택");
+  el.innerHTML = "<b>제출 정보</b><br>" + esc(line) + "<br>" + esc(instLine) + "<br>" + esc(payLine) +
     " · 서명하면 클래시움으로 함께 전송됩니다.";
 }
 /* v1.8 — 프로필 사진: 형식 제한 없이(HEIC 포함) 받고, 4MB 이하는 원본 그대로,
@@ -2236,28 +2370,46 @@ function bindInputs(){
   text("addr", "addr");
   text("name", "name");
 
-  /* v1.7 — 악기 칩 */
+  /* v1.9 — 악기 칩(토글, 여러 개 선택 가능) */
   $$("#instChips .chip").forEach(function(btn){
     btn.addEventListener("click", function(){
       if(btn.dataset.inst === "__etc") chooseEtc();
-      else setInstrument(btn.dataset.inst);
+      else toggleInstrument(btn.dataset.inst);
     });
   });
   var etcEl = $("#instrumentEtc");
   if(etcEl){
     etcEl.addEventListener("input", function(){
-      state.instrument = etcEl.value.trim();
+      var typed = etcEl.value.trim();
+      var known = instKnownList(state.instrument);
+      state.instrument = instCode(known.concat(instParts(typed)).join(", "));
       var hid = $("#instrument"); if(hid) hid.value = state.instrument;
+      var knownNow = instKnownList(state.instrument);
+      $$("#instChips .chip").forEach(function(b){
+        if(b.dataset.inst === "__etc") { var on = !!typed; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on ? "true" : "false"); }
+        else { var on2 = knownNow.indexOf(b.dataset.inst) >= 0; b.classList.toggle("on", on2); b.setAttribute("aria-pressed", on2 ? "true" : "false"); }
+      });
       showErr("errInstrument", false);
       if($("#instChips")) $("#instChips").classList.remove("invalid");
-      renderContract(); saveDraft();
+      renderContract(); renderCond(); saveDraft();
+    });
+    etcEl.addEventListener("blur", function(){
+      etcEl.value = instUnknownList(state.instrument).join(", ");
     });
   }
 
-  /* v1.7 — 출연료 수령 방식 */
+  /* v1.9 — 출연료 수령 방식(체크박스, 복수 선택) */
   $$("#payMode .seg-btn").forEach(function(btn){
-    btn.addEventListener("click", function(){ setPayMode(btn.dataset.pay); });
+    var cb = btn.querySelector("input[type=checkbox]");
+    if(cb) cb.addEventListener("change", function(){ togglePayMode(cb.dataset.pay); });
   });
+  var pmn = $("#payMixedNote");
+  if(pmn){
+    pmn.addEventListener("input", function(){
+      state.payMixedNote = pmn.value;
+      renderProfilePreview(); renderContract(); renderCond(); saveDraft();
+    });
+  }
   /* v1.8 — 팀명·팀 대표자·팀원 목록 */
   var tnEl = $("#teamName");
   if(tnEl){
@@ -2459,10 +2611,12 @@ function canonicalPayload(){
       return { date: it.date, time: it.time, form: it.form, fee: Number(it.fee) || 0, place: it.place, note: it.note };
     }),
     performer: {
-      name: state.name, instrument: state.instrument, phone: state.phone,
+      name: state.name, instrument: state.instrument, instrumentLabel: instDisplay(state.instrument), phone: state.phone,
       rrn: state.rrn, address: state.addr, bank: state.bank, account: state.account,
+      payModes: payModeList(),
       payMode: state.payMode,
-      payModeLabel: PAY_MODES[state.payMode] || PAY_MODES.self,
+      payModeLabel: payText(state),
+      payMixedNote: state.payMixedNote || "",
       teamName: state.teamName || "",
       teamLeader: state.teamLeader || "",
       teamMembers: (state.teamMembers || []).filter(function(m){
@@ -2503,6 +2657,8 @@ function completeSigning(){
 }
 
 function sendToServer(){
+  /* v1.9 — 테스트 모드에서는 실제 시트(서버)로 보내지 않는다. */
+  if(TEST_MODE) return;
   try{
     var payload = JSON.parse(canonicalPayload());
     payload.hash = state.hash;
@@ -2558,9 +2714,10 @@ function downloadJSON(){
       })
     },
     performer: {
-      name: state.name, instrument: state.instrument, phone: state.phone,
+      name: state.name, instrument: state.instrument, instrumentLabel: instDisplay(state.instrument), phone: state.phone,
       rrn: state.rrn, address: state.addr, bank: state.bank, account: state.account,
-      payMode: state.payMode, payModeLabel: PAY_MODES[state.payMode] || PAY_MODES.self,
+      payModes: payModeList(), payMode: state.payMode, payModeLabel: payText(state),
+      payMixedNote: state.payMixedNote || "",
       teamName: state.teamName || "", teamLeader: state.teamLeader || "",
       teamMembers: (state.teamMembers || []).filter(function(m){
         return String((m && m.name) || "").trim() || String((m && m.inst) || "").trim();
@@ -2899,7 +3056,7 @@ function resetAll(){
   state.arrival = 60;
   state.fee = "";
   state.name = state.instrument = state.phone = state.rrn = state.addr = state.bank = state.account = "";
-  state.payMode = "self"; state.teamName = ""; state.teamLeader = ""; state.teamMembers = [];
+  state.payModes = ["self"]; state.payMode = "self"; state.payMixedNote = ""; state.teamName = ""; state.teamLeader = ""; state.teamMembers = [];
   state.profileExisting = false; state.profileBio = ""; state.profilePhotoBase64 = ""; state.profilePhotoName = "";
   state.profilePhotoMime = ""; state.profilePhotoSize = 0; state.profilePhotoMode = ""; state.profilePhotoPreview = "";
   state.month = ""; state.items = [];
@@ -2993,6 +3150,12 @@ function init(){
   }
   $("#contractVer").textContent = CONFIG.version;
 
+  /* v1.9 — 테스트 모드 배너·완료 안내 */
+  if(TEST_MODE){
+    var tb = $("#testBanner"); if(tb) tb.hidden = false;
+    var dtn = $("#doneTestNote"); if(dtn) dtn.hidden = false;
+  }
+
   bindInputs();
 
   $("#btnNext").addEventListener("click", function(){
@@ -3023,6 +3186,19 @@ function init(){
   $("#btnNew2").addEventListener("click", function(){ askReset(this); });
   $("#btnDiscard").addEventListener("click", function(){ resetAll(); });
 
+  /* v1.9 — 1단계 빠른 하단 스크롤 버튼 */
+  var fabEl = $("#fabDown");
+  if(fabEl){
+    fabEl.addEventListener("click", function(){
+      var box = $("#agreeBox");
+      if(box){ try{ box.scrollIntoView({behavior:"smooth", block:"center"}); }catch(e){ box.scrollIntoView(); } }
+      var cb = $("#agreeRead");
+      if(cb) setTimeout(function(){ try{ cb.focus({preventScroll:true}); }catch(e){} }, 450);
+    });
+  }
+  window.addEventListener("scroll", updateFab, {passive:true});
+  window.addEventListener("resize", updateFab);
+
   $("#btnBuild").addEventListener("click", sheetOpen);
   /* 관리자 점은 실수로 눌려도 열리지 않게 1.5초 안에 세 번 눌러야 열린다. */
   var dotTaps = [];
@@ -3044,6 +3220,7 @@ function init(){
   setStep(state.signedISO ? 4 : (restored ? savedStep : 1), false);
   renderContract();
   sig.updatePlaceholder();
+  updateFab();
 }
 
 if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

@@ -1281,7 +1281,11 @@ function effFeeOf(s, it){ s = s || state; return effPayOf(s, it) === "member" ? 
 function instOf(s, it){
   s = s || state;
   var v = String((it && it.inst) || "").trim();
-  return v || String(s.instrument || "");
+  if(v) return v;
+  /* v2.0 — 기본 악기는 하나. v1.9 링크에 악기가 여러 개로 담긴 경우 첫 악기를 기본으로 본다. */
+  var parts = instParts(s.instrument);
+  if(parts.length > 1) return findInst(parts[0]) || legacyInstLabel(parts[0]) || parts[0];
+  return String(s.instrument || "");
 }
 function hasInstOverride(){ return (state.items || []).some(function(it){ return !!String(it.inst || "").trim(); }); }
 function hasPayOverride(){ return (state.items || []).some(function(it){ return PAY_ORDER.indexOf(String(it.payMode || "")) >= 0; }); }

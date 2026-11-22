@@ -296,6 +296,9 @@ body.admin .admin-badge{display:inline-flex}
 
     <!-- 2. 정보 -->
     <section class="step" data-step="2">
+      <div class="banner show" id="noLinkNote" hidden>
+        <span>이 주소에는 본인 연주 일정이 담겨 있지 않아요. 클래시움에서 받은 <b>개인 링크</b>로 다시 열어 주세요.</span>
+      </div>
       <div class="card" id="schedCard" hidden>
         <div class="card-h"><h2>나의 연주 일정</h2><span class="sub" id="schedMonth"></span></div>
         <div class="sched-wrap"><table class="sched" id="schedTable"></table></div>
@@ -1578,6 +1581,7 @@ function fillForm(){
   applyInstrument();
   applyPayMode();
   applyProfile();
+  updateNoLinkNote();
   syncBankHint();
   renderCond();
   renderSchedule();
@@ -1642,6 +1646,12 @@ function setPayMode(m){
   showErr("errTeam", false);
   markInvalid($("#teamMembers"), false);
   renderContract(); renderCond(); saveDraft();
+}
+
+function updateNoLinkNote(){
+  var el = $("#noLinkNote");
+  if(!el) return;
+  el.hidden = !(!ADMIN && !hasPersonalQuery() && !hasSchedule());
 }
 
 /* v1.7 — 읽기 전용 계약 조건 */
@@ -2471,6 +2481,7 @@ function setAdmin(on, quiet){
   var b = $("#btnBuild"); if(b) b.hidden = !ADMIN;
   var dot = $("#adminDot"); if(dot) dot.classList.toggle("on", ADMIN);
   applyLock();
+  updateNoLinkNote();
   if(!quiet) toast(ADMIN
     ? "관리자 모드 — 공연 조건을 고치고 개인 링크를 만들 수 있어요."
     : "관리자 모드를 닫았어요. 연주자 화면으로 돌아갑니다.");

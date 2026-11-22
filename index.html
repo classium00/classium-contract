@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#7d2b3f">
+<meta name="format-detection" content="telephone=no">
+<title>클래시움 연주 용역 계약서</title>
+<style>
+:root{
+  --ink:#1b1a18; --ink-2:#4a4742; --ink-3:#7b756c;
+  --line:#e6dfd3; --line-2:#d5cabb;
+  --paper:#fffdf9; --bg:#f1ebe1; --card:#ffffff;
+  --wine:#7d2b3f; --wine-2:#5c1f2e; --wine-soft:#f6eef0; --gold:#a8843f;
+  --ok:#2c6650; --danger:#b3392c;
+  --radius:16px;
+  --sans:"Apple SD Gothic Neo","Noto Sans KR","Noto Sans CJK KR","Malgun Gothic",system-ui,sans-serif;
+  --serif:"AppleMyungjo","Nanum Myeongjo","Noto Serif CJK KR","Batang",serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.55;
+  -webkit-text-size-adjust:100%; word-break:keep-all;
+  padding-bottom:calc(104px + env(safe-area-inset-bottom));
+}
+.app{max-width:520px;margin:0 auto;background:var(--paper);min-height:100dvh;box-shadow:0 0 40px rgba(60,40,20,.07);overflow-x:hidden}
+.hdr{padding:18px 20px 0;background:linear-gradient(180deg,#fbf7f1,#fffdf9);border-bottom:1px solid var(--line)}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:.03em;color:var(--wine);font-size:13px}
+.brand-mark{width:22px;height:22px;border-radius:50%;background:var(--wine);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700;font-family:var(--serif)}
+.hdr .link{background:none;border:0;font:inherit;font-size:12px;color:var(--ink-3);text-decoration:underline;padding:4px 0;cursor:pointer}
+.doc-title{margin:0;font-family:var(--serif);font-size:25px;line-height:1.3;letter-spacing:-.01em;font-weight:700}
+.doc-sub{margin:6px 0 0;font-size:12px;color:var(--ink-3);letter-spacing:.01em}
+.steps{display:flex;list-style:none;margin:16px 0 0;padding:0 0 14px;gap:4px}
+.steps li{flex:1;display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-3);font-weight:700;white-space:nowrap;letter-spacing:-.01em}
+.steps li span{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font-size:10px;background:#fff;flex:0 0 auto}
+.steps li.on{color:var(--wine)}
+.steps li.on span{background:var(--wine);border-color:var(--wine);color:#fff}
+.steps li.done span{background:var(--wine-soft);border-color:#e7d3d9;color:var(--wine)}
+main{padding:18px 20px 8px}
+.step{display:none}
+.step.on{display:block;animation:fade .22s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:17px;margin-bottom:13px}
+.card-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:14px}
+.card-h h2{margin:0;font-size:14.5px;font-weight:700;letter-spacing:-.01em}
+.card-h .sub{font-size:11px;color:var(--ink-3);white-space:nowrap}
+
+/* 계약서 본문 */
+.contract{font-family:var(--serif);font-size:13.5px;line-height:1.85;color:#2a2724;word-break:keep-all;overflow-wrap:anywhere}
+.contract .doc-no{display:flex;flex-wrap:wrap;gap:4px 8px;font-family:var(--sans);font-size:11px;color:var(--ink-3);border-bottom:1px solid #eee5d8;padding-bottom:8px;margin-bottom:12px}
+.contract .doc-no b{color:var(--ink-2);font-weight:600;margin-right:8px}
+.contract h2{font-size:19px;text-align:center;margin:0 0 4px;letter-spacing:.03em;font-weight:700}
+.contract .lead{text-align:center;font-size:11.5px;color:var(--ink-3);font-family:var(--sans);margin:0 0 14px}
+.contract h3{font-size:13.5px;margin:18px 0 6px;font-weight:700;letter-spacing:-.01em;color:#241f1c}
+.contract p{margin:0 0 7px;text-align:left}
+.contract ol,.contract ul{margin:0 0 7px;padding-left:19px}
+.contract li{margin-bottom:3px}
+.contract table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:11.5px;margin:6px 0 12px}
+.contract th,.contract td{border:1px solid #e0d6c7;padding:6px 8px;text-align:left;vertical-align:top;line-height:1.5}
+.contract th{background:#faf5ee;font-weight:600;color:var(--ink-2);width:34%}
+.contract .sign-table th{width:50%}
+.contract .sign-table td{height:auto}
+.contract .blank{color:#bdb3a5;letter-spacing:.02em;white-space:nowrap}
+.contract .ph{color:#8d8478;font-size:.95em}
+.contract .note{font-family:var(--sans);font-size:11px;color:var(--ink-3);background:#faf5ee;border-radius:8px;padding:8px 10px;margin:8px 0 0}
+.contract .sign-block{margin-top:16px;border-top:1px solid #e6ddcf;padding-top:12px}
+.contract .sign-table td{width:50%;height:auto}
+.contract .sign-party{font-family:var(--sans);font-size:12px;margin-bottom:4px}
+.contract .sign-space{height:64px;display:flex;align-items:flex-end;justify-content:center;border-bottom:1px solid #ded4c5;margin:0 6px 6px}
+.contract .sign-space img{max-height:62px;max-width:100%;object-fit:contain}
+.contract .sign-meta{font-family:var(--sans);font-size:10px;color:var(--ink-3);margin-top:8px;line-height:1.5;word-break:break-all}
+
+/* 입력 */
+.field{margin-bottom:12px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:11.5px;font-weight:700;color:var(--ink-2);margin-bottom:5px;letter-spacing:-.01em}
+.field label .req{color:var(--wine)}
+input,select{width:100%;height:46px;padding:0 12px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:16px;font-family:var(--sans);color:var(--ink)}
+select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%237b756c' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px}
+input:focus,select:focus{outline:none;border-color:var(--wine);box-shadow:0 0 0 3px rgba(125,43,63,.09)}
+input.invalid{border-color:var(--danger);background:#fdf6f5}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint{font-size:11px;color:var(--ink-3);margin:5px 0 0;line-height:1.45}
+.err{font-size:11px;color:var(--danger);margin:5px 0 0;display:none}
+.err.show{display:block}
+.check,.radio{display:flex;align-items:flex-start;gap:9px;padding:9px 0;font-size:13px;line-height:1.5;cursor:pointer}
+.check input,.radio input{flex:0 0 auto;width:19px;height:19px;margin:1px 3px 0 0;accent-color:var(--wine)}
+.check em{font-style:normal;color:var(--wine);font-size:11px}
+.check span,.radio span{flex:1}
+.tax{background:#fbf7f1;border-color:#efe5d6}
+.tax .card-h{margin-bottom:10px}
+.tax .calc{display:flex;justify-content:space-between;font-size:12.5px;padding:4px 0;color:var(--ink-2)}
+.tax .calc.net{border-top:1px dashed #ddd0be;margin-top:6px;padding-top:8px;font-weight:700;color:var(--ink);font-size:14px}
+.tax .calc.net b{color:var(--wine)}
+
+/* 서명 */
+.sigbox{position:relative;border:1px solid var(--line-2);border-radius:12px;overflow:hidden;background:#fff}
+#sigpad{display:block;width:100%;height:190px;touch-action:none}
+.sigline{position:absolute;left:24px;right:24px;bottom:46px;border-bottom:1px dashed #ddd2c3;pointer-events:none}
+.sigph{position:absolute;inset:0;display:grid;place-items:center;color:#c8bdae;font-size:13px;pointer-events:none;letter-spacing:.02em}
+.sigctl{display:flex;gap:8px;margin-top:9px}
+
+/* 버튼 */
+.btn{height:48px;border-radius:12px;border:1px solid transparent;font-family:var(--sans);font-size:14.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:0 16px;letter-spacing:-.01em}
+.btn-primary{background:var(--wine);color:#fff}
+.btn-primary:active{background:var(--wine-2)}
+.btn-primary:disabled{background:#ded2d6;color:#fff;cursor:default}
+.btn-ghost{background:#fff;border-color:var(--line-2);color:var(--ink-2)}
+.btn-soft{background:var(--wine-soft);color:var(--wine-2);border-color:#ecd9df}
+.btn-sm{height:38px;font-size:12.5px;border-radius:10px;padding:0 12px}
+.btn-block{width:100%}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;gap:9px;max-width:520px;margin:0 auto;padding:10px 20px calc(10px + env(safe-area-inset-bottom));background:rgba(255,253,249,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.bar[hidden]{display:none}
+.bar .btn{flex:1}
+.bar #btnPrev{flex:0 0 96px}
+
+/* 완료 */
+.done-card{text-align:center;background:linear-gradient(180deg,#fbf6f0,#fff)}
+.done-badge{width:52px;height:52px;border-radius:50%;background:var(--wine);color:#fff;display:grid;place-items:center;font-size:24px;margin:2px auto 12px}
+.done-card h2{margin:0 0 6px;font-size:18px;font-family:var(--serif);letter-spacing:.02em}
+.done-card p{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.55;text-wrap:balance}
+.done-meta{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;margin:16px 0 0;font-size:11.5px;text-align:left;border-top:1px solid #eee4d6;padding-top:14px}
+.done-meta dt{color:var(--ink-3)}
+.done-meta dd{margin:0;color:var(--ink-2);font-weight:600;word-break:break-all}
+.save-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.save-grid .btn{width:100%}
+.save-grid .btn-primary{grid-column:1 / -1}
+#shareMsg{display:none;margin-top:8px;font-size:12px;background:#f4efe7;border-radius:8px;padding:9px 11px;color:var(--ink-2);line-height:1.5}
+#shareMsg.show{display:block}
+.banner{display:none;background:#f6efe7;border:1px solid #eadfd0;border-radius:10px;padding:9px 11px;font-size:11.5px;color:var(--ink-2);margin-bottom:12px;line-height:1.5}
+.banner.show{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.banner button{background:none;border:0;font:inherit;font-size:11.5px;color:var(--wine);text-decoration:underline;padding:0;cursor:pointer;white-space:nowrap}
+.foot-note{margin:6px 0 18px;font-size:10.5px;color:#a49b8e;line-height:1.5;text-align:center}
+.print-root{display:none}
+[hidden]{display:none !important}
+
+/* 개인 일정 표 */
+.sched-wrap{margin:0 -4px}
+.sched{width:100%;border-collapse:collapse;font-size:12px}
+.sched th,.sched td{border-bottom:1px solid #eee5d8;padding:7px 6px;text-align:left;vertical-align:top;line-height:1.45}
+.sched th{font-size:10.5px;color:var(--ink-3);font-weight:700;background:#faf5ee;border-top:1px solid #efe6d9}
+.sched td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sched tr.sum td{font-weight:700;background:#fdf9f3;border-bottom:0}
+.sched-total{margin-top:10px;font-size:12px;background:#fbf7f1;border:1px solid #efe5d6;border-radius:10px;padding:10px 12px;line-height:1.6}
+.sched-total .calc{display:flex;justify-content:space-between}
+.sched-total .net{display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed #ddd0be;margin-top:5px;padding-top:6px;font-weight:700;font-size:14px;gap:8px}
+.sched-total .net b{color:var(--wine)}
+.contract .sched-tbl th{width:auto}
+.contract .sched-tbl th,.contract .sched-tbl td{padding:5px 3px;white-space:nowrap;font-size:10px}
+.contract .sched-tbl td.wrap{white-space:normal;min-width:40px}
+.contract .sched-tbl td.t{white-space:nowrap;line-height:1.35}
+.sched td.t{white-space:normal;line-height:1.4}
+.contract .sched-tbl tr.sum td{background:#faf5ee;font-weight:700}
+.contract .sched-place{font-family:var(--sans);font-size:10.5px;color:var(--ink-3);margin:0 0 4px}
+.hdr-tools{display:flex;align-items:center;gap:12px}
+
+/* 개인별 링크 만들기 */
+.sheet{position:fixed;inset:0;z-index:60;background:rgba(27,26,24,.42);display:flex;align-items:flex-end;justify-content:center;overflow-y:auto}
+.sheet-in{width:100%;max-width:520px;max-height:92dvh;overflow-y:auto;background:var(--paper);border-radius:18px 18px 0 0;padding:18px 20px calc(26px + env(safe-area-inset-bottom));box-shadow:0 -10px 40px rgba(0,0,0,.2)}
+.sheet-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.sheet-h h2{margin:0;font-family:var(--serif);font-size:18px}
+.sheet-h button{background:none;border:0;font:inherit;font-size:12.5px;color:var(--ink-3);text-decoration:underline;cursor:pointer;padding:4px}
+.b-row{display:grid;grid-template-columns:1.15fr .95fr .8fr .85fr 28px;gap:6px;align-items:center;margin-bottom:6px}
+.b-row input{height:40px;font-size:13px;padding:0 8px;border-radius:8px}
+.b-row .b-del{width:28px;height:28px;border-radius:8px;border:1px solid var(--line-2);background:#fff;color:var(--ink-3);font-size:15px;line-height:1;cursor:pointer;padding:0}
+.b-head{display:grid;grid-template-columns:1.15fr .95fr .8fr .85fr 28px;gap:6px;font-size:10.5px;color:var(--ink-3);font-weight:700;margin-bottom:5px}
+.b-total{font-size:12.5px;color:var(--ink-2);background:#faf5ee;border:1px solid #efe6d9;border-radius:10px;padding:9px 11px;margin:8px 0 12px;line-height:1.5}
+.b-total b{color:var(--wine)}
+#bUrl{width:100%;height:auto;min-height:70px;padding:9px 10px;border:1px solid var(--line-2);border-radius:10px;font-size:12px;font-family:var(--sans);line-height:1.45;background:#fbf7f1;color:var(--ink-2);resize:vertical}
+#bOut{margin-top:14px;border-top:1px solid #eee4d6;padding-top:14px}
+#bOut label{display:block;font-size:11.5px;font-weight:700;color:var(--ink-2);margin-bottom:5px}
+#bMsg{font-size:11.5px;color:var(--ink-2);margin:8px 0 0;line-height:1.5}
+
+/* 인쇄 / PDF */
+@media print{
+  @page{size:A4;margin:15mm 14mm 15mm}
+  html,body{background:#fff;padding:0;margin:0}
+  body{font-size:10pt;color:#000}
+  .app,.bar,.foot-note{display:none !important}
+  .print-root{display:block !important}
+  .print-doc{font-family:var(--serif);color:#000;font-size:9.2pt;line-height:1.56}
+  .print-doc .contract{font-size:9.2pt;line-height:1.56;color:#000}
+  .print-doc .doc-no{border-color:#bbb;color:#333}
+  .print-doc h2{font-size:17pt;margin:0 0 2mm}
+  .print-doc .lead{font-size:8.6pt;color:#444;margin-bottom:4mm}
+  .print-doc h3{font-size:10pt;margin:3.6mm 0 1mm;color:#000;break-after:avoid;page-break-after:avoid}
+  .print-doc p{margin:0 0 1.2mm}
+  .print-doc ol,.print-doc ul{margin:0 0 1.2mm;padding-left:5mm}
+  .print-doc .clause{break-inside:avoid;page-break-inside:avoid}
+  .print-doc table{border-collapse:collapse;font-size:8.6pt;margin:1.2mm 0 2.4mm}
+  .print-doc th,.print-doc td{border:1px solid #999;padding:1.6mm 2mm;background:none}
+  .print-doc th{width:24%}
+  .print-doc .sign-table th{width:50%}
+  .print-doc th{background:#f0ece5 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-doc .note{background:#f4f0e9 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border:1px solid #ddd}
+  .print-doc .sign-block{break-inside:avoid;page-break-inside:avoid;margin-top:4mm}
+  .print-doc .sign-space{height:15mm}
+  .print-doc .sign-space img{max-height:14mm}
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+  <header class="hdr">
+    <div class="hdr-top">
+      <div class="brand"><span class="brand-mark">C</span>클래시움</div>
+      <div class="hdr-tools">
+        <button class="link" id="btnBuild" type="button">링크 만들기</button>
+        <button class="link" id="btnNew" type="button">새로 작성</button>
+      </div>
+    </div>
+    <h1 class="doc-title">연주 용역 계약서</h1>
+    <p class="doc-sub" id="docSub">협업기관 탄티 공연 전용 · 3.3% 프리랜서 연주 용역</p>
+    <ol class="steps" id="steps">
+      <li data-s="1"><span>1</span>계약서</li>
+      <li data-s="2"><span>2</span>정보</li>
+      <li data-s="3"><span>3</span>서명</li>
+      <li data-s="4"><span>4</span>완료</li>
+    </ol>
+  </header>
+
+  <main>
+    <div class="banner" id="draftBanner">
+      <span>작성 중이던 내용을 불러왔어요.</span>
+      <button type="button" id="btnDiscard">새로 시작</button>
+    </div>
+
+    <!-- 1. 계약서 -->
+    <section class="step on" data-step="1">
+      <div class="card">
+        <div class="card-h"><h2>계약서 전문</h2><span class="sub" id="contractVer"></span></div>
+        <div class="contract" id="readDoc"></div>
+      </div>
+      <label class="check"><input type="checkbox" id="agreeRead"><span>계약서 전문을 읽고 그 내용에 동의합니다. <em>(필수)</em></span></label>
+      <p class="err" id="errRead">계약서를 읽고 확인에 체크해 주세요.</p>
+    </section>
+
+    <!-- 2. 정보 -->
+    <section class="step" data-step="2">
+      <div class="card" id="schedCard" hidden>
+        <div class="card-h"><h2>나의 연주 일정</h2><span class="sub" id="schedMonth"></span></div>
+        <div class="sched-wrap"><table class="sched" id="schedTable"></table></div>
+        <div class="sched-total" id="schedTotal"></div>
+        <p class="hint">이 링크에는 <b>본인 일정과 연주료</b>만 담겨 있으며, 다른 사람에게 공개되지 않습니다. 일정이 다르면 클래시움에 먼저 알려 주세요.</p>
+      </div>
+      <div class="card">
+        <div class="card-h"><h2>계약 조건</h2><span class="sub">공연 정보</span></div>
+        <div class="row2">
+          <div class="field"><label>시작일</label><input type="date" id="start"></div>
+          <div class="field"><label>종료일</label><input type="date" id="end"></div>
+        </div>
+        <div class="field"><label>공연 장소(협업기관) <span class="req">*</span></label><input type="text" id="place" placeholder="예: 탄티(부산 수영구)"><p class="hint">이 계약서는 협업기관 탄티에서 진행하는 공연 전용입니다.</p></div>
+        <div class="row2">
+          <div class="field"><label>평일 연주 시간</label><input type="text" id="wdTime" placeholder="1부 20:00~20:30 / 2부 21:30~22:00"></div>
+          <div class="field"><label>주말 연주 시간</label><input type="text" id="weTime" placeholder="1부 19:30~20:00 / 2부 21:00~21:30"></div>
+        </div>
+        <p class="hint">일반 연주는 1부·2부로 나누어 진행합니다. 주말은 평일보다 30분 앞당기고, 특별연주는 20:00~21:00(약 1시간)입니다.</p>
+        <div class="field">
+          <label>리허설 도착</label>
+          <select id="arrival">
+            <option value="60" selected>연주 시작 1시간 전</option>
+            <option value="90">연주 시작 1시간 30분 전</option>
+            <option value="120">연주 시작 2시간 전</option>
+          </select>
+          <p class="hint">연주 시작 10분 전까지 모든 세팅을 마치고 무대에서 대기합니다.</p>
+        </div>
+        <div class="field" id="feeField">
+          <label>일반 연주 회당 출연 대가(세전) <span class="req">*</span></label>
+          <input type="text" id="fee" inputmode="numeric" placeholder="예: 80,000">
+          <p class="hint">특별연주는 1회 100,000원이 기준입니다.</p>
+          <p class="err" id="errFee">출연 대가를 숫자로 입력해 주세요.</p>
+        </div>
+        <div class="field" id="feeSumField" hidden>
+          <label>출연 대가 합계(세전)</label>
+          <input type="text" id="feeSum" readonly tabindex="-1">
+          <p class="hint">별지 1의 일정 금액을 더한 값입니다. 금액이 다르면 클래시움에 먼저 알려 주세요.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h2>연주자 정보</h2><span class="sub">을 · 세금 신고용</span></div>
+        <div class="field"><label>성명 <span class="req">*</span></label><input type="text" id="name" placeholder="실명" autocomplete="name"><p class="err" id="errName">성명을 입력해 주세요.</p></div>
+        <div class="row2">
+          <div class="field"><label>악기 <span class="req">*</span></label><input type="text" id="instrument" placeholder="예: 피아노, 바이올린"></div>
+          <div class="field"><label>연락처 <span class="req">*</span></label><input type="tel" id="phone" inputmode="numeric" placeholder="010-0000-0000"></div>
+        </div>
+        <div class="field">
+          <label>주민등록번호 <span class="req">*</span></label>
+          <input type="text" id="rrn" inputmode="numeric" placeholder="000000-0000000" autocomplete="off">
+          <p class="hint">세금 신고(원천세·지방소득세·간이지급명세서)에만 씁니다.</p>
+        </div>
+        <div class="field"><label>주소 (선택)</label><input type="text" id="addr" placeholder="계약서 기재용"></div>
+        <div class="row2">
+          <div class="field"><label>은행 <span class="req">*</span></label><input type="text" id="bank" placeholder="예: 부산은행"></div>
+          <div class="field"><label>계좌번호 <span class="req">*</span></label><input type="text" id="account" inputmode="numeric" placeholder="숫자만"></div>
+        </div>
+        <p class="hint">계좌는 출연 대가를 받을 본인 명의 계좌로 적어 주세요.</p>
+      </div>
+
+      <div class="card tax">
+        <div class="card-h"><h2>지급 예정액</h2><span class="sub">3.3% 원천징수</span></div>
+        <div class="calc"><span id="cFeeLabel">출연 대가(세전)</span><span id="cFee">-</span></div>
+        <div class="calc"><span>소득세 3%</span><span id="cIncome">-</span></div>
+        <div class="calc"><span>지방소득세 0.3%</span><span id="cLocal">-</span></div>
+        <div class="calc net"><span>실지급액</span><b id="cNet">-</b></div>
+        <p class="hint">실제 신고 금액은 원 단위 처리에 따라 1~2원 차이가 날 수 있습니다. 지급일은 연주한 달의 다음 달 20일 이후 말일이며, 협업기관(탄티)의 정산 일정에 따라 순연될 수 있습니다.</p>
+      </div>
+    </section>
+
+    <!-- 3. 동의·서명 -->
+    <section class="step" data-step="3">
+      <div class="card">
+        <div class="card-h"><h2>동의</h2><span class="sub">모두 필수 항목이에요</span></div>
+        <label class="check"><input type="checkbox" id="portrait"><span>제8조(초상권 및 사진·영상의 활용)에 동의합니다 — 클래시움과 협업 공연의 홍보(SNS·블로그·홈페이지·포트폴리오·인쇄물)에 공연 사진·영상을 사용할 수 있습니다. <em>(필수 · 동의하지 않으면 계약을 체결할 수 없습니다)</em></span></label>
+        <label class="check"><input type="checkbox" id="privacy"><span>제9조(개인정보의 수집·이용)에 동의합니다 — 세금 신고(원천세·지방소득세·간이지급명세서)에 사용합니다. <em>(필수)</em></span></label>
+        <label class="check"><input type="checkbox" id="confirm"><span>계약 내용을 확인하였으며, 아래 서명이 본인의 것임을 확인합니다. <em>(필수)</em></span></label>
+        <p class="err" id="errPortrait">초상권 활용 동의는 계약 체결의 필수 조건입니다. 동의하여야 서명으로 넘어갈 수 있습니다.</p>
+        <p class="err" id="errConsent">필수 동의 항목을 체크해 주세요.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h2>서명</h2><span class="sub">손가락으로 서명해 주세요</span></div>
+        <div class="sigbox">
+          <canvas id="sigpad"></canvas>
+          <div class="sigline"></div>
+          <div class="sigph" id="sigph">여기에 서명</div>
+        </div>
+        <div class="sigctl">
+          <button class="btn btn-ghost btn-sm" id="undoSig" type="button">↶ 한 획 지우기</button>
+          <button class="btn btn-ghost btn-sm" id="clearSig" type="button">전체 지우기</button>
+        </div>
+        <p class="err" id="errSig">서명을 해 주세요.</p>
+        <p class="hint">서명하면 서명 시각과 계약 내용 지문(해시)이 계약서에 함께 기록돼요.</p>
+      </div>
+    </section>
+
+    <!-- 4. 완료 -->
+    <section class="step" data-step="4">
+      <div class="card done-card">
+        <div class="done-badge">✓</div>
+        <h2>서명이 끝났어요</h2>
+        <p>아래에서 계약서를 저장하고, 클래시움에 파일을 보내 주세요.</p>
+        <dl class="done-meta">
+          <dt>계약번호</dt><dd id="doneNo">-</dd>
+          <dt>서명일시</dt><dd id="doneAt">-</dd>
+          <dt>검증값</dt><dd id="doneHash">-</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h2>계약서 저장</h2><span class="sub">PDF · 이미지 · 데이터</span></div>
+        <div class="save-grid">
+          <button class="btn btn-primary" id="btnPrint" type="button">PDF로 저장 / 인쇄</button>
+          <button class="btn btn-ghost" id="btnPng" type="button">이미지(PNG)</button>
+          <button class="btn btn-ghost" id="btnJson" type="button">데이터(JSON)</button>
+          <button class="btn btn-soft" id="btnShare" type="button">카톡으로 보내기</button>
+        </div>
+        <div id="shareMsg"></div>
+        <p class="hint">카톡 안에서 인쇄 창이 안 열리면, 오른쪽 위 <b>⋯ → 다른 브라우저로 열기</b>로 사파리·크롬에서 열어 주세요. 인쇄 화면에서 'PDF로 저장'을 고르면 PDF가 돼요.</p>
+        <p class="hint">JSON과 계약서에는 주민등록번호·계좌번호가 그대로 들어 있어요. 본인 보관용으로만 쓰고 단체 채팅방에는 올리지 마세요. (이미지(PNG)에는 주민번호 뒷자리가 가려져 있어요.)</p>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h2>서명된 계약서</h2><span class="sub">보관용</span></div>
+        <div class="contract" id="signedDoc"></div>
+      </div>
+
+      <button class="btn btn-ghost btn-block" id="btnNew2" type="button">새 계약서 작성</button>
+      <p class="foot-note">클래시움 · 전자계약 화면에서 작성·서명된 문서입니다.</p>
+    </section>
+  </main>
+
+  <div class="bar" id="bar">
+    <button class="btn btn-ghost" id="btnPrev" type="button">이전</button>
+    <button class="btn btn-primary" id="btnNext" type="button">다음</button>
+  </div>
+</div>
+
+<div class="print-root" id="printRoot" aria-hidden="true"></div>
+
+<div class="sheet" id="linkSheet" hidden>
+  <div class="sheet-in">
+    <div class="sheet-h"><h2>개인별 링크 만들기</h2><button type="button" id="sheetClose">닫기</button></div>
+    <p class="hint">연주자 한 명의 이름·악기·해당 월과 그 사람의 일정(날짜·시간·편성·출연 대가)만 넣으면 그 사람 전용 계약 링크가 만들어집니다. 링크에는 이 일정만 담기고 다른 연주자의 일정·금액은 들어가지 않습니다.</p>
+    <div class="row2">
+      <div class="field"><label>성명</label><input type="text" id="bName" placeholder="예: 홍길동"></div>
+      <div class="field"><label>악기</label><input type="text" id="bInst" placeholder="예: Violin"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>해당 월</label><input type="month" id="bMonth"></div>
+      <div class="field"><label>장소</label><input type="text" id="bPlace" value="탄티(부산 수영구)"></div>
+    </div>
+    <label style="display:block;font-size:11.5px;font-weight:700;color:var(--ink-2);margin-bottom:5px">일정</label>
+    <div class="b-head"><span>날짜</span><span>시간</span><span>편성</span><span>출연 대가</span><span></span></div>
+    <div id="bRows"></div>
+    <p class="hint">시간은 <b>19:30~20:00 / 21:00~21:30</b>처럼 1부·2부를 함께 적고, 특별연주는 <b>20:00~21:00</b>으로 적습니다. 편성에 '특별'이 들어가면 특별연주로 표시됩니다.</p>
+    <button class="btn btn-ghost btn-sm" type="button" id="bAdd">+ 일정 추가</button>
+    <div class="b-total" id="bTotal">합계 -</div>
+    <button class="btn btn-primary btn-block" type="button" id="bMake">링크 만들기</button>
+    <div id="bOut" hidden>
+      <label>만들어진 링크</label>
+      <textarea id="bUrl" readonly></textarea>
+      <div class="save-grid">
+        <button class="btn btn-ghost" type="button" id="bCopy">링크 복사</button>
+        <button class="btn btn-soft" type="button" id="bOpen">이 링크 열어보기</button>
+      </div>
+      <p id="bMsg"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   기본 설정
+   ============================================================ */
+var CONFIG = {
+  company: {
+    name: "클래시움",
+    nameEn: "classium",
+    ceo: "박다은",
+    bizNo: "496-05-03498",
+    addr: "부산광역시 수영구 연수로 409, 4층 일부(수영동)",
+    email: "classium_@naver.com"
+  },
+  template: "classium-freelance-performance-v1",
+  version: "v1.5 · 2026.11",
+  /* 특별연주(약 1시간) 1회 기준 출연 대가 */
+  specialFee: 100000,
+  /* 서버 자동 저장을 붙일 자리입니다. 비워 두면 이 기기(브라우저)에만 저장됩니다.
+     예) Google Apps Script 웹앱 URL 또는 Supabase Edge Function URL
+     endpoint 값이 있으면 서명 완료 시 아래 sendToServer()가 호출됩니다. */
+  endpoint: ""
+};
+
+var STORE_KEY = "classium_contract_draft_v1";
+
+/* ============================================================
+   유틸
+   ============================================================ */
+var $ = function(sel, root){ return (root || document).querySelector(sel); };
+var $$ = function(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+function esc(v){
+  return String(v == null ? "" : v).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];
+  });
+}
+function digits(v){ return String(v == null ? "" : v).replace(/\D/g, ""); }
+function comma(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+function won(n){ return comma(n) + "원"; }
+function pad2(n){ return (n < 10 ? "0" : "") + n; }
+function todayISO(){
+  var d = new Date();
+  return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+}
+function addYear(iso, y){
+  var p = iso.split("-");
+  var d = new Date(+p[0] + y, +p[1] - 1, +p[2]);
+  return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+}
+function fmtDate(iso){
+  if(!iso) return "";
+  var p = iso.split("-");
+  if(p.length !== 3) return iso;
+  return p[0] + "년 " + (+p[1]) + "월 " + (+p[2]) + "일";
+}
+function fmtDateTime(iso){
+  if(!iso) return "";
+  var d = new Date(iso);
+  if(isNaN(d.getTime())) return iso;
+  return d.getFullYear() + "년 " + (d.getMonth() + 1) + "월 " + d.getDate() + "일 " +
+         pad2(d.getHours()) + ":" + pad2(d.getMinutes());
+}
+function maskRRN(v){
+  var s = digits(v);
+  if(s.length < 7) return s;
+  return s.slice(0, 6) + "-" + s.slice(6, 7) + "******";
+}
+function fmtPhone(v){
+  var d = digits(v);
+  if(d.length === 11) return d.slice(0, 3) + "-" + d.slice(3, 7) + "-" + d.slice(7);
+  if(d.length === 10) return d.slice(0, 3) + "-" + d.slice(3, 6) + "-" + d.slice(6);
+  return v || "";
+}
+function calcTax(fee){
+  fee = Number(fee) || 0;
+  var income = Math.round(fee * 0.03);
+  var local = Math.round(income * 0.1);
+  return { income: income, local: local, total: income + local, net: fee - income - local };
+}
+function genNo(){
+  var d = new Date();
+  var r = Math.floor(1000 + Math.random() * 9000);
+  return "CLM-" + d.getFullYear() + pad2(d.getMonth() + 1) + pad2(d.getDate()) + "-" + r;
+}
+
+/* SHA-256 (외부 라이브러리 없이 동작하도록 내장) */
+var K256 = [
+  0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+  0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+  0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+  0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+  0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+  0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+  0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+  0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+];
+function rotr(x, n){ return (x >>> n) | (x << (32 - n)); }
+function sha256Hex(str){
+  var bytes = new TextEncoder().encode(str);
+  var l = bytes.length;
+  var total = (((l + 8) >> 6) + 1) << 6;
+  var buf = new Uint8Array(total);
+  buf.set(bytes);
+  buf[l] = 0x80;
+  var dv = new DataView(buf.buffer);
+  var bitsHi = Math.floor(l / 536870912);
+  var bitsLo = (l * 8) >>> 0;
+  dv.setUint32(total - 8, bitsHi);
+  dv.setUint32(total - 4, bitsLo);
+  var H = [0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+  var w = new Uint32Array(64);
+  for(var off = 0; off < total; off += 64){
+    for(var t = 0; t < 16; t++) w[t] = dv.getUint32(off + t * 4);
+    for(t = 16; t < 64; t++){
+      var x15 = w[t - 15], x2 = w[t - 2];
+      var s0 = (rotr(x15, 7) ^ rotr(x15, 18) ^ (x15 >>> 3)) >>> 0;
+      var s1 = (rotr(x2, 17) ^ rotr(x2, 19) ^ (x2 >>> 10)) >>> 0;
+      w[t] = (w[t - 16] + s0 + w[t - 7] + s1) >>> 0;
+    }
+    var a = H[0], b = H[1], c = H[2], d = H[3], e = H[4], f = H[5], g = H[6], h = H[7];
+    for(t = 0; t < 64; t++){
+      var S1 = (rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25)) >>> 0;
+      var ch = ((e & f) ^ (~e & g)) >>> 0;
+      var t1 = (h + S1 + ch + K256[t] + w[t]) >>> 0;
+      var S0 = (rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22)) >>> 0;
+      var maj = ((a & b) ^ (a & c) ^ (b & c)) >>> 0;
+      var t2 = (S0 + maj) >>> 0;
+      h = g; g = f; f = e; e = (d + t1) >>> 0;
+      d = c; c = b; b = a; a = (t1 + t2) >>> 0;
+    }
+    H = [(H[0] + a) >>> 0, (H[1] + b) >>> 0, (H[2] + c) >>> 0, (H[3] + d) >>> 0,
+         (H[4] + e) >>> 0, (H[5] + f) >>> 0, (H[6] + g) >>> 0, (H[7] + h) >>> 0];
+  }
+  return H.map(function(x){ return ("00000000" + x.toString(16)).slice(-8); }).join("");
+}
+
+/* ============================================================
+   상태
+   ============================================================ */
+var state = {
+  no: genNo(),
+  issuedISO: new Date().toISOString(),
+  start: todayISO(),
+  end: addYear(todayISO(), 1),
+  place: "탄티(부산 수영구)",
+  wdTime: "1부 20:00~20:30 / 2부 21:30~22:00",
+  weTime: "1부 19:30~20:00 / 2부 21:00~21:30",
+  arrival: 60,
+  fee: "",
+  name: "", instrument: "", phone: "", rrn: "", addr: "",
+  bank: "", account: "",
+  month: "", items: [],
+  portrait: false, privacy: false, confirm: false, read: false,
+  sig: null, signedISO: "", hash: ""
+};
+
+/* ============================================================
+   개인별 맞춤 링크 (URL ?d=... / ?name=&inst=&month=&items=)
+   ============================================================ */
+function b64uToStr(s){
+  s = String(s).replace(/-/g, "+").replace(/_/g, "/");
+  while(s.length % 4) s += "=";
+  var bin = atob(s), bytes = new Uint8Array(bin.length);
+  for(var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+function strToB64u(str){
+  var bytes = new TextEncoder().encode(str), bin = "";
+  for(var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+function monthRange(ym){
+  var m = /^(\d{4})-(\d{2})$/.exec(String(ym || ""));
+  if(!m) return null;
+  var y = +m[1], mo = +m[2];
+  return { start: y + "-" + pad2(mo) + "-01", end: y + "-" + pad2(mo) + "-" + pad2(new Date(y, mo, 0).getDate()) };
+}
+function fmtMonth(ym){
+  var m = /^(\d{4})-(\d{2})$/.exec(String(ym || ""));
+  return m ? (+m[1]) + "년 " + (+m[2]) + "월" : "";
+}
+function normItem(it){
+  it = it || {};
+  return {
+    date: String(it.date || it.d || "").slice(0, 10),
+    time: String(it.time || it.t || ""),
+    form: String(it.form || it.f || it.formation || ""),
+    fee: digits(it.fee != null ? it.fee : (it.p != null ? it.p : "")),
+    place: String(it.place || ""),
+    note: String(it.note || it.n || "")
+  };
+}
+function normItems(arr){
+  return (Array.isArray(arr) ? arr : []).map(normItem).filter(function(it){ return it.date; });
+}
+function parseItemsParam(raw){
+  /* items=2026-12-05|18:00~21:30|트리오|80000;2026-12-10|... */
+  return String(raw || "").split(";").filter(Boolean).map(function(chunk){
+    var p = chunk.split("|");
+    if(p.length < 3) p = chunk.split(",");
+    return normItem({ date: p[0], time: p[1], form: p[2], fee: p[3], note: p[4], place: p[5] });
+  }).filter(function(it){ return it.date; });
+}
+function applyQuery(){
+  var q = new URLSearchParams(location.search);
+  var personal = false;
+  var d = q.get("d");
+  if(d){
+    try{
+      var obj = JSON.parse(b64uToStr(d));
+      if(obj.name) state.name = String(obj.name);
+      if(obj.inst || obj.instrument) state.instrument = String(obj.inst || obj.instrument);
+      if(obj.month) state.month = String(obj.month);
+      if(obj.place) state.place = String(obj.place);
+      if(obj.items) state.items = normItems(obj.items);
+      personal = true;
+    }catch(e){}
+  }
+  var simple = { place:"place", fee:"fee", name:"name", instrument:"instrument",
+                 phone:"phone", start:"start", end:"end", wd:"wdTime", we:"weTime", month:"month" };
+  Object.keys(simple).forEach(function(k){
+    var v = q.get(k);
+    if(v == null || v === "") return;
+    state[simple[k]] = (k === "fee" ? digits(v) : v);
+    if(k === "name" || k === "month") personal = true;
+  });
+  var instP = q.get("inst");
+  if(instP){ state.instrument = instP; }
+  var itemsRaw = q.get("items");
+  if(itemsRaw){
+    var parsed = parseItemsParam(itemsRaw);
+    if(parsed.length){ state.items = parsed; personal = true; }
+  }
+  if(state.items.length && !state.month){
+    var mm = /^(\d{4})-(\d{2})/.exec(state.items[0].date);
+    if(mm) state.month = mm[1] + "-" + mm[2];
+  }
+  if(state.month){
+    var r = monthRange(state.month);
+    if(r){
+      if(!q.get("start")) state.start = r.start;
+      if(!q.get("end")) state.end = r.end;
+    }
+  }
+  return personal;
+}
+function hasPersonalQuery(){
+  var q = new URLSearchParams(location.search);
+  return !!(q.get("d") || q.get("items") || q.get("month") || q.get("name"));
+}
+function clearPerformerData(){
+  state.name = ""; state.instrument = ""; state.phone = "";
+  state.rrn = ""; state.addr = ""; state.bank = ""; state.account = "";
+  state.month = ""; state.items = []; state.fee = "";
+  state.sig = null; state.signedISO = ""; state.hash = "";
+  state.privacy = false; state.confirm = false; state.read = false; state.portrait = false;
+  state.no = genNo(); state.issuedISO = new Date().toISOString();
+}
+
+var step = 1;
+
+/* ============================================================
+   계약서 생성 (읽기 화면·인쇄·완료 화면 공용)
+   ============================================================ */
+function weekdayKo(iso){
+  var p = String(iso || "").split("-");
+  if(p.length !== 3) return "";
+  var d = new Date(+p[0], +p[1] - 1, +p[2]);
+  if(isNaN(d.getTime())) return "";
+  return "일월화수목금토".charAt(d.getDay());
+}
+function itemsSum(){
+  return (state.items || []).reduce(function(a, it){ return a + (Number(it.fee) || 0); }, 0);
+}
+function isSpecialItem(it){
+  return /특별/.test(String((it && it.form || "") + " " + (it && it.note || "")));
+}
+function hasSchedule(){ return !!(state.items && state.items.length); }
+function specialUnitFee(){
+  var sp = (state.items || []).filter(isSpecialItem);
+  if(!sp.length) return CONFIG.specialFee;
+  var f = Number(sp[0].fee) || 0;
+  for(var i = 1; i < sp.length; i++){ if((Number(sp[i].fee) || 0) !== f) return CONFIG.specialFee; }
+  return f || CONFIG.specialFee;
+}
+function generalUnitFee(){
+  var gen = (state.items || []).filter(function(it){ return !isSpecialItem(it); });
+  if(!gen.length) return 0;
+  var f = Number(gen[0].fee) || 0;
+  for(var i = 1; i < gen.length; i++){ if((Number(gen[i].fee) || 0) !== f) return 0; }
+  return f;
+}
+function payableAmount(){ return hasSchedule() ? itemsSum() : (Number(state.fee) || 0); }
+function arrivalText(n){
+  n = Number(n) || 60;
+  if(n % 60 === 0) return (n / 60) + "시간 전";
+  if(n > 60) return Math.floor(n / 60) + "시간 " + (n % 60) + "분 전";
+  return n + "분 전";
+}
+function schedTimeHTML(t){
+  return esc(t).replace(/\s*\/\s*/g, "<br>");
+}
+function scheduleHTML(){
+  if(!hasSchedule()) return "";
+  var items = state.items;
+  var total = itemsSum();
+  var t = calcTax(total);
+  var places = {};
+  items.forEach(function(it){ places[it.place || state.place || "탄티"] = 1; });
+  var multiPlace = Object.keys(places).length > 1;
+  var anyNote = items.some(function(it){ return !!it.note; });
+  var head = "<tr><th>날짜</th>" + (multiPlace ? "<th>장소</th>" : "") + "<th>시간</th><th>편성</th><th>출연 대가</th>" + (anyNote ? "<th>비고</th>" : "") + "</tr>";
+  var rows = items.map(function(it){
+    var pl = it.place || state.place || "탄티";
+    return "<tr><td>" + esc(it.date) + (weekdayKo(it.date) ? "(" + weekdayKo(it.date) + ")" : "") + "</td>" +
+      (multiPlace ? "<td>" + esc(pl) + "</td>" : "") +
+      '<td class="t">' + schedTimeHTML(it.time) + "</td><td>" + esc(it.form) + "</td>" +
+      "<td>" + (it.fee ? comma(it.fee) : "-") + "</td>" +
+      (anyNote ? "<td class=\"wrap\">" + esc(it.note) + "</td>" : "") + "</tr>";
+  }).join("");
+  var cols = 3 + (multiPlace ? 1 : 0);
+  return "<h3>별지 1. 연주 일정 및 출연 대가</h3>" +
+    (multiPlace ? "" : '<p class="sched-place">장소: ' + esc(Object.keys(places)[0] || "") + "</p>") +
+    '<table class="sched-tbl">' + head + rows +
+    '<tr class="sum"><td colspan="' + cols + '">합계 (' + items.length + '건)</td><td>' + comma(total) + '</td>' +
+    (anyNote ? "<td></td>" : "") + '</tr>' +
+    '<tr><td colspan="' + cols + '">3.3% 원천징수 후 실지급</td><td colspan="' + (anyNote ? 2 : 1) + '"><b>' + comma(t.net) + '</b></td></tr>' +
+    "</table>" +
+    '<p class="note">이 표에는 이 계약의 연주자 한 사람의 일정만 기재한다. 연주 일정 또는 출연 대가가 추가·변경되는 경우 갑은 서면(문자메시지·카카오톡 포함)으로 을에게 통지하고 이 표에 반영한다. 출연 대가 및 정산 내역은 제10조에 따라 비밀로 유지한다.</p>';
+}
+
+function contractHTML(){
+  var s = state;
+  var C = CONFIG.company;
+  var period = (s.start && s.end)
+    ? fmtDate(s.start) + " ~ " + fmtDate(s.end)
+    : '<span class="blank">____년 __월 __일</span> ~ <span class="blank">____년 __월 __일</span>';
+  var place = s.place ? esc(s.place) : '<span class="blank">____________</span>';
+  var wd = s.wdTime ? esc(s.wdTime) : "1부 20:00~20:30 / 2부 21:30~22:00";
+  var we = s.weTime ? esc(s.weTime) : "1부 19:30~20:00 / 2부 21:00~21:30";
+  var arrival = arrivalText(s.arrival || 60);
+  var onSchedule = hasSchedule();
+  var fee = onSchedule ? itemsSum() : (Number(s.fee) || 0);
+  var tax = calcTax(fee);
+
+  /* v1.3 — 계약서 본문에는 금액 숫자를 쓰지 않는다. 개인별 금액은 별지 1(연주 일정 및 출연 대가)과
+     2단계 '나의 연주 일정' 카드에만 표시한다. */
+  var feeClause = "출연 대가는 별지 1에 기재된 금액에 따르며, 소득세 3% 및 지방소득세 0.3%(합계 3.3%)를 원천징수한 금액을 지급한다. " +
+    "편성·추가 공연 및 그 밖의 사항에 관한 출연 대가는 별도로 약정한다.";
+
+  /* 일정 없는 빈 양식에서는 '별지 1. 연주 조건 요약'에만 금액을 적는다. */
+  var feeText = fee ? won(fee) + " (1회 기준)" : "-";
+
+  var portraitText = s.portrait
+    ? "<b>동의한다</b>"
+    : '동의한다 <span class="ph">(서명 시 필수 동의)</span>';
+  var name = s.name ? esc(s.name) : '<span class="blank">______</span>';
+  var inst = s.instrument ? esc(s.instrument) : '<span class="blank">______</span>';
+  var phone = s.phone ? esc(fmtPhone(s.phone)) : '<span class="blank">__________</span>';
+  var rrn = s.rrn ? esc(s.rrn.replace(/^(\d{6})(\d{7})$/, "$1-$2")) : '<span class="blank">______-_______</span>';
+  var addr = s.addr ? esc(s.addr) : "";
+  var bank = (s.bank || s.account)
+    ? esc(s.bank || "____") + " " + esc(s.account || "__________")
+    : '<span class="blank">__________</span>';
+  var acctText = (s.bank || s.account) ? "계좌(" + bank + ")" : "계좌";
+
+  var clauses = [
+    ["제1조 (목적)",
+      "<ol>" +
+      "<li>이 계약은 갑이 협업기관과 협력하여 운영하는 공연(이하 \"협업 공연\")에서 을이 악기 연주 용역(이하 \"연주 용역\")을 제공하고, 갑이 그 대가(이하 \"출연 대가\")를 지급하는 것을 목적으로 한다.</li>" +
+      "<li>이 계약은 협업기관이 지정하는 장소에서 진행하는 협업 공연의 연주 용역에 적용된다. 갑이 협업기관과 별도로 진행하는 공연·행사 또는 다른 장소에서의 연주에 관하여는 별도의 계약으로 정한다.</li>" +
+      "<li>이 계약에서 \"협업기관\"이라 함은 갑과 협력하여 협업 공연을 운영하는 탄티(Tanti)를 말한다.</li>" +
+      "</ol>"],
+    ["제2조 (계약의 성격 — 근로계약의 배제)",
+      "<ol>" +
+      "<li>을은 「근로기준법」상 근로자가 아닌 독립적인 사업자로서, 이 계약은 도급(용역) 계약이다.</li>" +
+      "<li>을이 이 계약에 따라 지급받는 출연 대가는 <b>사업소득</b>에 해당하며, 갑은 지급액에서 <b>소득세 3% 및 지방소득세 0.3%(합계 3.3%)를 원천징수</b>한다.</li>" +
+      "<li>을은 갑의 취업규칙·복무규정의 적용을 받지 아니하며, 4대보험(국민연금·건강보험·고용보험·산업재해보상보험)의 가입 대상이 아니다.</li>" +
+      "<li>을은 악기·장비·의상 등 연주 용역에 필요한 물품을 스스로 준비하며, 다른 발주자와 계약하는 데 제한을 받지 아니한다. 다만 을은 이 계약에 따라 정한 공연 시간에 성실히 연주하여야 한다.</li>" +
+      "<li>연주 용역의 수행 방법과 준비 과정은 을이 스스로 정한다. 다만 공연의 장소·시간·레퍼토리·편성 등 공연 운영에 필요한 사항은 갑이 협업기관과 협의하여 정하며, 을은 이에 협조하여야 한다.</li>" +
+      "</ol>"],
+    ["제3조 (연주 용역의 내용)",
+      "<ol>" +
+      "<li>을은 갑이 지정하는 협업 공연에서 자신이 맡은 악기로 연주한다. 편성(듀오·트리오·특별연주 편성 등)은 갑이 협업기관과 협의하여 사전에 안내한다.</li>" +
+      "<li>공연을 1부와 2부로 나누어 진행하는 경우, <b>1부와 2부는 서로 다른 프로그램으로 구성</b>하여 연주하여야 한다.</li>" +
+      "<li>프로그램(선곡)은 클래식 음악에 익숙하지 아니한 일반 관람객의 특성을 고려하여, <b>대중적인 음악과 널리 알려진 클래식 등을 포함한 다양한 레퍼토리</b>로 선정하여야 한다.</li>" +
+      "<li>을은 공연에 앞서 실시하는 리허설·세팅 및 음향 점검에 참여하여야 한다.</li>" +
+      "<li>을은 공연 중 갑 또는 협업기관의 합리적인 요청(앙코르, 곡 순서의 변경 등)에 협조하여야 한다.</li>" +
+      "</ol>"],
+    ["제4조 (연주 장소·시간 및 리허설·대기)",
+      "<ol>" +
+      "<li><b>장소</b> — 협업 공연은 협업기관이 지정하는 장소(이하 \"공연장\")에서 진행한다. 이 계약에 별도로 기재하지 아니한 경우 공연장은 협업기관 탄티의 공연장으로 한다. 공연장이 변경되는 경우 갑은 사전에 을에게 통지한다.</li>" +
+      "<li><b>일반 연주의 연주 시간</b> — 일반 연주는 1부와 2부로 나누어 진행하며, 각 부의 연주 시간은 다음 각 호와 같다.<ul>" +
+        "<li>평일(월~금): " + wd + "</li>" +
+        "<li>주말(토·일): " + we + " (평일보다 30분 앞당긴 시간)</li>" +
+      "</ul></li>" +
+      "<li><b>도착·리허설 및 대기</b> — 을은 해당 일자의 연주 시작 시각으로부터 <b>최소 " + arrival + "까지</b> 공연장에 도착하여 리허설 및 음향 점검을 진행하여야 하며, <b>연주 시작 10분 전까지 모든 세팅을 완료하고 무대에서 대기</b>하여야 한다.</li>" +
+      "<li><b>특별연주</b> — 특별연주는 다음 각 호에 따라 진행한다.<ul>" +
+        "<li>연주 시간: 20:00에 시작하여 약 1시간의 러닝타임으로 진행한다(20:00~21:00).</li>" +
+        "<li>리허설: 당일 연주 시작 2시간 전부터 최소 1시간 전까지의 사이에 리허설을 시작하여야 하며, 연주 시작 10분 전까지 세팅을 완료하고 무대에서 대기하여야 한다.</li>" +
+        "<li>사전 합주: 을은 특별연주에 앞서 당일이 아닌 다른 요일에 <b>최소 1회 이상 사전 합주(연습)를 진행</b>하여야 한다. 정당한 사유 없이 사전 합주에 불참하거나 준비가 현저히 미흡한 경우 갑은 <b>해당 회차의 출연을 취소하고 대체 연주자를 투입</b>할 수 있으며, 그 회차의 출연 대가는 실제로 연주한 대체 연주자에게 지급한다.</li>" +
+      "</ul></li>" +
+      "<li><b>협업기관의 요청에 따른 변동</b> — 협업기관의 요청에 따라 연주 시작 시각이 변경되거나 특정 프로그램(선곡)이 지정·요청될 수 있으며, 갑은 이를 사전에 을에게 안내한다. 을은 이에 성실히 협조하여야 한다.</li>" +
+      "<li>별도로 정한 연주 시간이 있는 경우 갑은 일정표·문자메시지·카카오톡 등으로 안내하며, 그 시간이 이 계약에 따른 연주 시간이 된다.</li>" +
+      "<li>연주 일정이 여러 날에 걸치는 경우 별지 1의 연주 일정표에 따른다.</li>" +
+      "</ol>"],
+    ["제5조 (을의 의무)",
+      "<ol>" +
+      "<li><b>악보의 숙지</b> — 악보는 사전에 지급되거나 당일 공연장에서 지급될 수 있다. 을은 연주에 필요한 악보를 <b>사전에 지급받은 경우 공연 전까지 충분히 숙지</b>하여야 한다. 악보를 <b>당일 공연장에서 지급받는 경우에도 전문 연주자로서 성실히 초견하고 리허설에 임</b>하여야 한다. 을은 특별연주에 필요한 사전 합주 등 준비를 성실히 이행하여야 하며, 정당한 사유 없이 준비가 현저히 미흡한 경우 갑은 해당 회차의 출연을 취소하고 대체 연주자를 투입할 수 있다.</li>" +
+      "<li><b>제공 악보의 사용 범위 — 무단 사용·공유 금지</b> — <b>갑이 제공한 악보(인쇄물 및 PDF 등 전자파일 포함)는 본 계약에 따른 협업 공연의 연주 목적에 한하여 사용하여야 한다. 을은 클래시움이 주최·주관하는 연주 외의 다른 공연·행사·개인 활동 등에 해당 악보를 무단 사용하거나 제3자에게 복제·전달·공유하여서는 아니 되며, 이를 위반하여 갑에게 손해가 발생한 경우 배상 책임을 진다.</b></li>" +
+      "<li><b>복장·무대 매너</b> — 을은 공연의 성격에 어울리는 단정한 복장과 헤어·메이크업을 갖추고, 무대 인사·큐 신호·곡 사이 대기 등 무대 매너를 준수하여야 한다. 갑이 공연 콘셉트에 맞는 복장을 요청하는 경우 을은 합리적인 범위에서 이에 따른다.</li>" +
+      "<li><b>지각·불참의 사전 통보 및 대체 연주자의 섭외</b> — 을은 정하여진 연주 시간을 준수하여야 한다. 부득이한 사유로 일정을 변경하거나 연주할 수 없게 된 경우 을은 <b>최소 7일 전</b>까지(갑작스러운 사유가 발생한 경우에는 그 사실을 알게 된 즉시) 서면(문자메시지·카카오톡 포함)으로 갑에게 통지하여야 한다. 이 경우 을은 갑이 인정하는 <b>동등 수준 이상의 대체 연주자를 직접 섭외</b>하고 <b>갑의 사전 승인</b>을 받아야 하며, 대체 연주자의 섭외에 드는 비용은 을이 부담한다.</li>" +
+      "<li>을은 공연 중 음주를 하지 아니하고, 공연장의 시설·악기·비품이 손상되지 아니하도록 주의하여야 한다.</li>" +
+      "<li>을은 자신의 귀책사유로 공연의 진행에 지장이 발생하지 아니하도록 성실히 의무를 이행하여야 한다.</li>" +
+      "</ol>"],
+    ["제6조 (출연 대가 및 지급)",
+      "<ol>" +
+      "<li><b>출연 대가</b> — " + feeClause + "</li>" +
+      "<li><b>지급 명세</b> — 갑은 원천징수세액과 실지급액을 별지 1에 함께 표시하여 을이 자신의 지급 내역을 확인할 수 있게 한다.</li>" +
+      "<li><b>지급일</b> — 갑은 <b>연주한 달의 다음 달 20일 이후 말일까지</b>(20일부터 말일 사이) 을이 지정한 " + acctText + "로 출연 대가를 이체한다. 출연 대가의 지급은 <b>협업기관의 정산·지급 일정에 따르며, 협업기관의 지급이 지연되는 경우 을에 대한 지급도 그에 따라 순연될 수 있다.</b></li>" +
+      "<li>갑은 원천징수영수증(또는 지급내역서)을 발급하고, 관계 법령에 따라 원천세·지방소득세의 신고 및 간이지급명세서의 제출을 이행한다.</li>" +
+      "<li>을은 제1항의 소득이 사업소득으로서 종합소득세 신고 대상임을 확인한다.</li>" +
+      "</ol>"],
+    ["제7조 (일정의 변경·취소)",
+      "<ol>" +
+      "<li><b>갑·협업기관 등의 사유로 인한 취소·변경</b> — 갑, 협업기관 또는 공연장의 사유로 공연이 취소되거나 변경되는 경우 갑은 지체 없이 을에게 통지하며, 연주가 이루어지지 아니한 회차에 대하여는 출연 대가를 지급하지 아니한다.</li>" +
+      "<li><b>을의 사유로 연주하지 못하는 경우</b> — ① 을은 제5조 제4항에 따라 최소 7일 전까지 갑에게 통지하고, 갑이 인정하는 동등 수준 이상의 대체 연주자를 직접 섭외하여 갑의 사전 승인을 받는다.<br>② 해당 회차의 출연 대가는 실제로 연주한 대체 연주자에게 지급하며, 을에게는 지급하지 아니한다.<br>③ 을이 대체 연주자를 구하지 못하여 갑이 긴급히 섭외를 진행한 경우, 원래의 출연 대가를 초과하여 추가로 발생한 차액 등 섭외 실비는 갑이 을에게 청구하거나 을에게 지급할 정산분에서 공제할 수 있다.<br>④ 미리 통지하지 아니하고 불참하거나 지각·불참이 반복되는 경우 을은 해당 회차의 출연 대가를 청구할 수 없으며, 갑이 입은 손해(대체 연주자의 섭외비 등)를 배상한다.</li>" +
+      "<li><b>불가항력</b> — 천재지변·정부의 조치 등 불가항력적인 사유로 공연이 취소된 경우 갑은 출연 대가를 지급하지 아니하며, 양 당사자는 이에 대한 책임을 지지 아니한다.</li>" +
+      "</ol>"],
+    ["제8조 (초상권 및 사진·영상의 활용) — 계약 체결의 필수 조건",
+      "<ol>" +
+      "<li>갑과 협업기관은 공연 및 리허설 과정에서 사진·영상을 촬영할 수 있다.</li>" +
+      "<li>을은 제1항의 사진·영상을 갑이 클래시움 및 협업 공연의 홍보를 위하여 사회관계망서비스(SNS), 블로그, 홈페이지, 포트폴리오, 인쇄물 등에 사용(자르기·보정 등 2차 편집 포함)하는 데 " + portraitText + ". 이 동의는 <b>이 계약 체결의 필수 조건</b>이며, 을이 동의하지 아니하는 경우 이 계약은 체결되지 아니한다(연주 불가).</li>" +
+      "<li>위 활용은 무상으로 하며, 별도의 기간 제한을 두지 아니한다.</li>" +
+      "<li>갑은 위 사진·영상을 을의 명예를 훼손하거나 음란·비방의 목적으로 사용하지 아니한다.</li>" +
+      "<li>을이 활용의 중단을 요청하는 경우 갑은 <b>합리적인 기간 내에 향후 신규 게시물에서의 사용을 중단</b>하며, 이미 게시·배포된 SNS·블로그 콘텐츠 및 인쇄물을 삭제·회수할 의무는 지지 아니한다.</li>" +
+      "<li>을이 제2항의 동의를 하지 아니하는 경우 갑은 계약을 체결하지 아니할 수 있으며, 이미 체결된 계약에서 을이 그 동의를 철회하는 경우 갑은 이후 회차의 계약을 해지할 수 있다.</li>" +
+      "</ol>"],
+    ["제9조 (개인정보의 수집·이용)",
+      "<ol>" +
+      "<li><b>수집 항목</b> — 성명, 주민등록번호, 연락처, 주소(선택), 악기, 은행·계좌번호, 서명.</li>" +
+      "<li><b>이용 목적</b> — 계약의 체결·이행, 출연 대가의 지급, 원천세·지방소득세의 신고, 간이지급명세서의 제출, 계약에 관한 분쟁의 대응.</li>" +
+      "<li><b>보유 기간</b> — 계약 종료 후 관계 법령이 정한 기간(「국세기본법」 등에 따른 5년). 보유 기간이 지난 개인정보는 지체 없이 파기한다.</li>" +
+      "<li>갑은 법령에 따라 국세청 등 관계 기관에 제출하는 경우를 제외하고는 을의 동의 없이 개인정보를 제3자에게 제공하지 아니한다.</li>" +
+      "<li>을은 동의를 거부할 수 있다. 다만 이 경우 세금 신고 및 출연 대가의 지급이 어려워 계약이 성립하지 아니할 수 있다.</li>" +
+      "<li>서명은 전자적 방식(서명 패드 이미지)으로 하며, 전자문서로 작성된 계약서와 함께 보관한다.</li>" +
+      "</ol>"],
+    ["제10조 (비밀유지)",
+      "<ol>" +
+      "<li>양 당사자는 계약의 체결·이행 과정에서 알게 된 상대방의 영업·재무·고객 정보와 출연 대가·정산 내역을 제3자에게 누설하지 아니한다.</li>" +
+      "<li>을은 본 계약에 따른 출연 대가·정산 조건 및 지급 내역을 <b>다른 연주자를 포함한 제3자</b>에게 공개·공유 또는 게시하지 아니한다.</li>" +
+      "<li>갑도 을의 출연 대가·정산 내역을 다른 연주자에게 공개하지 아니한다. 다만 세금 신고·회계 처리 등 법령상 필요한 경우와 을의 동의를 받은 경우에는 그러하지 아니하다.</li>" +
+      "<li>제1항부터 제3항까지를 위반하여 손해가 발생한 경우 그 손해를 배상한다.</li>" +
+      "</ol>"],
+    ["제11조 (손해배상)",
+      "<ol>" +
+      "<li>고의 또는 과실로 상대방이나 제3자에게 손해를 입힌 경우 그 손해를 배상한다.</li>" +
+      "<li>을의 악기·장비·개인 물품의 분실·손상은 을이 부담한다. 다만 <b>갑의 고의 또는 중대한 과실로 발생한 경우에 한하여</b> 갑이 합리적인 범위에서 책임을 지며, 협업기관 또는 제3자의 귀책사유로 발생한 손해에 대해서는 해당 귀책 당사자에게 청구하거나 갑이 원만한 해결을 위해 협조한다.</li>" +
+      "<li>을이 갑 또는 협업기관의 시설·악기·비품을 고의 또는 중대한 과실로 손상한 경우 을이 그 수리비를 부담한다.</li>" +
+      "</ol>"],
+    ["제12조 (계약의 해지)",
+      "<ol>" +
+      "<li>양 당사자 중 어느 한쪽이 7일 전에 서면(문자메시지·카카오톡 포함)으로 통지하면 이 계약을 해지할 수 있다.</li>" +
+      "<li>다음 각 호의 사유가 있는 경우 상대방은 즉시 이 계약을 해지할 수 있다: ① 통지하지 아니한 불참 또는 지각이 2회 이상인 경우, ② 협업기관의 정산 지연 등 정당한 사유 없이 갑의 귀책사유로 출연 대가 지급이 2회 이상 지체된 경우, ③ 폭언·성희롱·명예훼손 등 신뢰를 훼손한 경우, ④ 계약 조건을 중대하게 위반한 경우.</li>" +
+      "<li>해지 시 이미 완료한 연주에 대한 출연 대가는 지급한다.</li>" +
+      "</ol>"],
+    ["제13조 (계약기간)",
+      "<p>이 계약의 기간은 별지 1에 기재된 연주 일정의 시작일부터 최종 연주 종료일까지(또는 별도 약정한 기간)로 하며, 해당 일정 종료와 함께 만료된다. 이번 계약의 연주 일정 기간은 " + period + "이다. 이 계약은 기간이 끝난 뒤 자동으로 연장되지 아니하며, 계속하여 연주하기로 하는 경우 별도의 계약을 체결한다.</p>"],
+    ["제14조 (분쟁의 해결 및 준거법)",
+      "<ol>" +
+      "<li>이 계약은 대한민국 법률에 따른다.</li>" +
+      "<li>이 계약에 관한 분쟁이 발생한 경우 양 당사자는 협의하여 해결하고, 협의가 성립하지 아니하는 경우 갑의 주소지 관할 법원(부산지방법원)을 제1심 관할 법원으로 한다.</li>" +
+      "</ol>"],
+    ["제15조 (전자문서 및 기타)",
+      "<ol>" +
+      "<li>이 계약은 「전자문서 및 전자거래 기본법」에 따라 전자문서로 체결될 수 있으며, 전자서명이 기재된 전자문서는 서면으로 작성한 계약과 같은 효력을 가진다.</li>" +
+      "<li>이 계약의 내용을 변경하려면 양 당사자의 서면(전자문서 포함) 합의에 의한다.</li>" +
+      "<li>이 계약에 정하지 아니한 사항은 관계 법령과 일반 관행에 따른다.</li>" +
+      "<li><b>특약사항</b>: <span class=\"blank\">____________________</span></li>" +
+      "</ol>"]
+  ];
+
+  var body = clauses.map(function(c){
+    return '<div class="clause"><h3>' + c[0] + "</h3>" + c[1] + "</div>";
+  }).join("");
+
+  var sign = '<div class="sign-block">' +
+    "<table class=\"sign-table\">" +
+    "<tr><th>갑 (발주자)</th><th>을 (연주자)</th></tr>" +
+    "<tr><td><div class=\"sign-party\">클래시움 대표 <b>" + esc(C.ceo) + "</b></div>" +
+      "<div class=\"sign-space\">(서명 또는 인)</div></td>" +
+    "<td><div class=\"sign-party\"><b>" + name + "</b> (" + inst + ")</div>" +
+      "<div class=\"sign-space\">" + (s.sig ? '<img src="' + s.sig + '" alt="연주자 서명">' : "") + "</div></td></tr>" +
+    "</table>" +
+    "<div class=\"sign-meta\">" +
+      (s.signedISO
+        ? "서명일시 " + fmtDateTime(s.signedISO) + " · 계약번호 " + esc(s.no) + " · 전자서명 검증값(해시) " + esc((s.hash || "").slice(0, 24)) + "…"
+        : "전자서명으로 체결하는 경우 서명 일시와 검증값(해시)이 함께 기록됩니다.") +
+    "</div></div>";
+
+  return '' +
+    '<div class="doc-no">' +
+      "<span>계약번호</span><b>" + esc(s.no) + "</b>" +
+      "<span>작성일</span><b>" + fmtDate(todayISO()) + "</b>" +
+    "</div>" +
+    "<h2>클래시움 연주 용역 계약서</h2>" +
+    '<p class="lead">협업기관 탄티(Tanti) 공연 전용 · 3.3% 프리랜서(사업소득) 연주 용역 계약 · 전자서명</p>' +
+    "<p>클래시움(이하 \"갑\")과 아래 연주자(이하 \"을\")는 갑이 협업기관인 탄티(Tanti, 이하 \"협업기관\")와 협력하여 진행하는 공연의 연주 용역에 관하여 다음과 같이 계약을 체결한다.</p>" +
+    "<table>" +
+      "<tr><th>갑</th><td>" + esc(C.name) + " (" + esc(C.nameEn) + ") · 대표 " + esc(C.ceo) +
+        "<br>사업자등록번호 " + esc(C.bizNo) + "<br>" + esc(C.addr) + "<br>" + esc(C.email) + "</td></tr>" +
+      "<tr><th>협업기관</th><td>탄티 (Tanti) — 갑과 협력하여 공연을 운영하는 기관(공연장)</td></tr>" +
+      "<tr><th>을</th><td>성명 " + name +
+        "<br>악기 " + inst +
+        "<br>연락처 " + phone +
+        "<br>주민등록번호 " + rrn +
+        (s.addr ? "<br>주소 " + addr : "") +
+        "<br>입금 계좌 " + bank + "</td></tr>" +
+    "</table>" +
+    body +
+    scheduleHTML() +
+    "<h3>" + (onSchedule ? "별지 2" : "별지 1") + ". 연주 조건 요약</h3>" +
+    "<table>" +
+      "<tr><th>계약기간</th><td>" + period + "</td></tr>" +
+      "<tr><th>공연 장소</th><td>" + place + " (협업기관)</td></tr>" +
+      "<tr><th>연주 시간</th><td><b>일반 연주</b> — 평일: " + wd + " / 주말: " + we + "<br><b>특별연주</b> — 20:00~21:00(약 1시간)</td></tr>" +
+      "<tr><th>리허설·대기</th><td>연주 시작 최소 " + arrival + " 도착, 시작 10분 전까지 세팅 완료 후 무대 대기</td></tr>" +
+      (onSchedule
+        ? "<tr><th>출연 대가·실지급액</th><td>별지 1에 기재된 금액에 따름 (소득세 3% + 지방소득세 0.3% 원천징수 후 지급)</td></tr>"
+        : "<tr><th>출연 대가(세전)</th><td>" + feeText + "</td></tr>" +
+          "<tr><th>실지급액</th><td>" + (fee ? won(tax.net) : "-") + " (3.3% 원천징수 후)</td></tr>") +
+      "<tr><th>지급일</th><td>연주한 달의 다음 달 20일 이후 말일 (협업기관 정산 일정에 따름)</td></tr>" +
+    "</table>" +
+    sign;
+}
+
+function renderContract(){
+  $("#readDoc").innerHTML = contractHTML();
+}
+
+/* ============================================================
+   단계 이동
+   ============================================================ */
+function setStep(n, scroll){
+  step = n;
+  $$(".step").forEach(function(el){
+    el.classList.toggle("on", Number(el.dataset.step) === n);
+  });
+  $$("#steps li").forEach(function(li){
+    var s = Number(li.dataset.s);
+    li.classList.toggle("on", s === n);
+    li.classList.toggle("done", s < n);
+  });
+  var bar = $("#bar");
+  if(n === 4){ bar.hidden = true; }
+  else{
+    bar.hidden = false;
+    $("#btnPrev").style.visibility = (n === 1) ? "hidden" : "visible";
+    $("#btnNext").textContent = (n === 1) ? "정보 입력" : (n === 2 ? "서명하기" : "서명 완료");
+  }
+  if(scroll !== false) window.scrollTo(0, 0);
+  saveDraft();
+}
+
+function showErr(id, on){
+  var el = $("#" + id);
+  if(el) el.classList.toggle("show", !!on);
+}
+function markInvalid(el, on){
+  if(el) el.classList.toggle("invalid", !!on);
+}
+
+function validateStep2(){
+  var ok = true, first = null;
+  function fail(el, errId){
+    ok = false; markInvalid(el, true); showErr(errId, true);
+    if(!first) first = el;
+  }
+  var feeEl = $("#fee");
+  var amount = payableAmount();
+  if(!amount || amount < 1000){
+    ok = false;
+    if(!hasSchedule()){ markInvalid(feeEl, true); showErr("errFee", true); if(!first) first = feeEl; }
+  } else { markInvalid(feeEl, false); showErr("errFee", false); }
+  var nameEl = $("#name");
+  if(!state.name.trim()) fail(nameEl, "errName"); else { markInvalid(nameEl, false); showErr("errName", false); }
+  var need = [
+    ["#place", !!state.place.trim()],
+    ["#instrument", !!state.instrument.trim()],
+    ["#phone", digits(state.phone).length >= 9],
+    ["#rrn", digits(state.rrn).length === 13],
+    ["#bank", !!state.bank.trim()],
+    ["#account", digits(state.account).length >= 6]
+  ];
+  need.forEach(function(pair){
+    var el = $(pair[0]);
+    if(!pair[1]){ ok = false; markInvalid(el, true); if(!first) first = el; }
+    else markInvalid(el, false);
+  });
+  if(!ok){
+    if(first && first.scrollIntoView) first.scrollIntoView({block:"center", behavior:"smooth"});
+    if(first && first.focus) setTimeout(function(){ try{ first.focus({preventScroll:true}); }catch(e){} }, 250);
+  }
+  return ok;
+}
+
+function validateStep1(){
+  if(!state.read){ showErr("errRead", true); return false; }
+  showErr("errRead", false);
+  return true;
+}
+
+function validateStep3(){
+  var ok = true;
+  if(!state.portrait){ showErr("errPortrait", true); ok = false; } else showErr("errPortrait", false);
+  if(!(state.privacy && state.confirm)){ showErr("errConsent", true); ok = false; } else showErr("errConsent", false);
+  if(!sig.hasInk()){ showErr("errSig", true); ok = false; } else showErr("errSig", false);
+  if(!ok){
+    var target = !state.portrait ? $("#portrait") : (!(state.privacy && state.confirm) ? $("#privacy") : $("#sigpad"));
+    if(target && target.scrollIntoView) target.scrollIntoView({block:"center", behavior:"smooth"});
+  }
+  return ok;
+}
+
+/* ============================================================
+   서명 패드
+   ============================================================ */
+var sig = {
+  canvas: null, ctx: null, strokes: [], drawing: false, dpr: 1, pointer: null, img: null,
+  init: function(){
+    this.canvas = $("#sigpad");
+    this.ctx = this.canvas.getContext("2d");
+    var self = this;
+    this.resize();
+    window.addEventListener("resize", function(){ self.resize(); });
+
+    this.canvas.addEventListener("pointerdown", function(e){ self.start(e); });
+    this.canvas.addEventListener("pointermove", function(e){ self.move(e); });
+    this.canvas.addEventListener("pointerup", function(e){ self.end(e); });
+    this.canvas.addEventListener("pointercancel", function(e){ self.end(e); });
+    this.canvas.addEventListener("pointerleave", function(e){ if(self.drawing) self.end(e); });
+    this.canvas.addEventListener("touchstart", function(e){ if(e.cancelable) e.preventDefault(); }, {passive:false});
+  },
+  resize: function(){
+    var rect = this.canvas.getBoundingClientRect();
+    if(!rect.width) return;
+    this.dpr = Math.min(window.devicePixelRatio || 1, 3);
+    this.canvas.width = Math.round(rect.width * this.dpr);
+    this.canvas.height = Math.round(rect.height * this.dpr);
+    this.redraw();
+  },
+  pos: function(e){
+    var r = this.canvas.getBoundingClientRect();
+    return {
+      x: Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)),
+      y: Math.min(1, Math.max(0, (e.clientY - r.top) / r.height))
+    };
+  },
+  start: function(e){
+    if(e.cancelable) e.preventDefault();
+    this.drawing = true;
+    this.img = null;
+    this.strokes.push([this.pos(e)]);
+    try{ this.canvas.setPointerCapture(e.pointerId); }catch(err){}
+    this.redraw();
+  },
+  move: function(e){
+    if(!this.drawing || !this.strokes.length) return;
+    if(e.cancelable) e.preventDefault();
+    var p = this.pos(e);
+    var last = this.strokes[this.strokes.length - 1][this.strokes[this.strokes.length - 1].length - 1];
+    if(Math.abs(p.x - last.x) < 0.0008 && Math.abs(p.y - last.y) < 0.0008) return;
+    this.strokes[this.strokes.length - 1].push(p);
+    this.redraw();
+  },
+  end: function(){
+    this.drawing = false;
+    this.updatePlaceholder();
+    saveDraft();
+  },
+  redraw: function(){
+    var c = this.ctx, w = this.canvas.width, h = this.canvas.height;
+    c.clearRect(0, 0, w, h);
+    if(this.img){ try{ c.drawImage(this.img, 0, 0, w, h); }catch(e){} }
+    var ink = "#1b2a3a";
+    c.strokeStyle = ink; c.lineCap = "round"; c.lineJoin = "round";
+    c.lineWidth = Math.max(1.6, 2.1 * this.dpr);
+    var self = this;
+    this.strokes.forEach(function(stroke){
+      if(!stroke.length) return;
+      c.beginPath();
+      if(stroke.length === 1){
+        c.arc(stroke[0].x * w, stroke[0].y * h, c.lineWidth / 2, 0, Math.PI * 2);
+        c.fillStyle = ink; c.fill();
+        return;
+      }
+      c.moveTo(stroke[0].x * w, stroke[0].y * h);
+      for(var i = 1; i < stroke.length; i++){
+        var p0 = stroke[i - 1], p1 = stroke[i];
+        var mx = (p0.x + p1.x) / 2 * w, my = (p0.y + p1.y) / 2 * h;
+        c.quadraticCurveTo(p0.x * w, p0.y * h, mx, my);
+      }
+      c.lineTo(stroke[stroke.length - 1].x * w, stroke[stroke.length - 1].y * h);
+      c.stroke();
+    });
+    this.updatePlaceholder();
+  },
+  updatePlaceholder: function(){
+    var ph = $("#sigph");
+    if(ph) ph.style.opacity = this.hasInk() ? "0" : "1";
+  },
+  hasInk: function(){
+    if(this.img) return true;
+    var points = 0, len = 0;
+    this.strokes.forEach(function(stroke){
+      points += stroke.length;
+      for(var i = 1; i < stroke.length; i++){
+        var dx = stroke[i].x - stroke[i - 1].x, dy = stroke[i].y - stroke[i - 1].y;
+        len += Math.sqrt(dx * dx + dy * dy);
+      }
+    });
+    return points >= 4 && len > 0.02;
+  },
+  undo: function(){
+    this.strokes.pop();
+    this.redraw(); saveDraft();
+  },
+  clear: function(){
+    this.strokes = [];
+    this.img = null;
+    this.redraw(); saveDraft();
+  },
+  dataURL: function(){
+    try{ return this.canvas.toDataURL("image/png"); }catch(e){ return null; }
+  },
+  load: function(url){
+    if(!url) return;
+    var self = this;
+    var im = new Image();
+    im.onload = function(){ self.img = im; self.redraw(); };
+    im.src = url;
+  }
+};
+
+/* ============================================================
+   임시 저장
+   ============================================================ */
+var saveTimer = null;
+var savedStep = 1;
+function saveDraft(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(function(){
+    try{
+      var copy = {};
+      Object.keys(state).forEach(function(k){ copy[k] = state[k]; });
+      copy.sig = sig.hasInk() ? (state.sig || sig.dataURL()) : null;
+      copy.step = step;
+      var fee = payableAmount();
+      copy.tax = calcTax(fee).net;
+      localStorage.setItem(STORE_KEY, JSON.stringify(copy));
+    }catch(e){}
+  }, 400);
+}
+function loadDraft(){
+  try{
+    var raw = localStorage.getItem(STORE_KEY);
+    if(!raw) return false;
+    var d = JSON.parse(raw);
+    Object.keys(state).forEach(function(k){ if(k in d && d[k] != null) state[k] = d[k]; });
+    if(state.portrait === "agree") state.portrait = true;
+    else if(state.portrait === "disagree" || state.portrait === "") state.portrait = false;
+    if(!Array.isArray(state.items)) state.items = [];
+    savedStep = Math.min(Math.max(1, Number(d.step) || 1), 4);
+    return true;
+  }catch(e){ return false; }
+}
+function clearDraft(){
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+}
+
+/* ============================================================
+   화면 ↔ 상태 연결
+   ============================================================ */
+function fillForm(){
+  $("#start").value = state.start || "";
+  $("#end").value = state.end || "";
+  $("#place").value = state.place || "";
+  $("#wdTime").value = state.wdTime || "";
+  $("#weTime").value = state.weTime || "";
+  $("#arrival").value = String(state.arrival || 30);
+  $("#fee").value = state.fee ? comma(state.fee) : "";
+  $("#name").value = state.name || "";
+  $("#instrument").value = state.instrument || "";
+  $("#phone").value = state.phone || "";
+  $("#rrn").value = state.rrn ? (state.rrn.length > 6 ? state.rrn.slice(0, 6) + "-" + state.rrn.slice(6) : state.rrn) : "";
+  $("#addr").value = state.addr || "";
+  $("#bank").value = state.bank || "";
+  $("#account").value = state.account || "";
+  $("#agreeRead").checked = !!state.read;
+  $("#privacy").checked = !!state.privacy;
+  $("#confirm").checked = !!state.confirm;
+  $("#portrait").checked = (state.portrait === true || state.portrait === "agree");
+  renderSchedule();
+  renderTax();
+  renderContract();
+}
+
+function renderSchedule(){
+  var has = hasSchedule();
+  var card = $("#schedCard");
+  if(card) card.hidden = !has;
+  var fField = $("#feeField"); if(fField) fField.hidden = has;
+  var sField = $("#feeSumField"); if(sField) sField.hidden = !has;
+  if(!has) return;
+  var items = state.items;
+  var total = itemsSum();
+  var t = calcTax(total);
+  $("#schedMonth").textContent = (fmtMonth(state.month) || "") + (state.name ? " · " + state.name + " 님" : "");
+  var rows = items.map(function(it){
+    return "<tr><td>" + esc(it.date) + (weekdayKo(it.date) ? " (" + weekdayKo(it.date) + ")" : "") + "</td>" +
+      '<td class="t">' + schedTimeHTML(it.time) + "</td><td>" + esc(it.form) + "</td>" +
+      '<td class="num">' + (it.fee ? comma(it.fee) : "-") + "</td></tr>";
+  }).join("");
+  $("#schedTable").innerHTML = '<tr><th>날짜</th><th>시간</th><th>편성</th><th style="text-align:right">출연 대가</th></tr>' + rows +
+    '<tr class="sum"><td colspan="3">합계 (' + items.length + '건)</td><td class="num">' + comma(total) + "</td></tr>";
+  $("#schedTotal").innerHTML = '<div class="calc"><span>출연 대가 합계(세전)</span><span>' + won(total) + "</span></div>" +
+    '<div class="calc"><span>원천징수 3.3%</span><span>-' + won(t.total) + "</span></div>" +
+    '<div class="net"><span>실지급액</span><b>' + won(t.net) + "</b></div>";
+  $("#feeSum").value = comma(total) + "원";
+}
+
+function renderTax(){
+  var fee = payableAmount();
+  var t = calcTax(fee);
+  var label = $("#cFeeLabel");
+  if(label) label.textContent = hasSchedule() ? "출연 대가 합계(세전)" : "출연 대가(세전)";
+  $("#cFee").textContent = fee ? won(fee) : "-";
+  $("#cIncome").textContent = fee ? "-" + won(t.income) : "-";
+  $("#cLocal").textContent = fee ? "-" + won(t.local) : "-";
+  $("#cNet").textContent = fee ? won(t.net) : "-";
+  var el = $("#docSub");
+  if(el){
+    var sub;
+    if(hasSchedule()) sub = (state.name ? state.name + " 님 · " : "") + (fmtMonth(state.month) || "연주") + " 일정 " + state.items.length + "건 · 3.3% 원천징수";
+    else if(state.name) sub = state.name + " 님 · 3.3% 프리랜서 연주 용역";
+    else sub = "협업기관 탄티 공연 전용 · 3.3% 프리랜서 연주 용역";
+    el.textContent = sub;
+  }
+}
+
+function bindInputs(){
+  function text(id, key, transform){
+    var el = $("#" + id);
+    el.addEventListener("input", function(){
+      var v = el.value;
+      if(transform) v = transform(v, el);
+      state[key] = v;
+      markInvalid(el, false);
+      var errId = "err" + id.charAt(0).toUpperCase() + id.slice(1);
+      if($("#" + errId)) showErr(errId, false);
+      renderContract();
+      saveDraft();
+    });
+  }
+  text("place", "place");
+  text("wdTime", "wdTime");
+  text("weTime", "weTime");
+  text("instrument", "instrument");
+  text("addr", "addr");
+  text("bank", "bank");
+  text("name", "name");
+
+  $("#start").addEventListener("change", function(){ state.start = this.value; renderContract(); saveDraft(); });
+  $("#end").addEventListener("change", function(){ state.end = this.value; renderContract(); saveDraft(); });
+  $("#arrival").addEventListener("change", function(){ state.arrival = Number(this.value); renderContract(); saveDraft(); });
+
+  var feeEl = $("#fee");
+  feeEl.addEventListener("input", function(){
+    var d = digits(feeEl.value).replace(/^0+(?=\d)/, "");
+    state.fee = d;
+    feeEl.value = d ? comma(d) : "";
+    markInvalid(feeEl, false); showErr("errFee", false);
+    renderTax(); renderContract(); saveDraft();
+  });
+
+  var phoneEl = $("#phone");
+  phoneEl.addEventListener("input", function(){
+    var d = digits(phoneEl.value).slice(0, 11);
+    state.phone = d;
+    var out = d;
+    if(d.length > 3 && d.length <= 7) out = d.slice(0, 3) + "-" + d.slice(3);
+    else if(d.length > 7) out = d.slice(0, 3) + "-" + d.slice(3, 7) + "-" + d.slice(7);
+    phoneEl.value = out;
+    markInvalid(phoneEl, false);
+    renderContract(); saveDraft();
+  });
+
+  var rrnEl = $("#rrn");
+  rrnEl.addEventListener("input", function(){
+    var d = digits(rrnEl.value).slice(0, 13);
+    state.rrn = d;
+    rrnEl.value = d.length > 6 ? d.slice(0, 6) + "-" + d.slice(6) : d;
+    markInvalid(rrnEl, false);
+    renderContract(); saveDraft();
+  });
+
+  var accEl = $("#account");
+  accEl.addEventListener("input", function(){
+    state.account = accEl.value.replace(/[^\d-]/g, "");
+    markInvalid(accEl, false);
+    renderContract(); saveDraft();
+  });
+
+  $("#agreeRead").addEventListener("change", function(){
+    state.read = this.checked;
+    showErr("errRead", !this.checked);
+    saveDraft();
+  });
+  $("#privacy").addEventListener("change", function(){
+    state.privacy = this.checked;
+    if(this.checked && state.confirm) showErr("errConsent", false);
+    saveDraft();
+  });
+  $("#confirm").addEventListener("change", function(){
+    state.confirm = this.checked;
+    if(this.checked && state.privacy) showErr("errConsent", false);
+    saveDraft();
+  });
+  $("#portrait").addEventListener("change", function(){
+    state.portrait = this.checked;
+    if(this.checked) showErr("errPortrait", false);
+    renderContract(); saveDraft();
+  });
+  $("#undoSig").addEventListener("click", function(){ sig.undo(); showErr("errSig", !sig.hasInk()); });
+  $("#clearSig").addEventListener("click", function(){ sig.clear(); showErr("errSig", true); });
+}
+
+/* ============================================================
+   서명 완료 처리
+   ============================================================ */
+function canonicalPayload(){
+  var fee = payableAmount();
+  return JSON.stringify({
+    app: "classium-contract",
+    template: CONFIG.template,
+    version: CONFIG.version,
+    contractNo: state.no,
+    issuedAt: state.issuedISO,
+    signedAt: state.signedISO,
+    period: [state.start, state.end],
+    month: state.month || null,
+    place: state.place,
+    weekdayTime: state.wdTime,
+    weekendTime: state.weTime,
+    arrivalMinutes: state.arrival,
+    fee: fee,
+    generalFee: generalUnitFee(),
+    specialFee: specialUnitFee(),
+    tax: calcTax(fee),
+    schedule: (state.items || []).map(function(it){
+      return { date: it.date, time: it.time, form: it.form, fee: Number(it.fee) || 0, place: it.place, note: it.note };
+    }),
+    performer: {
+      name: state.name, instrument: state.instrument, phone: state.phone,
+      rrn: state.rrn, address: state.addr, bank: state.bank, account: state.account
+    },
+    consents: { portrait: !!state.portrait, privacy: state.privacy, read: state.read },
+    signature: state.sig || ""
+  });
+}
+
+function completeSigning(){
+  if(!validateStep3()) return;
+  state.sig = sig.dataURL();
+  state.signedISO = new Date().toISOString();
+  state.hash = sha256Hex(canonicalPayload());
+  $("#doneNo").textContent = state.no;
+  $("#doneAt").textContent = fmtDateTime(state.signedISO);
+  $("#doneHash").textContent = state.hash.slice(0, 24) + "…";
+  $("#signedDoc").innerHTML = contractHTML();
+  $("#printRoot").innerHTML = '<div class="print-doc"><div class="contract">' + contractHTML() + "</div></div>";
+  saveDraft();
+  if(CONFIG.endpoint) sendToServer();
+  setStep(4);
+  var share = $("#btnShare");
+  if(share) share.style.display = (navigator.canShare && window.File) ? "inline-flex" : "none";
+}
+
+function sendToServer(){
+  try{
+    var payload = JSON.parse(canonicalPayload());
+    payload.hash = state.hash;
+    fetch(CONFIG.endpoint, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    }).catch(function(){});
+  }catch(e){}
+}
+
+/* ============================================================
+   저장 파일 (JSON / PNG / 인쇄 / 공유)
+   ============================================================ */
+function fileName(ext){
+  var d = new Date();
+  var stamp = d.getFullYear() + pad2(d.getMonth() + 1) + pad2(d.getDate());
+  var who = (state.name || "연주자").replace(/[\\/:*?"<>|\s]/g, "");
+  return "클래시움_계약서_" + who + "_" + stamp + "." + ext;
+}
+function downloadBlob(blob, name){
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url; a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 1500);
+}
+
+function downloadJSON(){
+  var fee = payableAmount();
+  var payload = {
+    app: "클래시움 전자계약서",
+    template: CONFIG.template,
+    version: CONFIG.version,
+    contractNo: state.no,
+    issuedAt: state.issuedISO,
+    signedAt: state.signedISO,
+    company: CONFIG.company,
+    contract: {
+      periodStart: state.start, periodEnd: state.end,
+      month: state.month || null,
+      place: state.place,
+      weekdayTime: state.wdTime, weekendTime: state.weTime,
+      arrivalMinutes: state.arrival,
+      fee: fee, tax: calcTax(fee),
+      generalFee: generalUnitFee(), specialFee: specialUnitFee(),
+      paymentDue: "연주한 달의 다음 달 20일 이후 말일 (협업기관 정산·지급 일정에 따라 순연될 수 있음)",
+      feeNote: hasSchedule() ? "일정 " + state.items.length + "건 합계, 세전" : "1일 1공연 기준, 세전",
+      schedule: (state.items || []).map(function(it){
+        return { date: it.date, time: it.time, form: it.form, fee: Number(it.fee) || 0, place: it.place, note: it.note };
+      })
+    },
+    performer: {
+      name: state.name, instrument: state.instrument, phone: state.phone,
+      rrn: state.rrn, address: state.addr, bank: state.bank, account: state.account
+    },
+    consents: {
+      portrait: !!state.portrait, privacy: !!state.privacy, readAgreed: !!state.read
+    },
+    signature: { imageDataUrl: state.sig, format: "image/png" },
+    integrity: {
+      algorithm: "SHA-256",
+      hash: state.hash,
+      hashedFields: "계약번호·작성일시·서명일시·연주자 정보·계약 조건·동의·서명 이미지"
+    },
+    notice: "이 파일에는 주민등록번호와 계좌번호가 포함되어 있습니다. 본인 보관용으로만 사용하세요."
+  };
+  downloadBlob(new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"}), fileName("json"));
+}
+
+function downloadPNG(){
+  var C = CONFIG.company;
+  var fee = payableAmount();
+  var tax = calcTax(fee);
+  var W = 1080, H = 1860;
+  var cv = document.createElement("canvas");
+  cv.width = W; cv.height = H;
+  var g = cv.getContext("2d");
+  var SANS = '"Apple SD Gothic Neo","Noto Sans KR","Noto Sans CJK KR","Malgun Gothic",sans-serif';
+  var SERIF = '"AppleMyungjo","Nanum Myeongjo","Noto Serif CJK KR","Batang",serif';
+
+  g.fillStyle = "#fffdf9"; g.fillRect(0, 0, W, H);
+  g.fillStyle = "#7d2b3f"; g.fillRect(0, 0, W, 12);
+
+  function text(str, x, y, font, color, align){
+    g.font = font; g.fillStyle = color; g.textAlign = align || "left";
+    g.fillText(str, x, y);
+  }
+  function wrap(str, x, y, maxW, lh, font, color){
+    g.font = font; g.fillStyle = color; g.textAlign = "left";
+    var words = String(str).split(" "), line = "", yy = y;
+    for(var i = 0; i < words.length; i++){
+      var test = line ? line + " " + words[i] : words[i];
+      if(g.measureText(test).width > maxW && line){ g.fillText(line, x, yy); line = words[i]; yy += lh; }
+      else line = test;
+    }
+    if(line) g.fillText(line, x, yy);
+    return yy;
+  }
+  function label(str, x, y){ text(str, x, y, "500 24px " + SANS, "#8a8175"); }
+  function value(str, x, y, size){ text(str, x, y, "500 " + (size || 31) + "px " + SANS, "#1b1a18"); }
+  function hr(y, color){ g.strokeStyle = color || "#e8dfd1"; g.lineWidth = 1.5; g.beginPath(); g.moveTo(72, y); g.lineTo(W - 72, y); g.stroke(); }
+
+  text("클래시움  CLASSIUM  ·  탄티 협업 공연", 72, 92, "700 26px " + SANS, "#7d2b3f");
+  text("연주 용역 계약서", 72, 172, "700 58px " + SERIF, "#1b1a18");
+  text("계약번호 " + state.no + "  ·  " + (state.signedISO ? fmtDateTime(state.signedISO) + " 서명" : ""),
+       72, 214, "400 24px " + SANS, "#8a8175");
+  hr(252);
+
+  /* 갑 */
+  var y = 302;
+  label("갑 (발주자)", 72, y);
+  y += 44;
+  value(C.name + "  대표 " + C.ceo, 72, y, 32);
+  y += 42;
+  text("사업자등록번호 " + C.bizNo, 72, y, "400 26px " + SANS, "#4a4742");
+  y += 38;
+  text(C.addr, 72, y, "400 26px " + SANS, "#4a4742");
+  y += 38;
+  text(C.email, 72, y, "400 26px " + SANS, "#4a4742");
+
+  /* 을 */
+  y += 78;
+  label("을 (연주자)", 72, y);
+  y += 44;
+  value(state.name + (state.instrument ? "  ·  " + state.instrument : ""), 72, y, 32);
+  y += 42;
+  text((state.phone ? fmtPhone(state.phone) : "-") + "   주민등록번호 " + (state.rrn ? maskRRN(state.rrn) : "-"),
+       72, y, "400 26px " + SANS, "#4a4742");
+  y += 38;
+  text((state.bank || "-") + "  " + (state.account || "-"), 72, y, "400 26px " + SANS, "#4a4742");
+
+  hr(y + 48);
+
+  /* 조건 */
+  y += 112;
+  label("계약 조건", 72, y);
+  y += 48;
+  var rows = [
+    ["계약기간", (fmtDate(state.start) || "-") + " ~ " + (fmtDate(state.end) || "-")],
+    ["공연 장소", state.place || "-"],
+    ["평일 연주", state.wdTime || "-"],
+    ["주말 연주", state.weTime || "-"],
+    ["특별연주", "20:00~21:00 (약 1시간)"],
+    ["리허설·대기", "시작 " + arrivalText(state.arrival || 60) + " 도착 · 10분 전 무대 대기"],
+    ["출연 대가(세전)", fee ? won(fee) + (hasSchedule() ? " (" + state.items.length + "건 합계)" : " (1회 기준)") : "-"],
+    ["원천징수 3.3%", fee ? "-" + won(tax.total) : "-"],
+    ["실지급액", fee ? won(tax.net) : "-"]
+  ];
+  rows.forEach(function(r){
+    label(r[0], 72, y);
+    text(r[1], 320, y, "500 28px " + SANS, "#1b1a18");
+    y += 44;
+  });
+
+  hr(y + 4);
+
+  /* 동의 */
+  y += 66;
+  label("동의", 72, y);
+  y += 44;
+  text("초상권 및 사진·영상 활용 — " + (state.portrait ? "동의함" : "-"),
+       72, y, "500 28px " + SANS, "#1b1a18");
+  y += 40;
+  text("개인정보 수집·이용(세금 신고용) — " + (state.privacy ? "동의함" : "-"),
+       72, y, "500 28px " + SANS, "#1b1a18");
+
+  hr(y + 44);
+
+  /* 서명 */
+  y += 106;
+  label("을 서명", 72, y);
+  var boxY = y + 22;
+  g.strokeStyle = "#ded4c5"; g.lineWidth = 1.5;
+  g.strokeRect(72, boxY, 520, 190);
+  if(state.sig){
+    var img = new Image();
+    img.onload = function(){
+      var maxW = 480, maxH = 160;
+      var sc = Math.min(maxW / img.width, maxH / img.height, 1);
+      var iw = img.width * sc, ih = img.height * sc;
+      g.drawImage(img, 72 + (520 - iw) / 2, boxY + (190 - ih) / 2, iw, ih);
+      finish();
+    };
+    img.src = state.sig;
+  } else {
+    finish();
+  }
+
+  function finish(){
+    text("서명일시", 640, boxY + 52, "500 24px " + SANS, "#8a8175");
+    text(state.signedISO ? fmtDateTime(state.signedISO) : "-", 640, boxY + 92, "500 28px " + SANS, "#1b1a18");
+    text("검증값(해시 앞 16자리)", 640, boxY + 146, "500 24px " + SANS, "#8a8175");
+    text((state.hash || "-").slice(0, 16), 640, boxY + 182, "500 26px " + SANS, "#4a4742");
+
+    text("이 문서는 클래시움 전자계약 화면에서 서명·발급되었습니다. 주민등록번호 뒷자리는 가려서 표시했습니다.",
+         W / 2, H - 70, "400 22px " + SANS, "#a49b8e", "center");
+    try{
+      cv.toBlob(function(blob){
+        if(blob) downloadBlob(blob, fileName("png"));
+      }, "image/png");
+    }catch(e){}
+  }
+}
+
+function shareFile(){
+  var msg = $("#shareMsg");
+  function say(t){ msg.textContent = t; msg.classList.add("show"); }
+  if(!navigator.canShare || !window.File || !state.sig){ 
+    say("이 브라우저에서는 파일 공유가 안 돼요. 위에서 PDF나 이미지를 저장한 뒤 카톡으로 보내 주세요.");
+    return;
+  }
+  var img = new Image();
+  img.onload = function(){
+    var cv = document.createElement("canvas");
+    cv.width = img.width; cv.height = img.height;
+    cv.getContext("2d").drawImage(img, 0, 0);
+    cv.toBlob(function(blob){
+      if(!blob){ say("이미지를 만들지 못했어요. PNG로 저장한 뒤 보내 주세요."); return; }
+      var file = new File([blob], fileName("png"), {type:"image/png"});
+      if(!navigator.canShare({files:[file]})){
+        say("이 브라우저에서는 파일 공유가 안 돼요. PNG로 저장한 뒤 카톡으로 보내 주세요.");
+        return;
+      }
+      navigator.share({files:[file], title:"클래시움 연주 용역 계약서"}).catch(function(){});
+    }, "image/png");
+  };
+  img.src = state.sig;
+}
+
+/* ============================================================
+   개인별 링크 만들기
+   ============================================================ */
+function sheetOpen(){
+  $("#linkSheet").hidden = false;
+  document.body.style.overflow = "hidden";
+  if(!$("#bRows").children.length) bAddRow(state.items || null);
+  if(!$("#bMonth").value){
+    var t = new Date();
+    $("#bMonth").value = t.getFullYear() + "-" + pad2(t.getMonth() + 1);
+  }
+  if(!$("#bName").value) $("#bName").value = state.name || "";
+  if(!$("#bInst").value) $("#bInst").value = state.instrument || "";
+  bUpdateTotal();
+}
+function sheetClose(){
+  $("#linkSheet").hidden = true;
+  document.body.style.overflow = "";
+}
+function bAddRow(data){
+  data = (data && data.date) ? data : {};
+  var row = document.createElement("div");
+  row.className = "b-row";
+  row.innerHTML = '<input type="date" class="b-date">' +
+    '<input type="text" class="b-time" placeholder="19:30~20:00 / 21:00~21:30">' +
+    '<input type="text" class="b-form" placeholder="트리오·특별">' +
+    '<input type="text" class="b-fee" inputmode="numeric" placeholder="80000">' +
+    '<button type="button" class="b-del" aria-label="일정 지우기">×</button>';
+  $("#bRows").appendChild(row);
+  if(data.date) row.querySelector(".b-date").value = data.date;
+  if(data.time) row.querySelector(".b-time").value = data.time;
+  if(data.form) row.querySelector(".b-form").value = data.form;
+  if(data.fee) row.querySelector(".b-fee").value = data.fee;
+  row.querySelector(".b-del").addEventListener("click", function(){
+    row.parentNode.removeChild(row);
+    if(!$("#bRows").children.length) bAddRow();
+    bUpdateTotal();
+  });
+  row.addEventListener("input", bUpdateTotal);
+  bUpdateTotal();
+  return row;
+}
+function bRowsData(){
+  return $$("#bRows .b-row").map(function(row){
+    return {
+      date: row.querySelector(".b-date").value,
+      time: row.querySelector(".b-time").value.trim(),
+      form: row.querySelector(".b-form").value.trim(),
+      fee: digits(row.querySelector(".b-fee").value)
+    };
+  }).filter(function(it){ return it.date; });
+}
+function bUpdateTotal(){
+  var el = $("#bTotal");
+  if(!el) return;
+  var items = bRowsData();
+  var total = items.reduce(function(a, it){ return a + (Number(it.fee) || 0); }, 0);
+  var t = calcTax(total);
+  el.innerHTML = items.length
+    ? "일정 <b>" + items.length + "건</b> · 합계 <b>" + won(total) + "</b> · 3.3% 공제 후 실지급 <b>" + won(t.net) + "</b>"
+    : "일정을 추가해 주세요.";
+}
+function bBuildURL(){
+  var payload = {
+    v: 1,
+    name: $("#bName").value.trim(),
+    inst: $("#bInst").value.trim(),
+    month: $("#bMonth").value,
+    place: $("#bPlace").value.trim(),
+    items: bRowsData()
+  };
+  var base = location.href.split("#")[0].split("?")[0];
+  return base + "?d=" + strToB64u(JSON.stringify(payload));
+}
+function bMake(){
+  var name = $("#bName").value.trim();
+  var items = bRowsData();
+  var msg = $("#bMsg");
+  if(!name){ msg.textContent = "성명을 넣어 주세요."; $("#bName").focus(); return; }
+  if(!items.length){ msg.textContent = "일정을 한 건 이상 넣어 주세요."; return; }
+  $("#bOut").hidden = false;
+  $("#bUrl").value = bBuildURL();
+  msg.textContent = (location.protocol === "file:")
+    ? "지금은 파일로 열린 상태라 이 링크는 이 기기에서만 열려요. 호스팅한 주소에서 만들면 카톡으로 보낼 수 있어요."
+    : "링크가 만들어졌어요. 복사해서 카카오톡으로 보내면 돼요. 이 링크에는 " + name + " 님의 일정 " + items.length + "건만 들어 있어요.";
+  bUpdateTotal();
+}
+function bCopy(){
+  var el = $("#bUrl");
+  var msg = $("#bMsg");
+  if(!el.value) return;
+  el.focus(); el.select();
+  function done(){ msg.textContent = "링크를 복사했어요. 카카오톡에 붙여 넣어 보내면 돼요."; }
+  function fallback(){
+    try{ document.execCommand("copy"); done(); }
+    catch(e){ msg.textContent = "복사가 안 되면 위 링크를 길게 눌러 직접 복사해 주세요."; }
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(el.value).then(done, fallback);
+  } else fallback();
+}
+function bOpen(){
+  var items = bRowsData();
+  if(!$("#bName").value.trim() || !items.length){ bMake(); return; }
+  var name = $("#bName").value.trim();
+  var inst = $("#bInst").value.trim();
+  var month = $("#bMonth").value;
+  var place = $("#bPlace").value.trim();
+  clearPerformerData();
+  sig.clear();
+  state.name = name;
+  state.instrument = inst;
+  state.month = month;
+  if(place) state.place = place;
+  state.items = normItems(items);
+  var r = monthRange(state.month);
+  if(r){ state.start = r.start; state.end = r.end; }
+  fillForm();
+  sheetClose();
+  setStep(1);
+}
+
+/* ============================================================
+   이벤트
+   ============================================================ */
+function resetAll(){
+  clearDraft();
+  state.no = genNo();
+  state.issuedISO = new Date().toISOString();
+  state.start = todayISO();
+  state.end = addYear(todayISO(), 1);
+  state.place = "탄티(부산 수영구)";
+  state.wdTime = "1부 20:00~20:30 / 2부 21:30~22:00";
+  state.weTime = "1부 19:30~20:00 / 2부 21:00~21:30";
+  state.arrival = 60;
+  state.fee = "";
+  state.name = state.instrument = state.phone = state.rrn = state.addr = state.bank = state.account = "";
+  state.month = ""; state.items = [];
+  state.portrait = false; state.privacy = false; state.confirm = false; state.read = false;
+  state.sig = null; state.signedISO = ""; state.hash = "";
+  sig.strokes = []; sig.img = null; sig.redraw();
+  fillForm();
+  $("#draftBanner").classList.remove("show");
+  $("#shareMsg").classList.remove("show");
+  setStep(1);
+}
+
+var resetArmed = false;
+function askReset(btn){
+  if(!resetArmed){
+    resetArmed = true;
+    var old = btn.textContent;
+    btn.textContent = "한 번 더 누르면 지워져요";
+    setTimeout(function(){ resetArmed = false; btn.textContent = old; }, 3000);
+    return;
+  }
+  resetArmed = false;
+  resetAll();
+}
+
+function init(){
+  var restored = loadDraft();
+  if(hasPersonalQuery()){
+    clearPerformerData();
+    restored = false;
+  }
+  var personal = applyQuery();
+  fillForm();
+  if(personal){
+    var bn = $("#draftBanner");
+    bn.querySelector("span").textContent = (state.name ? state.name + " 님" : "본인") + "의 " +
+      (fmtMonth(state.month) || "") + (hasSchedule() ? " 일정 " + state.items.length + "건" : "") + "을 불러왔어요.";
+    $("#btnDiscard").hidden = true;
+    bn.classList.add("show");
+  }
+  sig.init();
+  if(state.sig && !personal){
+    sig.load(state.sig);
+  }
+  if(restored && !personal){
+    $("#draftBanner").classList.add("show");
+    if(state.signedISO){
+      $("#doneNo").textContent = state.no;
+      $("#doneAt").textContent = fmtDateTime(state.signedISO);
+      $("#doneHash").textContent = (state.hash || "").slice(0, 24) + "…";
+      $("#signedDoc").innerHTML = contractHTML();
+      $("#printRoot").innerHTML = '<div class="print-doc"><div class="contract">' + contractHTML() + "</div></div>";
+    }
+  }
+  $("#contractVer").textContent = CONFIG.version;
+
+  bindInputs();
+
+  $("#btnNext").addEventListener("click", function(){
+    if(step === 1){
+      if(!validateStep1()) return;
+      setStep(2);
+    } else if(step === 2){
+      if(!validateStep2()) return;
+      renderContract();
+      setStep(3);
+    } else if(step === 3){
+      completeSigning();
+    }
+  });
+  $("#btnPrev").addEventListener("click", function(){
+    if(step > 1) setStep(step - 1);
+  });
+
+  $("#btnPrint").addEventListener("click", function(){
+    $("#printRoot").innerHTML = '<div class="print-doc"><div class="contract">' + contractHTML() + "</div></div>";
+    setTimeout(function(){ window.print(); }, 80);
+  });
+  $("#btnJson").addEventListener("click", downloadJSON);
+  $("#btnPng").addEventListener("click", downloadPNG);
+  $("#btnShare").addEventListener("click", shareFile);
+
+  $("#btnNew").addEventListener("click", function(){ askReset(this); });
+  $("#btnNew2").addEventListener("click", function(){ askReset(this); });
+  $("#btnDiscard").addEventListener("click", function(){ resetAll(); });
+
+  $("#btnBuild").addEventListener("click", sheetOpen);
+  $("#sheetClose").addEventListener("click", sheetClose);
+  $("#linkSheet").addEventListener("click", function(e){ if(e.target === this) sheetClose(); });
+  $("#bAdd").addEventListener("click", function(){ bAddRow(); });
+  $("#bMake").addEventListener("click", bMake);
+  $("#bCopy").addEventListener("click", bCopy);
+  $("#bOpen").addEventListener("click", bOpen);
+
+  setStep(state.signedISO ? 4 : (restored ? savedStep : 1), false);
+  renderContract();
+  sig.updatePlaceholder();
+}
+
+if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+else init();
+
+})();
+</script>
+</body>
+</html>

@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#7d2b3f">
 <meta name="format-detection" content="telephone=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<!-- v1.7 · 2026.11 -->
 <title>클래시움 연주 용역 계약서</title>
 <style>
 :root{
@@ -184,6 +188,42 @@ input.invalid{border-color:var(--danger);background:#fdf6f5}
 #bOut label{display:block;font-size:11.5px;font-weight:700;color:var(--ink-2);margin-bottom:5px}
 #bMsg{font-size:11.5px;color:var(--ink-2);margin:8px 0 0;line-height:1.5}
 
+/* v1.7 — 악기 칩 · 수령 방식 · 읽기 전용 조건 */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 0}
+.chip{height:34px;padding:0 11px;border:1px solid var(--line-2);border-radius:999px;background:#fff;color:var(--ink-2);font-family:var(--sans);font-size:12.5px;font-weight:600;cursor:pointer;letter-spacing:-.01em}
+.chip.on{background:var(--wine);border-color:var(--wine);color:#fff}
+.chips.invalid{border-radius:10px;box-shadow:0 0 0 2px rgba(179,57,44,.5)}
+#instrumentEtc{margin-top:8px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:2px 0 0}
+.seg-btn{display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:8px 11px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-family:var(--sans);text-align:left;cursor:pointer}
+.seg-btn b{font-size:12.5px;color:var(--ink-2);font-weight:700}
+.seg-btn small{font-size:10.5px;color:var(--ink-3)}
+.seg-btn.on{border-color:var(--wine);background:var(--wine-soft);box-shadow:0 0 0 2px rgba(125,43,63,.10)}
+.seg-btn.on b{color:var(--wine-2)}
+.team-box{margin-top:10px;padding:11px 12px;border:1px solid #ecd9df;background:#fdf8f9;border-radius:10px}
+.team-box .t-label{display:block;font-size:11.5px;font-weight:700;color:var(--ink-2);margin-bottom:5px}
+.ro-rows{display:grid;grid-template-columns:auto 1fr;gap:7px 12px;margin:0;font-size:12.5px;line-height:1.5}
+.ro-rows dt{color:var(--ink-3);font-weight:700;white-space:nowrap}
+.ro-rows dd{margin:0;color:var(--ink)}
+.ro-lock{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;color:var(--ink-3);background:#f4efe7;border-radius:999px;padding:2px 8px;margin-left:6px}
+.warn-note{margin:5px 0 0;font-size:11px;font-weight:700;color:#b45309;line-height:1.45;letter-spacing:-.01em}
+textarea{width:100%;min-height:88px;padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:14px;font-family:var(--sans);color:var(--ink);line-height:1.55;resize:vertical}
+textarea:focus{outline:none;border-color:var(--wine);box-shadow:0 0 0 3px rgba(125,43,63,.09)}
+input[type=file]{height:auto;padding:9px 10px;font-size:12.5px;background:#fbf7f1}
+#profileFields{border-top:1px dashed #e6ddcf;margin-top:6px;padding-top:10px}
+.thumb-wrap{display:flex;align-items:center;gap:10px;margin-top:9px}
+.thumb-wrap img{width:76px;height:76px;object-fit:cover;border-radius:10px;border:1px solid var(--line-2);background:#fff}
+.submit-preview{margin-top:10px;background:#faf5ee;border:1px solid #efe6d9;border-radius:10px;padding:9px 11px;font-size:11.5px;color:var(--ink-2);line-height:1.55}
+#adminDot{position:fixed;right:3px;bottom:calc(116px + env(safe-area-inset-bottom));width:16px;height:16px;padding:0;border:0;border-radius:50%;background:transparent;color:#c9c0b2;font-size:14px;line-height:1;opacity:.16;cursor:pointer;z-index:20}
+#adminDot:active,#adminDot.on{opacity:.9;color:var(--wine)}
+.admin-badge{display:none;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--wine);border:1px solid #e7d3d9;background:var(--wine-soft);border-radius:999px;padding:1px 7px;margin-left:6px;cursor:pointer}
+body.admin .admin-badge{display:inline-flex}
+.b-row{grid-template-columns:1.1fr .9fr 1fr .8fr 26px}
+.b-row .b-form{height:40px;font-size:12.5px;padding:0 24px 0 7px;border-radius:8px;background-position:right 7px center}
+.b-row .b-custom{margin-top:4px}
+.b-row .b-form-wrap{display:flex;flex-direction:column;gap:0}
+.b-head{grid-template-columns:1.1fr .9fr 1fr .8fr 26px}
+
 /* 인쇄 / PDF */
 @media print{
   @page{size:A4;margin:15mm 14mm 15mm}
@@ -217,9 +257,11 @@ input.invalid{border-color:var(--danger);background:#fdf6f5}
 <div class="app" id="app">
   <header class="hdr">
     <div class="hdr-top">
-      <div class="brand"><span class="brand-mark">C</span>클래시움</div>
-      <div class="hdr-tools">
+      <div class="brand"><span class="brand-mark">C</span>클래시움<span class="admin-badge" id="adminBadge" role="button" tabindex="0">관리자 모드 ✕</span></div>
+      <div class="hdr-tools" id="adminTools" hidden>
         <button class="link" id="btnBuild" type="button">링크 만들기</button>
+      </div>
+      <div class="hdr-tools">
         <button class="link" id="btnNew" type="button">새로 작성</button>
       </div>
     </div>
@@ -260,8 +302,14 @@ input.invalid{border-color:var(--danger);background:#fdf6f5}
         <div class="sched-total" id="schedTotal"></div>
         <p class="hint">이 링크에는 <b>본인 일정과 연주료</b>만 담겨 있으며, 다른 사람에게 공개되지 않습니다. 일정이 다르면 클래시움에 먼저 알려 주세요.</p>
       </div>
-      <div class="card">
-        <div class="card-h"><h2>계약 조건</h2><span class="sub">공연 정보</span></div>
+      <div class="card" id="condLocked">
+        <div class="card-h"><h2>계약 조건</h2><span class="sub">클래시움 지정 · 수정 불가</span></div>
+        <dl class="ro-rows" id="condRows"></dl>
+        <p class="hint">공연 날짜·시간·편성·출연 대가·장소·리허설 기준은 클래시움(갑)이 정한 계약 조건입니다. 이 화면에서는 바꿀 수 없으며, 조건이 다르면 서명 전에 클래시움에 먼저 알려 주세요.</p>
+      </div>
+
+      <div class="card" id="condCard" hidden>
+        <div class="card-h"><h2>계약 조건</h2><span class="sub">관리자 모드 · 편집 가능</span></div>
         <div class="row2">
           <div class="field"><label>시작일</label><input type="date" id="start"></div>
           <div class="field"><label>종료일</label><input type="date" id="end"></div>
@@ -297,21 +345,108 @@ input.invalid{border-color:var(--danger);background:#fdf6f5}
       <div class="card">
         <div class="card-h"><h2>연주자 정보</h2><span class="sub">을 · 세금 신고용</span></div>
         <div class="field"><label>성명 <span class="req">*</span></label><input type="text" id="name" placeholder="실명" autocomplete="name"><p class="err" id="errName">성명을 입력해 주세요.</p></div>
-        <div class="row2">
-          <div class="field"><label>악기 <span class="req">*</span></label><input type="text" id="instrument" placeholder="예: 피아노, 바이올린"></div>
-          <div class="field"><label>연락처 <span class="req">*</span></label><input type="tel" id="phone" inputmode="numeric" placeholder="010-0000-0000"></div>
+        <div class="field">
+          <label>악기 <span class="req">*</span></label>
+          <div class="chips" id="instChips">
+            <button type="button" class="chip" data-inst="Piano">피아노(Piano)</button>
+            <button type="button" class="chip" data-inst="Violin">바이올린(Violin)</button>
+            <button type="button" class="chip" data-inst="Viola">비올라(Viola)</button>
+            <button type="button" class="chip" data-inst="Cello">첼로(Cello)</button>
+            <button type="button" class="chip" data-inst="Double Bass">더블베이스(Double Bass)</button>
+            <button type="button" class="chip" data-inst="Flute">플루트(Flute)</button>
+            <button type="button" class="chip" data-inst="Oboe">오보에(Oboe)</button>
+            <button type="button" class="chip" data-inst="Clarinet">클라리넷(Clarinet)</button>
+            <button type="button" class="chip" data-inst="Bassoon">바순(Bassoon)</button>
+            <button type="button" class="chip" data-inst="Horn">호른(Horn)</button>
+            <button type="button" class="chip" data-inst="Trumpet">트럼펫(Trumpet)</button>
+            <button type="button" class="chip" data-inst="Trombone">트롬본(Trombone)</button>
+            <button type="button" class="chip" data-inst="Saxophone">색소폰(Saxophone)</button>
+            <button type="button" class="chip" data-inst="Harp">하프(Harp)</button>
+            <button type="button" class="chip" data-inst="Percussion">타악기(Percussion)</button>
+            <button type="button" class="chip" data-inst="Vocal">성악(Vocal)</button>
+            <button type="button" class="chip" data-inst="__etc">기타(직접 입력)</button>
+          </div>
+          <input type="text" id="instrumentEtc" placeholder="악기를 직접 입력해 주세요" hidden>
+          <input type="hidden" id="instrument">
+          <p class="err" id="errInstrument">악기를 선택해 주세요.</p>
         </div>
+        <div class="field"><label>연락처 <span class="req">*</span></label><input type="tel" id="phone" inputmode="numeric" placeholder="010-0000-0000"><p class="err" id="errPhone">연락처를 입력해 주세요.</p></div>
         <div class="field">
           <label>주민등록번호 <span class="req">*</span></label>
           <input type="text" id="rrn" inputmode="numeric" placeholder="000000-0000000" autocomplete="off">
           <p class="hint">세금 신고(원천세·지방소득세·간이지급명세서)에만 씁니다.</p>
+          <p class="warn-note">⚠ 오입력 시 정산이 늦어지거나 지급에 어려움이 있을 수 있으니 반드시 정확히 확인해 주세요.</p>
+          <p class="err" id="errRrn">주민등록번호 13자리를 확인해 주세요.</p>
         </div>
         <div class="field"><label>주소 (선택)</label><input type="text" id="addr" placeholder="계약서 기재용"></div>
-        <div class="row2">
-          <div class="field"><label>은행 <span class="req">*</span></label><input type="text" id="bank" placeholder="예: 부산은행"></div>
-          <div class="field"><label>계좌번호 <span class="req">*</span></label><input type="text" id="account" inputmode="numeric" placeholder="숫자만"></div>
+        <div class="field">
+          <label>은행 <span class="req">*</span></label>
+          <select id="bank">
+            <option value="">은행 선택</option>
+            <option value="KB국민은행">KB국민은행</option>
+            <option value="신한은행">신한은행</option>
+            <option value="우리은행">우리은행</option>
+            <option value="하나은행">하나은행</option>
+            <option value="NH농협은행">NH농협은행</option>
+            <option value="IBK기업은행">IBK기업은행</option>
+            <option value="카카오뱅크">카카오뱅크</option>
+            <option value="토스뱅크">토스뱅크</option>
+            <option value="케이뱅크">케이뱅크</option>
+            <option value="부산은행">부산은행</option>
+            <option value="경남은행">경남은행</option>
+            <option value="대구은행(iM뱅크)">대구은행(iM뱅크)</option>
+            <option value="광주은행">광주은행</option>
+            <option value="전북은행">전북은행</option>
+            <option value="제주은행">제주은행</option>
+            <option value="SC제일은행">SC제일은행</option>
+            <option value="한국씨티은행">한국씨티은행</option>
+            <option value="수협은행">수협은행</option>
+            <option value="새마을금고">새마을금고</option>
+            <option value="신협">신협</option>
+            <option value="우체국">우체국</option>
+            <option value="기타 은행">기타 은행</option>
+          </select>
+          <p class="err" id="errBank">은행을 선택해 주세요.</p>
         </div>
-        <p class="hint">계좌는 출연 대가를 받을 본인 명의 계좌로 적어 주세요.</p>
+        <div class="field">
+          <label>계좌번호 <span class="req">*</span></label>
+          <input type="text" id="account" inputmode="numeric" placeholder="숫자만 (하이픈 없이)">
+          <p class="hint" id="accountHint">은행을 고르면 계좌번호 자릿수를 확인해 드려요.</p>
+          <p class="warn-note">⚠ 오입력 시 정산이 늦어지거나 지급에 어려움이 있을 수 있으니 반드시 정확히 확인해 주세요.</p>
+          <p class="err" id="errAccount">계좌번호 자릿수를 확인해 주세요.</p>
+        </div>
+        <div class="field">
+          <label>출연료 수령 방식 <span class="req">*</span></label>
+          <div class="seg" id="payMode">
+            <button type="button" class="seg-btn on" data-pay="self"><b>개인 수령</b><small>본인 몫 직접 입금</small></button>
+            <button type="button" class="seg-btn" data-pay="team"><b>팀 대표 일괄 수령</b><small>팀 페이 전액 입금</small></button>
+          </div>
+          <div class="team-box" id="teamBox" hidden>
+            <label class="t-label">동반 연주자 성함 <span class="req">*</span></label>
+            <input type="text" id="teamMembers" placeholder="예: 첼로 홍길동, 바이올린 김철수">
+            <p class="err" id="errTeam">동반 연주자 성함을 적어 주세요.</p>
+            <p class="hint">팀 대표자 계좌로 팀 페이 전액이 입금되며, 세금 원천징수(3.3%) 신고도 팀 대표자 명의로 처리됩니다.</p>
+          </div>
+        </div>
+        <p class="hint">계좌는 출연 대가를 받을 본인 명의 계좌로 적어 주세요. 팀 대표 일괄 수령을 고른 경우에는 대표자 명의 계좌로 적어 주세요.</p>
+      </div>
+
+      <div class="card" id="profileCard">
+        <div class="card-h"><h2>신규 연주자 프로필</h2><span class="sub">최초 1회 · 선택</span></div>
+        <label class="check"><input type="checkbox" id="profileExisting"><span>기존에 프로필을 제출한 적이 있어요 (건너뛰기)</span></label>
+        <div id="profileFields">
+          <div class="field">
+            <label>프로필 사진 (선택)</label>
+            <input type="file" id="profilePhoto" accept="image/*">
+            <p class="hint">선택한 사진은 가로·세로 최대 1000px, JPEG(품질 0.8)로 자동 줄여서 보냅니다.</p>
+            <div class="thumb-wrap" id="profileThumbWrap" hidden><img id="profileThumb" alt="프로필 사진 미리보기"><button type="button" class="btn btn-ghost btn-sm" id="profilePhotoClear">사진 지우기</button></div>
+          </div>
+          <div class="field">
+            <label>프로필 / 약력 (선택)</label>
+            <textarea id="profileBio" rows="5" placeholder="예: ○○대학교 음악학과 졸업 → ○○콩쿠르 입상 → ○○오케스트라 객원 → 현재 ○○에서 활동 중&#10;(5~8줄 내외로 적어주세요 — 학력 → 수상경력 → 연주경력 → 현재 활동 순)"></textarea>
+            <p class="hint">5~8줄 내외로 <b>학력 → 수상경력 → 연주경력 → 현재 활동 순</b>으로 적어 주세요. 클래시움의 공연 기획·연주자 소개 자료에 참고합니다.</p>
+          </div>
+        </div>
       </div>
 
       <div class="card tax">
@@ -320,7 +455,7 @@ input.invalid{border-color:var(--danger);background:#fdf6f5}
         <div class="calc"><span>소득세 3%</span><span id="cIncome">-</span></div>
         <div class="calc"><span>지방소득세 0.3%</span><span id="cLocal">-</span></div>
         <div class="calc net"><span>실지급액</span><b id="cNet">-</b></div>
-        <p class="hint">실제 신고 금액은 원 단위 처리에 따라 1~2원 차이가 날 수 있습니다. 지급일은 연주한 달의 다음 달 20일 이후 말일이며, 협업기관(탄티)의 정산 일정에 따라 순연될 수 있습니다.</p>
+        <p class="hint">실제 신고 금액은 원 단위 처리에 따라 1~2원 차이가 날 수 있습니다. 지급일은 <b>연주한 날이 속한 달의 다음 달 25일부터 말일까지</b>이며, 협업기관(탄티)의 정산 일정에 따라 사전 안내 후 순연될 수 있습니다.</p>
       </div>
     </section>
 
@@ -328,6 +463,7 @@ input.invalid{border-color:var(--danger);background:#fdf6f5}
     <section class="step" data-step="3">
       <div class="card">
         <div class="card-h"><h2>동의</h2><span class="sub">모두 필수 항목이에요</span></div>
+        <div class="submit-preview" id="profilePreview"></div>
         <label class="check"><input type="checkbox" id="portrait"><span>제8조(초상권 및 사진·영상의 활용)에 동의합니다 — 클래시움과 협업 공연의 홍보(SNS·블로그·홈페이지·포트폴리오·인쇄물)에 공연 사진·영상을 사용할 수 있습니다. <em>(필수 · 동의하지 않으면 계약을 체결할 수 없습니다)</em></span></label>
         <label class="check"><input type="checkbox" id="privacy"><span>제9조(개인정보의 수집·이용)에 동의합니다 — 세금 신고(원천세·지방소득세·간이지급명세서)에 사용합니다. <em>(필수)</em></span></label>
         <label class="check"><input type="checkbox" id="confirm"><span>계약 내용을 확인하였으며, 아래 서명이 본인의 것임을 확인합니다. <em>(필수)</em></span></label>
@@ -397,13 +533,28 @@ input.invalid{border-color:var(--danger);background:#fdf6f5}
 
 <div class="print-root" id="printRoot" aria-hidden="true"></div>
 
+<button type="button" id="adminDot" aria-label="관리자 모드 열기" title="관리자">·</button>
+
+<datalist id="instOptions">
+  <option value="Piano"></option><option value="Violin"></option><option value="Viola"></option>
+  <option value="Cello"></option><option value="Double Bass"></option><option value="Flute"></option>
+  <option value="Oboe"></option><option value="Clarinet"></option><option value="Bassoon"></option>
+  <option value="Horn"></option><option value="Trumpet"></option><option value="Trombone"></option>
+  <option value="Saxophone"></option><option value="Harp"></option><option value="Percussion"></option>
+  <option value="Vocal"></option>
+</datalist>
+<datalist id="feePresets">
+  <option value="80000"></option><option value="100000"></option><option value="160000"></option>
+  <option value="240000"></option><option value="320000"></option>
+</datalist>
+
 <div class="sheet" id="linkSheet" hidden>
   <div class="sheet-in">
     <div class="sheet-h"><h2>개인별 링크 만들기</h2><button type="button" id="sheetClose">닫기</button></div>
     <p class="hint">연주자 한 명의 이름·악기·해당 월과 그 사람의 일정(날짜·시간·편성·출연 대가)만 넣으면 그 사람 전용 계약 링크가 만들어집니다. 링크에는 이 일정만 담기고 다른 연주자의 일정·금액은 들어가지 않습니다.</p>
     <div class="row2">
       <div class="field"><label>성명</label><input type="text" id="bName" placeholder="예: 홍길동"></div>
-      <div class="field"><label>악기</label><input type="text" id="bInst" placeholder="예: Violin"></div>
+      <div class="field"><label>악기</label><input type="text" id="bInst" placeholder="예: Violin" list="instOptions"></div>
     </div>
     <div class="row2">
       <div class="field"><label>해당 월</label><input type="month" id="bMonth"></div>
@@ -412,7 +563,8 @@ input.invalid{border-color:var(--danger);background:#fdf6f5}
     <label style="display:block;font-size:11.5px;font-weight:700;color:var(--ink-2);margin-bottom:5px">일정</label>
     <div class="b-head"><span>날짜</span><span>시간</span><span>편성</span><span>출연 대가</span><span></span></div>
     <div id="bRows"></div>
-    <p class="hint">시간은 <b>19:30~20:00 / 21:00~21:30</b>처럼 1부·2부를 함께 적고, 특별연주는 <b>20:00~21:00</b>으로 적습니다. 편성에 '특별'이 들어가면 특별연주로 표시됩니다.</p>
+    <p class="hint">시간은 <b>19:30~20:00 / 21:00~21:30</b>처럼 1부·2부를 함께 적고, 특별연주는 <b>20:00~21:00</b>으로 적습니다. 편성은 평일·주말 듀오/트리오/4중주·특별연주 중에서 고르거나 직접 입력할 수 있고, 편성에 '특별'이 들어가면 특별연주로 표시됩니다.</p>
+    <p class="hint">출연 대가는 자유롭게 적습니다 — 1인 80,000 / 2인 팀 대표 160,000 / 3인 240,000 / 특별연주 100,000 (세전).</p>
     <button class="btn btn-ghost btn-sm" type="button" id="bAdd">+ 일정 추가</button>
     <div class="b-total" id="bTotal">합계 -</div>
     <button class="btn btn-primary btn-block" type="button" id="bMake">링크 만들기</button>
@@ -445,7 +597,7 @@ var CONFIG = {
     email: "classium_@naver.com"
   },
   template: "classium-freelance-performance-v1",
-  version: "v1.6 · 2026.11",
+  version: "v1.7 · 2026.11",
   /* 특별연주(약 1시간) 1회 기준 출연 대가 */
   specialFee: 100000,
   /* 서버 자동 저장을 붙일 자리입니다. 비워 두면 이 기기(브라우저)에만 저장됩니다.
@@ -454,7 +606,79 @@ var CONFIG = {
   endpoint: ""
 };
 
-var STORE_KEY = "classium_contract_draft_v1";
+var STORE_KEY = "classium_contract_draft_v1";          /* v1.6까지 쓰던 키 — v1.7에서 폐기·삭제 */
+var BASE_KEY = "classium_contract_draft_v2_base";      /* 기본 URL 전용 초안(개인정보 미포함) */
+var BASE_STRIP = ["name","instrument","phone","rrn","addr","bank","account","payMode","teamMembers",
+                  "month","items","sig","signedISO","hash","read","portrait","privacy","confirm",
+                  "profileExisting","profileBio","profilePhotoBase64","profilePhotoName"];
+
+/* v1.7 — 악기 선택지(클래식 악기 중심) · 은행별 계좌 자릿수 */
+var INSTS = [
+  {en:"Piano", ko:"피아노"},
+  {en:"Violin", ko:"바이올린"},
+  {en:"Viola", ko:"비올라"},
+  {en:"Cello", ko:"첼로"},
+  {en:"Double Bass", ko:"더블베이스", alias:["contrabass","bass","베이스"]},
+  {en:"Flute", ko:"플루트"},
+  {en:"Oboe", ko:"오보에"},
+  {en:"Clarinet", ko:"클라리넷"},
+  {en:"Bassoon", ko:"바순"},
+  {en:"Horn", ko:"호른", alias:["french horn"]},
+  {en:"Trumpet", ko:"트럼펫"},
+  {en:"Trombone", ko:"트롬본"},
+  {en:"Saxophone", ko:"색소폰"},
+  {en:"Harp", ko:"하프"},
+  {en:"Percussion", ko:"타악기", alias:["drum","drums","드럼"]},
+  {en:"Vocal", ko:"성악", alias:["voice","보컬"]}
+];
+function normInstKey(s){
+  return String(s == null ? "" : s).toLowerCase().replace(/\(.*?\)/g, "").replace(/[\s\-_·]/g, "");
+}
+function findInst(v){
+  var s = normInstKey(v);
+  if(!s) return "";
+  var hits = [];
+  INSTS.forEach(function(o){
+    [o.en, o.ko].concat(o.alias || []).forEach(function(c){
+      var k = normInstKey(c);
+      if(!k) return;
+      if(k === s) hits.push({en:o.en, len:9999});
+      else if(k.length >= 3 && s.indexOf(k) >= 0) hits.push({en:o.en, len:k.length});
+    });
+  });
+  if(!hits.length) return "";
+  hits.sort(function(a, b){ return b.len - a.len; });
+  return hits[0].en;
+}
+function instLabel(en){
+  for(var i = 0; i < INSTS.length; i++){ if(INSTS[i].en === en) return INSTS[i].ko + "(" + INSTS[i].en + ")"; }
+  return en;
+}
+var BANKS = [
+  {name:"KB국민은행", lens:[12,14]},
+  {name:"신한은행", lens:[11,12]},
+  {name:"우리은행", lens:[13]},
+  {name:"하나은행", lens:[14]},
+  {name:"NH농협은행", lens:[13]},
+  {name:"IBK기업은행", lens:[10,11,12,13,14]},
+  {name:"카카오뱅크", lens:[13]},
+  {name:"토스뱅크", lens:[12]},
+  {name:"케이뱅크", lens:[12]},
+  {name:"부산은행", lens:[12,13]},
+  {name:"경남은행", lens:[12,13]},
+  {name:"대구은행(iM뱅크)", lens:[12,13]},
+  {name:"광주은행", lens:[12,13]},
+  {name:"전북은행", lens:[12,13]},
+  {name:"제주은행", lens:[12,13]},
+  {name:"SC제일은행", lens:[11,12,13,14]},
+  {name:"한국씨티은행", lens:[11,12]},
+  {name:"수협은행", lens:[12,13,14]},
+  {name:"새마을금고", lens:[12,13,14]},
+  {name:"신협", lens:[12,13,14]},
+  {name:"우체국", lens:[12,13,14]},
+  {name:"기타 은행", lens:[10,11,12,13,14,15,16]}
+];
+var FORMATIONS = ["평일 듀오","평일 트리오","평일 4중주","주말 듀오","주말 트리오","주말 4중주","특별연주","직접 입력"];
 
 /* ============================================================
    유틸
@@ -508,6 +732,55 @@ function calcTax(fee){
   var income = Math.round(fee * 0.03);
   var local = Math.round(income * 0.1);
   return { income: income, local: local, total: income + local, net: fee - income - local };
+}
+
+/* v1.7 — 은행별 계좌번호 자릿수 */
+function bankInfo(name){
+  for(var i = 0; i < BANKS.length; i++){ if(BANKS[i].name === name) return BANKS[i]; }
+  return null;
+}
+function bankLensText(b){
+  if(!b) return "올바른 자릿수";
+  var l = b.lens;
+  if(l.length === 1) return "숫자 " + l[0] + "자리";
+  if(l.length === 2) return "숫자 " + l[0] + "자리 또는 " + l[1] + "자리";
+  if(l[l.length - 1] - l[0] === l.length - 1) return "숫자 " + l[0] + "~" + l[l.length - 1] + "자리";
+  return "숫자 " + l.slice(0, -1).join(", ") + " 또는 " + l[l.length - 1] + "자리";
+}
+function accountValid(){
+  var b = bankInfo(state.bank);
+  if(!b) return false;
+  return b.lens.indexOf(digits(state.account).length) >= 0;
+}
+function accountErrText(){
+  var len = digits(state.account).length;
+  var b = bankInfo(state.bank);
+  if(!len) return "계좌번호를 입력해 주세요.";
+  if(!b) return "은행을 먼저 선택해 주세요.";
+  return b.name + " 계좌번호는 " + bankLensText(b) + "입니다(하이픈 제외). 입력한 번호는 " + len + "자리예요. 계좌번호를 확인해 주세요.";
+}
+
+/* v1.7 — 주민등록번호 형식 검증 (형식·날짜·성별코드만 엄격 확인, 체크섬은 보지 않음) */
+function rrnError(v){
+  var d = digits(v);
+  if(!d.length) return "주민등록번호를 입력해 주세요.";
+  if(d.length !== 13) return "주민등록번호는 숫자 13자리입니다(하이픈 제외). 입력한 숫자는 " + d.length + "자리예요.";
+  if(/^(\d)\1{12}$/.test(d)) return "같은 숫자만 13자리로 입력되었습니다. 주민등록번호를 확인해 주세요.";
+  if(d.slice(6) === "0000000") return "뒷자리 7자리가 모두 0입니다. 주민등록번호를 확인해 주세요.";
+  var code = d.charAt(6);
+  if("12345678".indexOf(code) < 0) return "뒷자리 첫 숫자(성별 코드)가 올바르지 않습니다. 1~8 중 하나여야 합니다.";
+  var yy = Number(d.slice(0, 2)), mm = Number(d.slice(2, 4)), dd = Number(d.slice(4, 6));
+  if(mm < 1 || mm > 12) return "앞 6자리의 생년월일 중 월(01~12)이 올바르지 않습니다.";
+  if(dd < 1) return "앞 6자리의 생년월일 중 일(01~31)이 올바르지 않습니다.";
+  var yr = (code === "1" || code === "2" || code === "5" || code === "6") ? 1900 + yy : 2000 + yy;
+  var lastDay = new Date(yr, mm, 0).getDate();
+  if(dd > lastDay) return "앞 6자리의 생년월일을 확인해 주세요. " + yr + "년 " + mm + "월은 " + lastDay + "일까지입니다.";
+  return "";
+}
+function payText(s){
+  return (s.payMode === "team")
+    ? "팀 대표 일괄 수령" + (s.teamMembers ? " (동반 연주자: " + s.teamMembers + ")" : "")
+    : "개인 수령 (본인 몫 직접 입금)";
 }
 function genNo(){
   var d = new Date();
@@ -580,7 +853,8 @@ var state = {
   arrival: 60,
   fee: "",
   name: "", instrument: "", phone: "", rrn: "", addr: "",
-  bank: "", account: "",
+  bank: "", account: "", payMode: "self", teamMembers: "",
+  profileExisting: false, profileBio: "", profilePhotoBase64: "", profilePhotoName: "",
   month: "", items: [],
   portrait: false, privacy: false, confirm: false, read: false,
   sig: null, signedISO: "", hash: ""
@@ -683,6 +957,8 @@ function hasPersonalQuery(){
 function clearPerformerData(){
   state.name = ""; state.instrument = ""; state.phone = "";
   state.rrn = ""; state.addr = ""; state.bank = ""; state.account = "";
+  state.payMode = "self"; state.teamMembers = "";
+  state.profileExisting = false; state.profileBio = ""; state.profilePhotoBase64 = ""; state.profilePhotoName = "";
   state.month = ""; state.items = []; state.fee = "";
   state.sig = null; state.signedISO = ""; state.hash = "";
   state.privacy = false; state.confirm = false; state.read = false; state.portrait = false;
@@ -795,6 +1071,7 @@ function contractHTML(){
     ? esc(s.bank || "____") + " " + esc(s.account || "__________")
     : '<span class="blank">__________</span>';
   var acctText = (s.bank || s.account) ? "계좌(" + bank + ")" : "계좌";
+  var payLabel = payText(s);
 
   var clauses = [
     ["제1조 (목적)",
@@ -827,6 +1104,7 @@ function contractHTML(){
         "<li>주말(토·일): " + we + " (평일보다 30분 앞당긴 시간)</li>" +
       "</ul></li>" +
       "<li><b>도착·리허설 및 대기</b> — 을은 해당 일자의 연주 시작 시각으로부터 <b>최소 " + arrival + "까지</b> 공연장에 도착하여 리허설 및 음향 점검을 진행하여야 하며, <b>연주 시작 10분 전까지 모든 세팅을 완료하고 무대에서 대기</b>하여야 한다.</li>" +
+      "<li><b>음향 장비 및 사운드 체크</b> — 본 공연장은 별도의 음향감독이 상주하지 않고 음향장비를 통해 소리를 송출하므로, <b>을은 리허설 시간 내에 본인의 악기에 마이크를 직접 장착하고 사운드 체크를 완료</b>하여야 한다.</li>" +
       "<li><b>특별연주</b> — 특별연주는 다음 각 호에 따라 진행한다.<ul>" +
         "<li>연주 시간: 20:00에 시작하여 약 1시간의 러닝타임으로 진행한다(20:00~21:00).</li>" +
         "<li>리허설: 당일 연주 시작 2시간 전부터 최소 1시간 전까지의 사이에 리허설을 시작하여야 하며, 연주 시작 10분 전까지 세팅을 완료하고 무대에서 대기하여야 한다.</li>" +
@@ -849,7 +1127,8 @@ function contractHTML(){
       "<ol>" +
       "<li><b>출연 대가</b> — " + feeClause + "</li>" +
       "<li><b>지급 명세</b> — 갑은 원천징수세액과 실지급액을 별지 1에 함께 표시하여 을이 자신의 지급 내역을 확인할 수 있게 한다.</li>" +
-      "<li><b>지급일</b> — 갑은 <b>연주한 달의 다음 달 20일 이후 말일까지</b>(20일부터 말일 사이) 을이 지정한 " + acctText + "로 출연 대가를 이체한다. 출연 대가의 지급은 <b>협업기관의 정산·지급 일정에 따르며, 협업기관의 지급이 지연되는 경우 을에 대한 지급도 그에 따라 순연될 수 있다.</b></li>" +
+      "<li><b>지급일</b> — 갑은 <b>연주한 날이 속한 달의 다음 달 25일부터 말일까지</b>(25일부터 말일 사이) 을이 지정한 " + acctText + "로 출연 대가를 이체한다. 출연 대가의 지급은 <b>협업기관의 정산·지급 일정에 따르며, 협업기관의 지급이 지연되는 경우 갑은 사전에 을에게 안내한 후 지급을 순연할 수 있다.</b>" +
+        (s.payMode === "team" ? " <b>팀 대표 일괄 수령</b>으로 정한 경우에는 팀 대표자 명의 계좌로 팀 페이 전액을 입금하고, 원천징수(3.3%) 신고도 팀 대표자 명의로 처리한다." : "") + "</li>" +
       "<li>갑은 원천징수영수증(또는 지급내역서)을 발급하고, 관계 법령에 따라 원천세·지방소득세의 신고 및 간이지급명세서의 제출을 이행한다.</li>" +
       "<li>을은 제1항의 소득이 사업소득으로서 종합소득세 신고 대상임을 확인한다.</li>" +
       "</ol>"],
@@ -875,6 +1154,7 @@ function contractHTML(){
       "<li>갑은 법령에 따라 국세청 등 관계 기관에 제출하는 경우를 제외하고는 을의 동의 없이 개인정보를 제3자에게 제공하지 아니한다.</li>" +
       "<li>을은 동의를 거부할 수 있다. 다만 이 경우 세금 신고 및 출연 대가의 지급이 어려워 계약이 성립하지 아니할 수 있다.</li>" +
       "<li>서명은 전자적 방식(서명 패드 이미지)으로 하며, 전자문서로 작성된 계약서와 함께 보관한다.</li>" +
+      "<li><b>정보의 정정</b> — <b>을이 계좌번호 또는 주민등록번호를 잘못 기재한 경우 지체 없이 갑에게 통지하여 정정하여야 하며, 오기재로 인한 지급 지연에 대하여 갑은 책임을 지지 아니한다.</b></li>" +
       "</ol>"],
     ["제10조 (비밀유지)",
       "<ol>" +
@@ -952,7 +1232,8 @@ function contractHTML(){
         "<br>연락처 " + phone +
         "<br>주민등록번호 " + rrn +
         (s.addr ? "<br>주소 " + addr : "") +
-        "<br>입금 계좌 " + bank + "</td></tr>" +
+        "<br>입금 계좌 " + bank +
+        "<br>출연료 수령 " + esc(payLabel) + "</td></tr>" +
     "</table>" +
     body +
     scheduleHTML() +
@@ -966,7 +1247,8 @@ function contractHTML(){
         ? "<tr><th>출연 대가·실지급액</th><td>별지 1에 기재된 금액에 따름 (소득세 3% + 지방소득세 0.3% 원천징수 후 지급)</td></tr>"
         : "<tr><th>출연 대가(세전)</th><td>" + feeText + "</td></tr>" +
           "<tr><th>실지급액</th><td>" + (fee ? won(tax.net) : "-") + " (3.3% 원천징수 후)</td></tr>") +
-      "<tr><th>지급일</th><td>연주한 달의 다음 달 20일 이후 말일 (협업기관 정산 일정에 따름)</td></tr>" +
+      "<tr><th>출연료 수령</th><td>" + esc(payLabel) + "</td></tr>" +
+      "<tr><th>지급일</th><td>연주한 날이 속한 달의 다음 달 25일부터 말일까지 (협업기관 정산 일정에 따르며 사전 안내 후 순연될 수 있음)</td></tr>" +
     "</table>" +
     sign;
 }
@@ -1023,31 +1305,53 @@ function markInvalid(el, on){
 
 function validateStep2(){
   var ok = true, first = null;
-  function fail(el, errId){
-    ok = false; markInvalid(el, true); showErr(errId, true);
+  function fail(el){
+    ok = false; markInvalid(el, true);
     if(!first) first = el;
   }
   var feeEl = $("#fee");
   var amount = payableAmount();
   if(!amount || amount < 1000){
-    ok = false;
-    if(!hasSchedule()){ markInvalid(feeEl, true); showErr("errFee", true); if(!first) first = feeEl; }
+    if(!hasSchedule()){ fail(feeEl); showErr("errFee", true); }
   } else { markInvalid(feeEl, false); showErr("errFee", false); }
+
   var nameEl = $("#name");
-  if(!state.name.trim()) fail(nameEl, "errName"); else { markInvalid(nameEl, false); showErr("errName", false); }
-  var need = [
-    ["#place", !!state.place.trim()],
-    ["#instrument", !!state.instrument.trim()],
-    ["#phone", digits(state.phone).length >= 9],
-    ["#rrn", digits(state.rrn).length === 13],
-    ["#bank", !!state.bank.trim()],
-    ["#account", digits(state.account).length >= 6]
-  ];
-  need.forEach(function(pair){
-    var el = $(pair[0]);
-    if(!pair[1]){ ok = false; markInvalid(el, true); if(!first) first = el; }
-    else markInvalid(el, false);
-  });
+  if(!String(state.name || "").trim()){ fail(nameEl); showErr("errName", true); }
+  else { markInvalid(nameEl, false); showErr("errName", false); }
+
+  var chips = $("#instChips");
+  if(!String(state.instrument || "").trim()){
+    ok = false;
+    if(chips) chips.classList.add("invalid");
+    showErr("errInstrument", true);
+    if(!first) first = chips;
+  } else if(chips){ chips.classList.remove("invalid"); showErr("errInstrument", false); }
+
+  var phoneEl = $("#phone");
+  if(digits(state.phone).length < 9){ fail(phoneEl); showErr("errPhone", true); }
+  else { markInvalid(phoneEl, false); showErr("errPhone", false); }
+
+  var rrnEl = $("#rrn");
+  var rmsg = rrnError(state.rrn);
+  if(rmsg){ fail(rrnEl); setRrnErr(rmsg); }
+  else { markInvalid(rrnEl, false); setRrnErr(""); }
+
+  var placeEl = $("#place");
+  if(!String(state.place || "").trim()) fail(placeEl); else markInvalid(placeEl, false);
+
+  var bankEl = $("#bank");
+  if(!String(state.bank || "").trim()){ fail(bankEl); showErr("errBank", true); }
+  else { markInvalid(bankEl, false); showErr("errBank", false); }
+
+  var accEl = $("#account");
+  if(!digits(state.account).length || !accountValid()){ fail(accEl); setAccErr(accountErrText()); }
+  else { markInvalid(accEl, false); setAccErr(""); }
+
+  var teamEl = $("#teamMembers");
+  if(state.payMode === "team" && !String(state.teamMembers || "").trim()){
+    fail(teamEl); showErr("errTeam", true);
+  } else { markInvalid(teamEl, false); showErr("errTeam", false); }
+
   if(!ok){
     if(first && first.scrollIntoView) first.scrollIntoView({block:"center", behavior:"smooth"});
     if(first && first.focus) setTimeout(function(){ try{ first.focus({preventScroll:true}); }catch(e){} }, 250);
@@ -1214,32 +1518,38 @@ var saveTimer = null;
 var savedStep = 1;
 function saveDraft(){
   clearTimeout(saveTimer);
+  /* v1.7 — 개인 링크(?d=·?name= 등)에서는 이 기기에 아무것도 저장하지 않는다.
+     기본 URL 초안만 저장하되, 연주자 개인정보·서명·일정은 빼고 공연 조건만 남긴다.
+     그래서 기본 링크를 열어도 다른 사람의 정보가 되살아나지 않는다. */
+  if(hasPersonalQuery()) return;
   saveTimer = setTimeout(function(){
     try{
       var copy = {};
-      Object.keys(state).forEach(function(k){ copy[k] = state[k]; });
-      copy.sig = sig.hasInk() ? (state.sig || sig.dataURL()) : null;
-      copy.step = step;
-      var fee = payableAmount();
-      copy.tax = calcTax(fee).net;
-      localStorage.setItem(STORE_KEY, JSON.stringify(copy));
+      Object.keys(state).forEach(function(k){ if(BASE_STRIP.indexOf(k) < 0) copy[k] = state[k]; });
+      copy.step = Math.min(step, 2);
+      localStorage.setItem(BASE_KEY, JSON.stringify(copy));
     }catch(e){}
   }, 400);
 }
 function loadDraft(){
+  if(hasPersonalQuery()) return false;
   try{
-    var raw = localStorage.getItem(STORE_KEY);
+    var raw = localStorage.getItem(BASE_KEY);
     if(!raw) return false;
     var d = JSON.parse(raw);
-    Object.keys(state).forEach(function(k){ if(k in d && d[k] != null) state[k] = d[k]; });
-    if(state.portrait === "agree") state.portrait = true;
-    else if(state.portrait === "disagree" || state.portrait === "") state.portrait = false;
+    ["place","wdTime","weTime","arrival","start","end","fee"].forEach(function(k){
+      if(k in d && d[k] != null) state[k] = d[k];
+    });
     if(!Array.isArray(state.items)) state.items = [];
-    savedStep = Math.min(Math.max(1, Number(d.step) || 1), 4);
+    savedStep = 1;
     return true;
   }catch(e){ return false; }
 }
 function clearDraft(){
+  try{ localStorage.removeItem(BASE_KEY); }catch(e){}
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+}
+function purgeLegacyDraft(){
   try{ localStorage.removeItem(STORE_KEY); }catch(e){}
 }
 
@@ -1252,22 +1562,203 @@ function fillForm(){
   $("#place").value = state.place || "";
   $("#wdTime").value = state.wdTime || "";
   $("#weTime").value = state.weTime || "";
-  $("#arrival").value = String(state.arrival || 30);
+  $("#arrival").value = String(state.arrival || 60);
   $("#fee").value = state.fee ? comma(state.fee) : "";
   $("#name").value = state.name || "";
   $("#instrument").value = state.instrument || "";
-  $("#phone").value = state.phone || "";
+  $("#phone").value = state.phone ? fmtPhone(state.phone) : "";
   $("#rrn").value = state.rrn ? (state.rrn.length > 6 ? state.rrn.slice(0, 6) + "-" + state.rrn.slice(6) : state.rrn) : "";
   $("#addr").value = state.addr || "";
-  $("#bank").value = state.bank || "";
+  fillBankSelect();
   $("#account").value = state.account || "";
   $("#agreeRead").checked = !!state.read;
   $("#privacy").checked = !!state.privacy;
   $("#confirm").checked = !!state.confirm;
   $("#portrait").checked = (state.portrait === true || state.portrait === "agree");
+  applyInstrument();
+  applyPayMode();
+  applyProfile();
+  syncBankHint();
+  renderCond();
   renderSchedule();
   renderTax();
   renderContract();
+}
+
+/* v1.7 — 악기 칩 */
+function applyInstrument(){
+  var raw = String(state.instrument || "").trim();
+  var canon = findInst(raw);
+  var etc = !!raw && !canon;
+  var sel = canon || (etc ? "__etc" : "");
+  $$("#instChips .chip").forEach(function(b){
+    var on = !!sel && b.dataset.inst === sel;
+    b.classList.toggle("on", on);
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+  var e = $("#instrumentEtc");
+  if(e){ e.hidden = !etc; e.value = etc ? raw : ""; }
+  var hid = $("#instrument");
+  if(hid) hid.value = raw;
+  showErr("errInstrument", false);
+  var chips = $("#instChips");
+  if(chips) chips.classList.remove("invalid");
+  markInvalid($("#instrument"), false);
+}
+function setInstrument(v){
+  state.instrument = String(v || "").trim();
+  applyInstrument();
+  renderContract(); saveDraft();
+}
+function chooseEtc(){
+  var e = $("#instrumentEtc");
+  $$("#instChips .chip").forEach(function(b){
+    var on = b.dataset.inst === "__etc";
+    b.classList.toggle("on", on);
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+  if(e){
+    e.hidden = false;
+    if(findInst(state.instrument)) e.value = "";
+    else e.value = state.instrument || "";
+  }
+  state.instrument = e ? e.value.trim() : "";
+  var hid = $("#instrument"); if(hid) hid.value = state.instrument;
+  showErr("errInstrument", false);
+  if(e){ try{ e.focus(); }catch(err){} }
+  renderContract(); saveDraft();
+}
+
+/* v1.7 — 출연료 수령 방식 */
+function applyPayMode(){
+  var m = state.payMode === "team" ? "team" : "self";
+  $$("#payMode .seg-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.pay === m); });
+  var box = $("#teamBox"); if(box) box.hidden = (m !== "team");
+  var el = $("#teamMembers"); if(el) el.value = state.teamMembers || "";
+}
+function setPayMode(m){
+  state.payMode = (m === "team") ? "team" : "self";
+  applyPayMode();
+  showErr("errTeam", false);
+  markInvalid($("#teamMembers"), false);
+  renderContract(); renderCond(); saveDraft();
+}
+
+/* v1.7 — 읽기 전용 계약 조건 */
+function renderCond(){
+  var rows = $("#condRows");
+  if(!rows) return;
+  var fee = payableAmount();
+  var list = [
+    ["계약기간", (fmtDate(state.start) || "-") + " ~ " + (fmtDate(state.end) || "-")],
+    ["공연 장소", state.place || "-"],
+    ["평일 연주", state.wdTime || "-"],
+    ["주말 연주", state.weTime || "-"],
+    ["리허설", "연주 시작 " + arrivalText(state.arrival || 60) + " 도착 · 시작 10분 전 무대 대기"]
+  ];
+  if(hasSchedule()){
+    list.push(["연주 일정", state.items.length + "건 (아래 '나의 연주 일정' 참조)"]);
+    list.push(["출연 대가", (fee ? won(fee) : "-") + " (합계·세전)"]);
+  } else {
+    list.push(["출연 대가", fee ? won(fee) + " (회당·세전)" : "-"]);
+  }
+  list.push(["출연료 수령", payText(state)]);
+  rows.innerHTML = list.map(function(r){ return "<dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1]) + "</dd>"; }).join("");
+}
+
+/* v1.7 — 신규 연주자 프로필(사진·약력) */
+function applyProfile(){
+  var ex = !!state.profileExisting;
+  var cb = $("#profileExisting"); if(cb) cb.checked = ex;
+  var box = $("#profileFields"); if(box) box.hidden = ex;
+  var bio = $("#profileBio"); if(bio) bio.value = state.profileBio || "";
+  var wrap = $("#profileThumbWrap"), img = $("#profileThumb");
+  if(wrap && img){
+    if(state.profilePhotoBase64){ img.src = state.profilePhotoBase64; wrap.hidden = false; }
+    else { img.removeAttribute("src"); wrap.hidden = true; }
+  }
+  renderProfilePreview();
+}
+function renderProfilePreview(){
+  var el = $("#profilePreview");
+  if(!el) return;
+  var line;
+  if(state.profileExisting){
+    line = "프로필: 기존 제출 (건너킴)";
+  } else {
+    var hasPhoto = !!state.profilePhotoBase64;
+    var bioLen = String(state.profileBio || "").trim().length;
+    if(!hasPhoto && !bioLen) line = "프로필: 신규 제출 내용 없음 (선택 사항)";
+    else line = "프로필: 신규 제출 — " + (bioLen ? "약력 " + bioLen + "자" : "") +
+                (hasPhoto ? (bioLen ? " · " : "") + "사진 첨부" : "");
+  }
+  el.innerHTML = "<b>제출 정보</b><br>" + esc(line) + " · 서명하면 클래시움으로 함께 전송됩니다.";
+}
+function readProfilePhoto(file){
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(){
+    var img = new Image();
+    img.onload = function(){
+      var MAX = 1000;
+      var w = img.width || MAX, h = img.height || MAX;
+      var sc = Math.min(1, MAX / Math.max(w, h));
+      w = Math.max(1, Math.round(w * sc));
+      h = Math.max(1, Math.round(h * sc));
+      var cv = document.createElement("canvas");
+      cv.width = w; cv.height = h;
+      var g = cv.getContext("2d");
+      g.fillStyle = "#fff"; g.fillRect(0, 0, w, h);
+      g.drawImage(img, 0, 0, w, h);
+      var data = cv.toDataURL("image/jpeg", 0.8);
+      state.profilePhotoBase64 = data;
+      state.profilePhotoName = file.name || "profile.jpg";
+      applyProfile(); saveDraft();
+    };
+    img.onerror = function(){
+      toast("이 사진 형식은 브라우저에서 줄일 수 없어요. JPG나 PNG 사진으로 다시 선택해 주세요.");
+    };
+    img.src = reader.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function fillBankSelect(){
+  var sel = $("#bank");
+  if(!sel) return;
+  var v = String(state.bank || "").trim();
+  var match = "";
+  var i;
+  for(i = 0; i < sel.options.length; i++){ if(sel.options[i].value === v) match = v; }
+  /* v1.6까지 자유 입력으로 들어온 은행명이 남아 있으면 목록의 은행으로 맞춰 준다. */
+  if(!match && v){
+    var key = v.toLowerCase().replace(/[\s\-()]/g, "");
+    for(i = 0; i < BANKS.length; i++){
+      var nm = BANKS[i].name.toLowerCase().replace(/[\s\-()]/g, "");
+      var core = nm.replace(/은행|뱅크/g, "");
+      if(nm === key || core === key || (key.length >= 2 && (nm.indexOf(key) >= 0 || key.indexOf(core) >= 0))){ match = BANKS[i].name; break; }
+    }
+  }
+  sel.value = match;
+  state.bank = match;
+}
+function syncBankHint(){
+  var h = $("#accountHint");
+  if(!h) return;
+  var b = bankInfo(state.bank);
+  h.textContent = b
+    ? b.name + " 계좌번호는 " + bankLensText(b) + "입니다(하이픈 제외)."
+    : "은행을 고르면 계좌번호 자릿수를 확인해 드려요.";
+}
+function setAccErr(msg){
+  var e = $("#errAccount");
+  if(e) e.textContent = msg || "계좌번호 자릿수를 확인해 주세요.";
+  showErr("errAccount", !!msg);
+}
+function setRrnErr(msg){
+  var e = $("#errRrn");
+  if(e) e.textContent = msg || "주민등록번호 13자리를 확인해 주세요.";
+  showErr("errRrn", !!msg);
 }
 
 function renderSchedule(){
@@ -1330,10 +1821,81 @@ function bindInputs(){
   text("place", "place");
   text("wdTime", "wdTime");
   text("weTime", "weTime");
-  text("instrument", "instrument");
   text("addr", "addr");
-  text("bank", "bank");
   text("name", "name");
+
+  /* v1.7 — 악기 칩 */
+  $$("#instChips .chip").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      if(btn.dataset.inst === "__etc") chooseEtc();
+      else setInstrument(btn.dataset.inst);
+    });
+  });
+  var etcEl = $("#instrumentEtc");
+  if(etcEl){
+    etcEl.addEventListener("input", function(){
+      state.instrument = etcEl.value.trim();
+      var hid = $("#instrument"); if(hid) hid.value = state.instrument;
+      showErr("errInstrument", false);
+      if($("#instChips")) $("#instChips").classList.remove("invalid");
+      renderContract(); saveDraft();
+    });
+  }
+
+  /* v1.7 — 출연료 수령 방식 */
+  $$("#payMode .seg-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){ setPayMode(btn.dataset.pay); });
+  });
+  var teamEl = $("#teamMembers");
+  if(teamEl){
+    teamEl.addEventListener("input", function(){
+      state.teamMembers = teamEl.value;
+      markInvalid(teamEl, false); showErr("errTeam", false);
+      renderContract(); renderCond(); saveDraft();
+    });
+  }
+
+  /* v1.7 — 신규 연주자 프로필 */
+  var pex = $("#profileExisting");
+  if(pex){
+    pex.addEventListener("change", function(){
+      state.profileExisting = pex.checked;
+      applyProfile(); saveDraft();
+    });
+  }
+  var pbio = $("#profileBio");
+  if(pbio){
+    pbio.addEventListener("input", function(){
+      state.profileBio = pbio.value;
+      renderProfilePreview(); saveDraft();
+    });
+  }
+  var pfile = $("#profilePhoto");
+  if(pfile){
+    pfile.addEventListener("change", function(){
+      if(pfile.files && pfile.files[0]) readProfilePhoto(pfile.files[0]);
+    });
+  }
+  var pclear = $("#profilePhotoClear");
+  if(pclear){
+    pclear.addEventListener("click", function(){
+      state.profilePhotoBase64 = ""; state.profilePhotoName = "";
+      if(pfile) pfile.value = "";
+      applyProfile(); saveDraft();
+    });
+  }
+
+  var bankEl = $("#bank");
+  if(bankEl){
+    bankEl.addEventListener("change", function(){
+      state.bank = bankEl.value;
+      markInvalid(bankEl, false); showErr("errBank", false);
+      syncBankHint();
+      if(digits(state.account).length && !accountValid()) setAccErr(accountErrText());
+      else setAccErr("");
+      renderContract(); renderCond(); saveDraft();
+    });
+  }
 
   $("#start").addEventListener("change", function(){ state.start = this.value; renderContract(); saveDraft(); });
   $("#end").addEventListener("change", function(){ state.end = this.value; renderContract(); saveDraft(); });
@@ -1366,14 +1928,25 @@ function bindInputs(){
     state.rrn = d;
     rrnEl.value = d.length > 6 ? d.slice(0, 6) + "-" + d.slice(6) : d;
     markInvalid(rrnEl, false);
+    if(d.length === 13) setRrnErr(rrnError(d)); else setRrnErr("");
     renderContract(); saveDraft();
+  });
+  rrnEl.addEventListener("blur", function(){
+    var d = digits(rrnEl.value);
+    if(d.length) setRrnErr(rrnError(d));
   });
 
   var accEl = $("#account");
   accEl.addEventListener("input", function(){
     state.account = accEl.value.replace(/[^\d-]/g, "");
-    markInvalid(accEl, false);
+    accEl.value = state.account;
+    markInvalid(accEl, false); setAccErr("");
     renderContract(); saveDraft();
+  });
+  accEl.addEventListener("blur", function(){
+    if(!digits(state.account).length) return;
+    if(!accountValid()){ markInvalid(accEl, true); setAccErr(accountErrText()); }
+    else { markInvalid(accEl, false); setAccErr(""); }
   });
 
   $("#agreeRead").addEventListener("change", function(){
@@ -1432,9 +2005,14 @@ function canonicalPayload(){
     }),
     performer: {
       name: state.name, instrument: state.instrument, phone: state.phone,
-      rrn: state.rrn, address: state.addr, bank: state.bank, account: state.account
+      rrn: state.rrn, address: state.addr, bank: state.bank, account: state.account,
+      payMode: state.payMode, teamMembers: state.teamMembers
     },
     consents: { portrait: !!state.portrait, privacy: state.privacy, read: state.read },
+    profileExisting: !!state.profileExisting,
+    profileBio: state.profileBio || "",
+    profilePhotoBase64: state.profilePhotoBase64 || "",
+    profilePhotoName: state.profilePhotoName || "",
     signature: state.sig || ""
   });
 }
@@ -1505,7 +2083,7 @@ function downloadJSON(){
       arrivalMinutes: state.arrival,
       fee: fee, tax: calcTax(fee),
       generalFee: generalUnitFee(), specialFee: specialUnitFee(),
-      paymentDue: "연주한 달의 다음 달 20일 이후 말일 (협업기관 정산·지급 일정에 따라 순연될 수 있음)",
+      paymentDue: "연주한 날이 속한 달의 다음 달 25일부터 말일까지 (협업기관 정산 일정에 따라 사전 안내 후 순연될 수 있음)",
       feeNote: hasSchedule() ? "일정 " + state.items.length + "건 합계, 세전" : "1일 1공연 기준, 세전",
       schedule: (state.items || []).map(function(it){
         return { date: it.date, time: it.time, form: it.form, fee: Number(it.fee) || 0, place: it.place, note: it.note };
@@ -1513,11 +2091,16 @@ function downloadJSON(){
     },
     performer: {
       name: state.name, instrument: state.instrument, phone: state.phone,
-      rrn: state.rrn, address: state.addr, bank: state.bank, account: state.account
+      rrn: state.rrn, address: state.addr, bank: state.bank, account: state.account,
+      payMode: state.payMode, teamMembers: state.teamMembers
     },
     consents: {
       portrait: !!state.portrait, privacy: !!state.privacy, readAgreed: !!state.read
     },
+    profileExisting: !!state.profileExisting,
+    profileBio: state.profileBio || "",
+    profilePhotoName: state.profilePhotoName || "",
+    profilePhotoBytes: (state.profilePhotoBase64 || "").length,
     signature: { imageDataUrl: state.sig, format: "image/png" },
     integrity: {
       algorithm: "SHA-256",
@@ -1589,7 +2172,7 @@ function downloadPNG(){
   text((state.phone ? fmtPhone(state.phone) : "-") + "   주민등록번호 " + (state.rrn ? maskRRN(state.rrn) : "-"),
        72, y, "400 26px " + SANS, "#4a4742");
   y += 38;
-  text((state.bank || "-") + "  " + (state.account || "-"), 72, y, "400 26px " + SANS, "#4a4742");
+  text((state.bank || "-") + "  " + (state.account || "-") + (state.payMode === "team" ? "  ·  팀 대표 일괄 수령" : ""), 72, y, "400 26px " + SANS, "#4a4742");
 
   hr(y + 48);
 
@@ -1712,31 +2295,53 @@ function bAddRow(data){
   data = (data && data.date) ? data : {};
   var row = document.createElement("div");
   row.className = "b-row";
+  var opts = '<option value="">편성 선택</option>' + FORMATIONS.map(function(f){
+    return '<option value="' + esc(f) + '">' + esc(f) + '</option>';
+  }).join("");
   row.innerHTML = '<input type="date" class="b-date">' +
     '<input type="text" class="b-time" placeholder="19:30~20:00 / 21:00~21:30">' +
-    '<input type="text" class="b-form" placeholder="트리오·특별">' +
-    '<input type="text" class="b-fee" inputmode="numeric" placeholder="80000">' +
+    '<div class="b-form-wrap"><select class="b-form">' + opts + '</select>' +
+      '<input type="text" class="b-custom" placeholder="편성 직접 입력" hidden></div>' +
+    '<input type="text" class="b-fee" inputmode="numeric" placeholder="80000" list="feePresets">' +
     '<button type="button" class="b-del" aria-label="일정 지우기">×</button>';
   $("#bRows").appendChild(row);
+  var sel = row.querySelector(".b-form");
+  var cus = row.querySelector(".b-custom");
+  function syncCustom(){
+    cus.hidden = sel.value !== "직접 입력";
+  }
+  sel.addEventListener("change", function(){
+    if(sel.value !== "직접 입력") cus.value = "";
+    syncCustom(); bUpdateTotal();
+    if(sel.value === "직접 입력"){ try{ cus.focus(); }catch(e){} }
+  });
   if(data.date) row.querySelector(".b-date").value = data.date;
   if(data.time) row.querySelector(".b-time").value = data.time;
-  if(data.form) row.querySelector(".b-form").value = data.form;
+  if(data.form){
+    if(FORMATIONS.indexOf(data.form) >= 0 && data.form !== "직접 입력") sel.value = data.form;
+    else { sel.value = "직접 입력"; cus.value = data.form; }
+  }
   if(data.fee) row.querySelector(".b-fee").value = data.fee;
+  syncCustom();
   row.querySelector(".b-del").addEventListener("click", function(){
     row.parentNode.removeChild(row);
     if(!$("#bRows").children.length) bAddRow();
     bUpdateTotal();
   });
   row.addEventListener("input", bUpdateTotal);
+  row.addEventListener("change", bUpdateTotal);
   bUpdateTotal();
   return row;
 }
 function bRowsData(){
   return $$("#bRows .b-row").map(function(row){
+    var sel = row.querySelector(".b-form");
+    var cus = row.querySelector(".b-custom");
+    var form = (sel && sel.value === "직접 입력") ? (cus ? cus.value.trim() : "") : (sel ? sel.value : "");
     return {
       date: row.querySelector(".b-date").value,
       time: row.querySelector(".b-time").value.trim(),
-      form: row.querySelector(".b-form").value.trim(),
+      form: form,
       fee: digits(row.querySelector(".b-fee").value)
     };
   }).filter(function(it){ return it.date; });
@@ -1793,22 +2398,11 @@ function bCopy(){
 function bOpen(){
   var items = bRowsData();
   if(!$("#bName").value.trim() || !items.length){ bMake(); return; }
-  var name = $("#bName").value.trim();
-  var inst = $("#bInst").value.trim();
-  var month = $("#bMonth").value;
-  var place = $("#bPlace").value.trim();
-  clearPerformerData();
-  sig.clear();
-  state.name = name;
-  state.instrument = inst;
-  state.month = month;
-  if(place) state.place = place;
-  state.items = normItems(items);
-  var r = monthRange(state.month);
-  if(r){ state.start = r.start; state.end = r.end; }
-  fillForm();
+  var url = bBuildURL();
   sheetClose();
-  setStep(1);
+  /* v1.7 — 미리보기는 만들어진 개인 링크로 이동한다.
+     (기본 URL 화면에 연주자 정보가 남지 않도록) */
+  location.href = url;
 }
 
 /* ============================================================
@@ -1826,6 +2420,8 @@ function resetAll(){
   state.arrival = 60;
   state.fee = "";
   state.name = state.instrument = state.phone = state.rrn = state.addr = state.bank = state.account = "";
+  state.payMode = "self"; state.teamMembers = "";
+  state.profileExisting = false; state.profileBio = ""; state.profilePhotoBase64 = ""; state.profilePhotoName = "";
   state.month = ""; state.items = [];
   state.portrait = false; state.privacy = false; state.confirm = false; state.read = false;
   state.sig = null; state.signedISO = ""; state.hash = "";
@@ -1849,7 +2445,40 @@ function askReset(btn){
   resetAll();
 }
 
+/* ============================================================
+   관리자 모드 (v1.7)
+   — 연주자 화면에서는 공연 조건 편집 UI와 링크 생성기를 숨긴다.
+   — ?admin=1 또는 화면 아래 작은 점을 누르면 열린다.
+   ============================================================ */
+var ADMIN = false;
+function applyLock(){
+  var locked = !ADMIN;
+  var card = $("#condCard"), ro = $("#condLocked");
+  if(card) card.hidden = locked;
+  if(ro) ro.hidden = !locked;
+  ["#start","#end","#place","#wdTime","#weTime","#arrival","#fee"].forEach(function(sel){
+    var el = $(sel);
+    if(!el) return;
+    if(el.tagName === "SELECT") el.disabled = locked;
+    else el.readOnly = locked;
+  });
+  renderCond();
+}
+function setAdmin(on, quiet){
+  ADMIN = !!on;
+  document.body.classList.toggle("admin", ADMIN);
+  var tools = $("#adminTools"); if(tools) tools.hidden = !ADMIN;
+  var b = $("#btnBuild"); if(b) b.hidden = !ADMIN;
+  var dot = $("#adminDot"); if(dot) dot.classList.toggle("on", ADMIN);
+  applyLock();
+  if(!quiet) toast(ADMIN
+    ? "관리자 모드 — 공연 조건을 고치고 개인 링크를 만들 수 있어요."
+    : "관리자 모드를 닫았어요. 연주자 화면으로 돌아갑니다.");
+}
+
 function init(){
+  /* v1.7 — 예전 버전이 남긴 개인 링크 초안(다른 사람 정보 포함 가능)을 지운다. */
+  purgeLegacyDraft();
   var restored = loadDraft();
   if(hasPersonalQuery()){
     clearPerformerData();
@@ -1857,6 +2486,7 @@ function init(){
   }
   var personal = applyQuery();
   fillForm();
+  setAdmin(new URLSearchParams(location.search).get("admin") === "1", true);
   if(personal){
     var bn = $("#draftBanner");
     bn.querySelector("span").textContent = (state.name ? state.name + " 님" : "본인") + "의 " +
@@ -1869,7 +2499,9 @@ function init(){
     sig.load(state.sig);
   }
   if(restored && !personal){
-    $("#draftBanner").classList.add("show");
+    var bnr = $("#draftBanner");
+    bnr.querySelector("span").textContent = "이전에 입력한 공연 조건을 불러왔어요. 연주자 정보는 비워 두었습니다.";
+    bnr.classList.add("show");
     if(state.signedISO){
       $("#doneNo").textContent = state.no;
       $("#doneAt").textContent = fmtDateTime(state.signedISO);
@@ -1911,6 +2543,9 @@ function init(){
   $("#btnDiscard").addEventListener("click", function(){ resetAll(); });
 
   $("#btnBuild").addEventListener("click", sheetOpen);
+  $("#adminDot").addEventListener("click", function(){ setAdmin(!ADMIN); });
+  $("#adminBadge").addEventListener("click", function(){ setAdmin(false); });
+  $("#adminBadge").addEventListener("keydown", function(e){ if(e.key === "Enter" || e.key === " ") setAdmin(false); });
   $("#sheetClose").addEventListener("click", sheetClose);
   $("#linkSheet").addEventListener("click", function(e){ if(e.target === this) sheetClose(); });
   $("#bAdd").addEventListener("click", function(){ bAddRow(); });

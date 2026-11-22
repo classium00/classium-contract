@@ -2803,12 +2803,15 @@ function downloadPNG(){
   y += 78;
   label("을 (연주자)", 72, y);
   y += 44;
-  value(state.name + (state.instrument ? "  ·  " + state.instrument : ""), 72, y, 32);
+  value(state.name + (state.instrument ? "  ·  " + instDisplay(state.instrument) : ""), 72, y, 32);
   y += 42;
   text((state.phone ? fmtPhone(state.phone) : "-") + "   주민등록번호 " + (state.rrn ? maskRRN(state.rrn) : "-"),
        72, y, "400 26px " + SANS, "#4a4742");
   y += 38;
-  text((state.bank || "-") + "  " + (state.account || "-") + (state.payMode === "team" ? "  ·  팀 대표 일괄 수령" : ""), 72, y, "400 26px " + SANS, "#4a4742");
+  var payShort = payModeList().map(function(m){
+    return m === "team" ? "팀 대표 일괄 수령" : (m === "member" ? "팀원 수령" : "개인 수령");
+  }).join(" + ");
+  text((state.bank || "-") + "  " + (state.account || "-") + (payShort ? "  ·  " + payShort : ""), 72, y, "400 26px " + SANS, "#4a4742");
 
   hr(y + 48);
 

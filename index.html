@@ -3198,9 +3198,9 @@ function downloadPNG(){
         var line2 = [s.time, s.form, s.inst, s.pay].filter(Boolean).join("  ·  ");
         y = wrap(line2, 84, y, W - 84 - 150, 28, "400 22px " + SANS, "#6b655c") + 10;
         if(s.note){
-          y = wrap("비고: " + s.note, 84, y, W - 84 - 150, 26, "400 21px " + SANS, "#8a8175");
+          y = wrap("비고: " + s.note, 84, y + 22, W - 84 - 150, 26, "400 21px " + SANS, "#8a8175") + 26;
         }
-        y += 30;
+        y += 26;
       });
       hr(y - 6);
       y += 40;
